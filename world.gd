@@ -21,13 +21,15 @@ func _on_host_button_pressed() -> void:
 	
 	add_player(multiplayer.get_unique_id())
 	
-	# upnp_setup() manually setup port forwarding on my local network
+	upnp_setup() 
+	#or manually setup port forwarding on local network
 	
 func _on_join_button_pressed() -> void:
 	main_menu.hide()
 
 	enet_peer.create_client(address_entry.text, PORT)
 	multiplayer.multiplayer_peer = enet_peer
+	print(address_entry.text)	
 
 	
 func add_player(peer_id):
