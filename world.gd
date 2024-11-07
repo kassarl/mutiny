@@ -21,7 +21,7 @@ func _on_host_button_pressed() -> void:
 	
 	add_player(multiplayer.get_unique_id())
 	
-	upnp_setup()
+	# upnp_setup() manually setup port forwarding on my local network
 	
 func _on_join_button_pressed() -> void:
 	main_menu.hide()
