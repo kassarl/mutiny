@@ -32,10 +32,11 @@ func _on_join_button_pressed() -> void:
 	print(address_entry.text)
 
 func add_player(peer_id):
+	print("ADDING PLAYER")
 	#add player to world
 	var player = Player.instantiate()
 	player.name = str(peer_id)
-	player.position = Vector3(-4.5, 4.6, 0)
+	player.position = Vector3(0, 20, 0)
 	add_child(player)
 
 func remove_player(peer_id):
