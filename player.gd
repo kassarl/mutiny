@@ -15,17 +15,36 @@ var lerp_speed = 10.0
 
 var capMouse = false
 
+@rpc
+func sync_position(new_position: Vector3, new_rotation: Vector3):
+	# This function is called on all clients to update position and rotation
+	position = new_position
+	rotation = new_rotation
+
+
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
+
 func _ready() -> void:
+	if not is_multiplayer_authority():
+		return
+
 	print("HELLO")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
+	if not is_multiplayer_authority():
+		return
+		
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sens)
 		head.rotate_x(-event.relative.y * mouse_sens)
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85),deg_to_rad(85))
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+		
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -56,3 +75,6 @@ func _physics_process(delta: float) -> void:
 		get_tree().quit()
 
 	move_and_slide()
+	
+	# Broadcast the player's position and rotation to all peers
+	rpc("sync_position", position, rotation)
