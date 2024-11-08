@@ -18,6 +18,7 @@ properties/2/replication_mode = 1
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d4r0x"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_r1j6f")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

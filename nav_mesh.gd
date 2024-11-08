@@ -1,27 +1,47 @@
-# Place this script on your NavigationRegion3D node
 extends NavigationRegion3D
+class_name CustomNavigationRegion
 
-# JANK NOTES:
-# Had to do some jank shit where nav mesh was being elevated OVER the real 
-# mesh so characters were "float walking" instead of walking on surface
-# "FIX" was to offset real mesh up to match the floating nav mesh...
+## Configuration Constants
+const DEFAULT_MIN_DISTANCE: float = 2.0
+const MAX_GENERATION_ATTEMPTS: int = 100
+const NAVIGATION_HEIGHT: float = 6.664  # Fixed height for navigation points
 
-# Function to get random points on the navigation mesh
-func generate_random_points(num_points, min_distance: float = 2.0) -> Array[Vector3]:
+## Debug Options
+@export_group("Debug Settings")
+@export var debug_draw_points: bool = false
+@export var debug_draw_bounds: bool = false
+@export var debug_point_color: Color = Color.GREEN
+@export var debug_bounds_color: Color = Color.RED
+
+#region Point Generation
+## Generates random valid navigation points
+## [param num_points] Number of points to generate
+## [param min_distance] Minimum distance between points
+## Returns: Array of valid Vector3 positions on the navigation mesh
+func generate_random_points(num_points: int, min_distance: float = DEFAULT_MIN_DISTANCE) -> Array[Vector3]:
 	var points: Array[Vector3] = []
+	var bounds := _calculate_navigation_bounds()
 	
-	# Get the navigation map
-	var nav_map = get_world_3d().get_navigation_map()
-	
-	# Get the mesh vertices to determine bounds
-	var vertices = navigation_mesh.get_vertices()
-	
-	if vertices.is_empty():
+	if !_is_navigation_valid(bounds):
+		push_warning("Navigation mesh appears invalid or empty")
 		return points
 	
-	# Calculate bounds from vertices
-	var min_bounds = vertices[0]
-	var max_bounds = vertices[0]
+	points = _generate_points(num_points, min_distance, bounds)
+	
+	return points
+#endregion
+
+#region Helper Functions
+## Calculates the bounds of the navigation mesh
+## Returns: Dictionary containing min and max bounds
+func _calculate_navigation_bounds() -> Dictionary:
+	var vertices := navigation_mesh.get_vertices()
+	
+	if vertices.is_empty():
+		return {}
+	
+	var min_bounds := vertices[0]
+	var max_bounds := vertices[0]
 	
 	for vertex in vertices:
 		min_bounds.x = min(min_bounds.x, vertex.x)
@@ -31,30 +51,59 @@ func generate_random_points(num_points, min_distance: float = 2.0) -> Array[Vect
 		max_bounds.y = max(max_bounds.y, vertex.y)
 		max_bounds.z = max(max_bounds.z, vertex.z)
 	
-	var tries = 0
-	var max_tries = 100  # Prevent infinite loops
+	return {
+		"min": min_bounds,
+		"max": max_bounds
+	}
+
+## Checks if the navigation mesh is valid
+## [param bounds] The calculated navigation bounds
+## Returns: true if navigation mesh is valid
+func _is_navigation_valid(bounds: Dictionary) -> bool:
+	return !bounds.is_empty() and navigation_mesh != null
+
+## Generates the specified number of valid navigation points
+## [param num_points] Number of points to generate
+## [param min_distance] Minimum distance between points
+## [param bounds] The calculated navigation bounds
+## Returns: Array of valid Vector3 positions
+func _generate_points(num_points: int, min_distance: float, bounds: Dictionary) -> Array[Vector3]:
+	var points: Array[Vector3] = []
+	var attempts := 0
+	var nav_map := get_world_3d().get_navigation_map()
 	
-	while points.size() < num_points and tries < max_tries:
-		# Generate a random point within the bounds
-		var random_point = Vector3(
-			randf_range(min_bounds.x, max_bounds.x),
-			6.664,
-			randf_range(min_bounds.z, max_bounds.z)
-		)
+	while points.size() < num_points and attempts < MAX_GENERATION_ATTEMPTS:
+		var candidate_point := _generate_random_point(bounds)
+		var closest_point := NavigationServer3D.map_get_closest_point(nav_map, candidate_point)
 		
-		# Get closest point on navigation mesh
-		var closest_point = NavigationServer3D.map_get_closest_point(nav_map, random_point)
+		if _is_point_valid(closest_point, points, min_distance):
+			points.append(candidate_point)
 		
-		# Check if point is far enough from other points
-		var is_point_valid = true
-		for existing_point in points:
-			if existing_point.distance_to(closest_point) < min_distance:
-				is_point_valid = false
-				break
-		
-		if is_point_valid:
-			points.append(random_point)
-		
-		tries += 1
+		attempts += 1
+	
+	if attempts >= MAX_GENERATION_ATTEMPTS:
+		push_warning("Hit maximum attempts while generating navigation points")
 	
 	return points
+
+## Generates a random point within the navigation bounds
+## [param bounds] The calculated navigation bounds
+## Returns: A random Vector3 position
+func _generate_random_point(bounds: Dictionary) -> Vector3:
+	return Vector3(
+		randf_range(bounds.min.x, bounds.max.x),
+		NAVIGATION_HEIGHT,
+		randf_range(bounds.min.z, bounds.max.z)
+	)
+
+## Checks if a point is valid (far enough from other points)
+## [param point] The point to check
+## [param existing_points] Already generated points
+## [param min_distance] Minimum required distance
+## Returns: true if point is valid
+func _is_point_valid(point: Vector3, existing_points: Array[Vector3], min_distance: float) -> bool:
+	for existing_point in existing_points:
+		if existing_point.distance_to(point) < min_distance:
+			return false
+	return true
+#endregion
