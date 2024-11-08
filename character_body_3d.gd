@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export var look_sensitivity : float = 0.002
-@export var jump_velocity := 6.8
+@export var jump_velocity := 7.0
 @export var auto_bhop := true
 
 const HEADBOB_MOVE_AMOUNT = 0.06
@@ -22,12 +22,18 @@ var headbob_time := 0.0
 
 var wish_dir := Vector3.ZERO
 
+const CROUCH_TRANSLATE = 0.75
+const CROUCH_JUMP_ADD = CROUCH_TRANSLATE * 0.9
+var is_crouched := false
+
 const MAX_STEP_HEIGHT = 0.5
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor = -INF
 
 
 func get_move_speed() -> float:
+	if is_crouched:
+		return walk_speed * 0.8
 	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
 
 # Called when the node enters the scene tree for the first time.
@@ -59,8 +65,19 @@ func _headbob_effect(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if get_interactable_component_at_shapecast():
+		get_interactable_component_at_shapecast().hover_cursor(self)
+		if Input.is_action_just_pressed("interact"):
+			get_interactable_component_at_shapecast().interact_with()
 	
+func get_interactable_component_at_shapecast() -> InteractableComponent:
+	for i in %InteractShapeCast.get_collision_count():
+		if i > 0 and %InteractShapeCast.get_collider(0) != $".":
+			return null
+		if $"%InteractShapeCast".get_collider(i).get_node_or_null("InteractableComponent") is InteractableComponent:
+			return %InteractShapeCast.get_collider(i).get_node_or_null("InteractableComponent")
+	return null
+
 var _saved_camera_global_pos = null
 func _save_camera_pos_for_smoothing():
 	if _saved_camera_global_pos == null:
@@ -112,6 +129,32 @@ func _snap_up_stairs_check(delta) -> bool:
 			return true
 	return false
 		
+@onready var _original_capsule_height = $CollisionShape3D.shape.height
+
+func _handle_crouch(delta) -> void:
+	var was_crouched_last_frame = is_crouched
+	if Input.is_action_pressed("crouch"):
+		is_crouched = true
+	elif is_crouched and not self.test_move(self.global_transform, Vector3(0, CROUCH_TRANSLATE, 0)):
+		is_crouched = false
+	
+	# Allow for crouch to heighten/extend jump
+	var translate_y_if_possible := 0.0
+	if was_crouched_last_frame != is_crouched and not is_on_floor() and not _snapped_to_stairs_last_frame:
+		translate_y_if_possible = CROUCH_JUMP_ADD if is_crouched else -CROUCH_JUMP_ADD
+	# Make sure playerr not get stuck in floor/cieling during crouch jumps
+	if translate_y_if_possible != 0.0:
+		var result = KinematicCollision3D.new()
+		self.test_move(self.global_transform, Vector3(0, translate_y_if_possible, 0), result)
+		self.position.y += result.get_travel().y
+		%Head.position.y -= result.get_travel().y
+		%Head.position.y = clamp(%Head.position.y, -CROUCH_TRANSLATE, 0)
+		
+	
+	%Head.position.y = move_toward(%Head.position.y, -CROUCH_TRANSLATE if is_crouched else 0, 7.0 * delta)
+	%CollisionShape3D.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
+	%CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
+
 		
 func is_surface_too_steep(normal : Vector3) -> bool:
 	return normal.angle_to(Vector3.UP) > self.floor_max_angle
@@ -154,13 +197,14 @@ func _handle_ground_physics(delta) -> void:
 	
 	_headbob_effect(delta)
 
-
 func _physics_process(delta):
 	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
 	
 	var input_dir = Input.get_vector("left","right","forward","back").normalized()
 	
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
+	
+	_handle_crouch(delta)
 	
 	if is_on_floor() or _snapped_to_stairs_last_frame:
 		if Input.is_action_just_pressed("jump") or (auto_bhop and Input.is_action_just_pressed("jump")):
