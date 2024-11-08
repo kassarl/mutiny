@@ -36,7 +36,6 @@ func add_player(peer_id):
 	#add player to world
 	var player = Player.instantiate()
 	player.name = str(peer_id)
-	player.position = Vector3(0, 5, 0)
 	add_child(player)
 
 func remove_player(peer_id):

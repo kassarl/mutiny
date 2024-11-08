@@ -7,6 +7,7 @@ const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@onready var camera: Camera3D = $Head/Camera3D
 
 var direction = Vector3.ZERO
 @onready var head = $Head
@@ -21,23 +22,26 @@ func sync_position(new_position: Vector3, new_rotation: Vector3):
 	position = new_position
 	rotation = new_rotation
 
-
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready() -> void:
+	position = Vector3(0,5.5,0)
 	if not is_multiplayer_authority():
 		return
 
 	print("HELLO")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	camera.current = true
 
 func _input(event):
 	if not is_multiplayer_authority():
-		if event is InputEventMouseMotion:
-			rotate_y(-event.relative.x * mouse_sens)
-			head.rotate_x(-event.relative.y * mouse_sens)
-			head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85),deg_to_rad(85))
+		return
+	
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x * mouse_sens)
+		head.rotate_x(-event.relative.y * mouse_sens)
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85),deg_to_rad(85))
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():

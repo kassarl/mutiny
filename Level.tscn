@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpbq8p50huvyy"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_7w3bs"]
-[ext_resource type="PackedScene" uid="uid://da1citeijlwr8" path="res://ship.tscn" id="2_74r5g"]
+[ext_resource type="PackedScene" uid="uid://d2oshdvlmry4o" path="res://ship.tscn" id="2_74r5g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2cm0m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -23,7 +23,7 @@ script = ExtResource("1_7w3bs")
 environment = SubResource("Environment_heyug")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 35.8305, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 62.5005, -56.029)
 shadow_enabled = true
 
 [node name="Ship" parent="." instance=ExtResource("2_74r5g")]
