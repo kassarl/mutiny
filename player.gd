@@ -34,12 +34,10 @@ func _ready() -> void:
 
 func _input(event):
 	if not is_multiplayer_authority():
-		return
-		
-	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * mouse_sens)
-		head.rotate_x(-event.relative.y * mouse_sens)
-		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85),deg_to_rad(85))
+		if event is InputEventMouseMotion:
+			rotate_y(-event.relative.x * mouse_sens)
+			head.rotate_x(-event.relative.y * mouse_sens)
+			head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85),deg_to_rad(85))
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
