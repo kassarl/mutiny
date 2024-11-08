@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpbq8p50huvyy"]
+[gd_scene load_steps=6 format=3 uid="uid://cpbq8p50huvyy"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_7w3bs"]
+[ext_resource type="PackedScene" uid="uid://d2oshdvlmry4o" path="res://ship.tscn" id="2_74r5g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2cm0m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,40 +16,17 @@ sky = SubResource("Sky_cn1f8")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_dspg4"]
-size = Vector2(100, 100)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_37nsf"]
-data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_0h2an"]
-
-[node name="Main" type="Node3D"]
+[node name="Root" type="Node"]
 script = ExtResource("1_7w3bs")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_heyug")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 62.5005, -56.029)
 shadow_enabled = true
 
-[node name="Environment" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_dspg4")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Environment"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_37nsf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(1.42089, 0, 0, 0, 12.9402, 0, 0, 0, 1, -27.9913, 1.07643, -19.807)
-mesh = SubResource("CylinderMesh_0h2an")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(2.01892, 0, 0, 0, 167.449, 0, 0, 0, 1, 25.0969, 15.0056, 33.2501)
-mesh = SubResource("CylinderMesh_0h2an")
-skeleton = NodePath("../MeshInstance3D")
+[node name="Ship" parent="." instance=ExtResource("2_74r5g")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -95,7 +73,7 @@ placeholder_text = "Enter Address to join Here"
 alignment = 1
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
+_spawnable_scenes = PackedStringArray("res://player.tscn", "res://npc.tscn")
 spawn_path = NodePath("..")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
