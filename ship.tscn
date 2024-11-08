@@ -81,6 +81,7 @@ navigation_mesh = SubResource("NavigationMesh_aa1g6")
 script = ExtResource("1_tbuv5")
 
 [node name="ShipMesh" type="CSGCombiner3D" parent="NavigationRegion3D"]
+use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94138, 0)

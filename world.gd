@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 @onready var main_menu = $CanvasLayer/MainMenu
 @onready var address_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
@@ -29,13 +29,13 @@ func _on_join_button_pressed() -> void:
 
 	enet_peer.create_client(address_entry.text, PORT)
 	multiplayer.multiplayer_peer = enet_peer
-	print(address_entry.text)	
+	print(address_entry.text)
 
-	
 func add_player(peer_id):
 	#add player to world
 	var player = Player.instantiate()
 	player.name = str(peer_id)
+	player.position = Vector3(-4.5, 4.6, 0)
 	add_child(player)
 
 func remove_player(peer_id):
