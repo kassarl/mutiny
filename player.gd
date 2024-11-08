@@ -3,7 +3,7 @@ class_name Player
 
 ## Movement Constants
 const JUMP_VELOCITY: float = 4.5
-const BASE_SPEED: float = 5.0
+const BASE_SPEED: float = 4.0
 const SPRINT_SPEED: float = 8.0
 const MOUSE_SENSITIVITY: float = 0.002
 const LERP_SPEED: float = 10.0

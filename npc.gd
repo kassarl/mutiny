@@ -59,6 +59,7 @@ func _handle_movement() -> void:
 
 ## Selects and sets a new destination from available points
 func pick_new_destination() -> void:
+	
 	if available_points.is_empty():
 		return
 	
@@ -66,4 +67,7 @@ func pick_new_destination() -> void:
 	var target_position := available_points[random_index]
 	
 	nav_agent.set_target_position(target_position)
+	
+	timer.wait_time = randf_range(1.0, 4.0)
+	print(timer.wait_time)
 #endregion

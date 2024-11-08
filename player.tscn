@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://drbwsadlwhv7s"]
+[gd_scene load_steps=7 format=3 uid="uid://drbwsadlwhv7s"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_r1j6f"]
 
@@ -15,6 +15,13 @@ properties/2/replication_mode = 1
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wdbrc"]
 
+[sub_resource type="TextMesh" id="TextMesh_2dy5j"]
+text = "SAILOR NPC"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3bcl"]
+albedo_color = Color(0.0627451, 1, 0.356863, 1)
+billboard_mode = 1
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d4r0x"]
 
 [node name="Player" type="CharacterBody3D"]
@@ -27,6 +34,11 @@ replication_config = SubResource("SceneReplicationConfig_5dnon")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00227, 0)
 mesh = SubResource("CapsuleMesh_wdbrc")
+
+[node name="TextMesh" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16597, 0)
+mesh = SubResource("TextMesh_2dy5j")
+surface_material_override/0 = SubResource("StandardMaterial3D_r3bcl")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00227, 0)

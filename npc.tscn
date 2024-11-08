@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfgrraxg2uyxa"]
+[gd_scene load_steps=7 format=3 uid="uid://okmtopghfxhi"]
 
 [ext_resource type="Script" path="res://npc.gd" id="1_rhwjn"]
 
@@ -29,7 +29,7 @@ collision_layer = 2
 script = ExtResource("1_rhwjn")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 1.0
+path_height_offset = 0.2
 
 [node name="npcCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00227, 0)
