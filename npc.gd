@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name npc
 
 
 @export var movement_speed: float = 5.0
@@ -24,8 +25,9 @@ func _ready():
 	timer.start()
 	
 	# Pick initial rand points from ship
-	available_points = nav_map.generate_random_points()
+	available_points = nav_map.generate_random_points(5)
 	
+	print("points to go")
 	print(available_points)
 	
 	# Initial destination
@@ -56,6 +58,7 @@ func pick_new_destination():
 	# Pick a random point from available destinations
 	var random_index = randi() % available_points.size()
 	var target_position = available_points[random_index]
+	print("Target Pos")
 	print(target_position)
 	
 	# Set the new target

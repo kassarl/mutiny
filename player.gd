@@ -26,11 +26,12 @@ func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready() -> void:
+	# Set player spawn position 
 	position = Vector3(0,5.5,0)
+	
 	if not is_multiplayer_authority():
 		return
 
-	print("HELLO")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
 

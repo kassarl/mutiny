@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dudrbr66nux45"]
+[gd_scene load_steps=6 format=3 uid="uid://cfgrraxg2uyxa"]
 
 [ext_resource type="Script" path="res://npc.gd" id="1_rhwjn"]
 
@@ -15,6 +15,8 @@ billboard_mode = 1
 
 [node name="NPC" type="CharacterBody3D"]
 script = ExtResource("1_rhwjn")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00227, 0)

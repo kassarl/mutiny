@@ -2,8 +2,10 @@ extends Node
 
 @onready var main_menu = $CanvasLayer/MainMenu
 @onready var address_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
+@onready var nav_mesh: Node3D = $Ship/NavigationRegion3D 
 
-const Player = preload("res://player.tscn")
+const player = preload("res://player.tscn")
+const npc = preload("res://npc.tscn")
 const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
 
@@ -15,15 +17,18 @@ func _on_host_button_pressed() -> void:
 	main_menu.hide()
 
 	enet_peer.create_server(PORT)
+	
+	upnp_setup() 
+	#or manually setup port forwarding on local network
+
 	multiplayer.multiplayer_peer = enet_peer
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(remove_player)
 	
 	add_player(multiplayer.get_unique_id())
 	
-	upnp_setup() 
-	#or manually setup port forwarding on local network
-	
+	main()
+
 func _on_join_button_pressed() -> void:
 	main_menu.hide()
 
@@ -32,13 +37,14 @@ func _on_join_button_pressed() -> void:
 	print(address_entry.text)
 
 func add_player(peer_id):
-	print("ADDING PLAYER")
+	print("ADDING PLAYER: %d" % peer_id)
 	#add player to world
-	var player = Player.instantiate()
+	var player = player.instantiate()
 	player.name = str(peer_id)
 	add_child(player)
 
 func remove_player(peer_id):
+	print("REMOVING PLAYER: %d" % peer_id)
 	#remove player from world
 	var player = get_node_or_null(str(peer_id))
 	if player:
@@ -60,4 +66,17 @@ func upnp_setup():
 	assert(map_result == UPNP.UPNP_RESULT_SUCCESS, \
 		"UPNP Port Mapping Failed! Error %s" % map_result)
 	
-	print("Success! Join Address: %s" % upnp.query_external_address())
+	print("Host launch Success! Join IP Address: %s\n" % upnp.query_external_address())
+
+func spawn_npcs(npc_count):
+	var spawn_points = nav_mesh.generate_random_points(npc_count)
+	var npc_spawn
+	
+	for i in range(npc_count):
+		print(i)
+		npc_spawn = npc.instantiate()
+		npc_spawn.position = spawn_points[i]
+		add_child(npc_spawn)
+
+func main():
+	spawn_npcs(3)

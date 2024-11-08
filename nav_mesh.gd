@@ -7,7 +7,7 @@ extends NavigationRegion3D
 # "FIX" was to offset real mesh up to match the floating nav mesh...
 
 # Function to get random points on the navigation mesh
-func generate_random_points(num_points: int = 5, min_distance: float = 2.0) -> Array[Vector3]:
+func generate_random_points(num_points, min_distance: float = 2.0) -> Array[Vector3]:
 	var points: Array[Vector3] = []
 	
 	# Get the navigation map
@@ -38,7 +38,7 @@ func generate_random_points(num_points: int = 5, min_distance: float = 2.0) -> A
 		# Generate a random point within the bounds
 		var random_point = Vector3(
 			randf_range(min_bounds.x, max_bounds.x),
-			4.664,
+			6.664,
 			randf_range(min_bounds.z, max_bounds.z)
 		)
 		
@@ -56,7 +56,5 @@ func generate_random_points(num_points: int = 5, min_distance: float = 2.0) -> A
 			points.append(random_point)
 		
 		tries += 1
-	
-	print(points)
 	
 	return points
