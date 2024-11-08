@@ -2,7 +2,7 @@ extends Node
 class_name GameWorld
 
 ## Network and Scene Constants
-const PORT: int = 9999
+const PORT: int = 9998
 const PLAYER_SCENE: PackedScene = preload("res://player.tscn")
 const NPC_SCENE: PackedScene = preload("res://npc.tscn")
 const NPC_COUNT: int = 3
