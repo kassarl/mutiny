@@ -18,6 +18,8 @@ var available_points: Array[Vector3] = []
 
 # Interact Variables
 var prompt = null
+var paused = false
+var resume_timer = null
 
 #region Lifecycle Methods
 func _ready() -> void:
@@ -27,7 +29,8 @@ func _ready() -> void:
 	prompt = "Press E to talk to %s" % name
 
 func _physics_process(_delta: float) -> void:
-	_handle_movement()
+	if not paused:
+		_handle_movement()
 #endregion
 
 #region Initialization
@@ -40,6 +43,10 @@ func _initialize_timer() -> void:
 	timer.wait_time = point_change_interval
 	timer.timeout.connect(pick_new_destination)
 	timer.start()
+	
+	resume_timer = Timer.new()
+	resume_timer.one_shot = true
+	add_child(resume_timer)
 
 ## Initializes navigation points and starting position
 func _initialize_navigation() -> void:
@@ -54,6 +61,7 @@ func _initialize_navigation() -> void:
 ## Handles NPC movement using NavigationAgent
 func _handle_movement() -> void:
 	if nav_agent.is_navigation_finished():
+		timer.wait_time = randf_range(.5, 3.0)
 		return
 	
 	var next_position := nav_agent.get_next_path_position()
@@ -64,7 +72,6 @@ func _handle_movement() -> void:
 
 ## Selects and sets a new destination from available points
 func pick_new_destination() -> void:
-	
 	if available_points.is_empty():
 		return
 	
@@ -73,8 +80,26 @@ func pick_new_destination() -> void:
 	
 	nav_agent.set_target_position(target_position)
 	
-	timer.wait_time = randf_range(1.0, 4.0)
+	#timer.wait_time = randf_range(.5, 3.0)
 	#print(timer.wait_time)
+
+## Pause movement
+func pause_movement():
+	print("Pausing NPC")
+	paused = true
+	velocity = Vector3.ZERO
+	
+## Resume movement
+func resume_movement():
+	print("Resuming NPC")
+	paused = false
+	
+	# 50% chance to pick a new location after being stopped
+	if randi_range(0,1) == 0:
+		timer.wait_time = randf_range(.5, 3.0)
+		#pick_new_destination()
+
+	nav_agent.get_next_path_position()
 #endregion
 
 #region Interaction
@@ -83,6 +108,13 @@ func get_prompt():
 
 func interact():
 	print("Interacted with %s" % name)
-	print("Position: ")
-	print(position)
+	
+	if not paused:
+		pause_movement()
+		prompt = "Press E to leave this conversation"
+	else:
+		resume_timer.wait_time = randf_range(0.0, 2)
+		resume_timer.timeout.connect(resume_movement)
+		resume_timer.start()
+		prompt = "Press E to start a conversation"
 #endregion
