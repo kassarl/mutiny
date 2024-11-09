@@ -21,8 +21,8 @@ size = Vector3(19, 1, 0.3)
 data = PackedVector3Array(-9.5, 0.5, 0.15, 9.5, 0.5, 0.15, -9.5, -0.5, 0.15, 9.5, 0.5, 0.15, 9.5, -0.5, 0.15, -9.5, -0.5, 0.15, 9.5, 0.5, -0.15, -9.5, 0.5, -0.15, 9.5, -0.5, -0.15, -9.5, 0.5, -0.15, -9.5, -0.5, -0.15, 9.5, -0.5, -0.15, 9.5, 0.5, 0.15, 9.5, 0.5, -0.15, 9.5, -0.5, 0.15, 9.5, 0.5, -0.15, 9.5, -0.5, -0.15, 9.5, -0.5, 0.15, -9.5, 0.5, -0.15, -9.5, 0.5, 0.15, -9.5, -0.5, -0.15, -9.5, 0.5, 0.15, -9.5, -0.5, 0.15, -9.5, -0.5, -0.15, 9.5, 0.5, 0.15, -9.5, 0.5, 0.15, 9.5, 0.5, -0.15, -9.5, 0.5, 0.15, -9.5, 0.5, -0.15, 9.5, 0.5, -0.15, -9.5, -0.5, 0.15, 9.5, -0.5, 0.15, -9.5, -0.5, -0.15, 9.5, -0.5, 0.15, 9.5, -0.5, -0.15, -9.5, -0.5, -0.15)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_aa1g6"]
-vertices = PackedVector3Array(-16, 4.7663, -0.836904, -15, 4.7663, -1.0869, -15, 4.7663, -8.8369, -24.5, 4.7663, -8.8369, -24.5, 4.7663, -0.0869036, -16, 4.7663, -0.0869036, -4.5, 4.7663, -1.5869, -3.25, 4.7663, -1.8369, -3.25, 4.7663, -8.8369, -14.25, 4.7663, -1.0869, -13.75, 4.7663, -0.0869036, -4.5, 4.7663, -0.0869036, 10.5, 4.7663, -1.0869, 11.75, 4.7663, -1.0869, 12, 4.7663, -1.3369, 11.75, 4.7663, -8.8369, -2.25, 4.7663, -1.5869, 10, 4.7663, -0.0869036, -2.25, 4.7663, -0.0869036, 15.5, 4.7663, -2.3369, 15.5, 5.0163, -3.0869, 17, 6.2663, -3.0869, 16.75, 6.0163, -8.8369, 15.5, 5.0163, -8.8369, 22.75, 7.7663, -3.0869, 23, 7.7663, -0.836904, 24.5, 7.7663, -0.836904, 24.5, 7.7663, -8.8369, 19.875, 7.7663, -3.0869, 19.3333, 7.7663, -8.8369, 12.25, 4.7663, -0.836904, 12, 4.7663, 0.913096, 15.5, 4.7663, 1.9131, 22, 4.7663, 1.6631, 22, 4.7663, -2.0869, 22.75, 7.7663, 2.6631, 24.5, 7.7663, 8.6631, 17.5, 6.5163, 8.6631, 17.5, 6.5163, 2.6631, 18.9, 7.5163, 8.6631, 20.3, 7.7663, 8.6631, 18.8125, 7.5163, 2.6631, -14.75, 4.7663, 8.6631, -14.75, 4.7663, 1.1631, -16, 4.7663, 0.663096, -24.5, 4.7663, 8.6631, -14, 4.7663, 0.913096, -4.5, 4.7663, 8.6631, 10.75, 4.7663, 8.6631, 10.75, 4.7663, 1.1631, -2.25, 4.7663, 8.6631, 15.5, 5.0163, 2.6631, 14.8, 4.7663, 8.6631)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 10), PackedInt32Array(8, 10, 9), PackedInt32Array(8, 9, 2), PackedInt32Array(9, 1, 2), PackedInt32Array(6, 11, 10), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(7, 8, 16), PackedInt32Array(16, 8, 17), PackedInt32Array(17, 8, 12), PackedInt32Array(12, 8, 15), PackedInt32Array(17, 18, 16), PackedInt32Array(20, 19, 14), PackedInt32Array(22, 21, 20), PackedInt32Array(22, 20, 23), PackedInt32Array(23, 20, 15), PackedInt32Array(15, 20, 14), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 27), PackedInt32Array(22, 29, 21), PackedInt32Array(21, 29, 28), PackedInt32Array(28, 29, 24), PackedInt32Array(24, 29, 27), PackedInt32Array(13, 14, 30), PackedInt32Array(30, 14, 19), PackedInt32Array(31, 30, 32), PackedInt32Array(32, 30, 19), PackedInt32Array(32, 19, 34), PackedInt32Array(32, 34, 33), PackedInt32Array(25, 26, 35), PackedInt32Array(35, 26, 36), PackedInt32Array(38, 41, 37), PackedInt32Array(37, 41, 39), PackedInt32Array(39, 41, 40), PackedInt32Array(40, 41, 35), PackedInt32Array(40, 35, 36), PackedInt32Array(43, 42, 44), PackedInt32Array(44, 42, 45), PackedInt32Array(44, 45, 4), PackedInt32Array(4, 5, 44), PackedInt32Array(42, 43, 46), PackedInt32Array(46, 10, 42), PackedInt32Array(42, 10, 11), PackedInt32Array(42, 11, 47), PackedInt32Array(49, 48, 17), PackedInt32Array(17, 48, 18), PackedInt32Array(18, 48, 50), PackedInt32Array(31, 32, 51), PackedInt32Array(31, 51, 49), PackedInt32Array(49, 51, 48), PackedInt32Array(48, 51, 52), PackedInt32Array(52, 51, 37), PackedInt32Array(51, 38, 37)]
+vertices = PackedVector3Array(-9.75, 5.7663, 8.59225, -10, 6.0163, 5.34225, -15.75, 9.2663, 5.09225, -24.25, 9.2663, 8.59225, -15.55, 9.2663, 8.59225, -14.3125, 8.7663, 5.15475, -15.75, 9.2663, -5.40775, -10, 6.0163, -5.65775, -9.75, 5.7663, -8.90775, -24.25, 9.2663, -8.90775, -15.55, 9.2663, -8.90775, -15.5, 9.2663, 3.84225, -13.75, 10.2663, 3.84225, -13.75, 10.2663, -4.40775, -15.5, 9.2663, -4.40775, -9.75, 4.7663, 1.09225, -9.75, 4.7663, 4.34225, -8.5, 4.7663, 4.34225, -8.5, 5.0163, 5.34225, 10, 5.7663, 8.59225, 10.25, 6.0163, 5.34225, 8.75, 5.0163, 5.34225, 8.75, 5.0163, -5.65775, 10.25, 6.0163, -5.65775, 10, 6.0163, -8.90775, -8.5, 5.0163, -5.65775, -8.5, 4.7663, -4.65775, -9.5, 4.7663, -4.65775, -9.5, 4.7663, -1.15775, -8.75, 4.7663, -0.907746, -8.5, 4.7663, 0.592254, 8.75, 4.7663, 4.34225, 8.58929, 5.0163, -8.90775, 7.17857, 4.7663, -8.90775, -6.92857, 4.7663, -8.90775, 10.25, 4.7663, -0.907746, 11, 4.7663, -1.15775, 11, 4.7663, -4.65775, 8.75, 4.7663, -4.65775, 10, 4.7663, 4.34225, 10, 4.7663, 0.592254, -6.92857, 4.7663, 8.59225, 7.17857, 4.7663, 8.59225, 16, 9.2663, 5.09225, 24.5, 9.2663, 8.59225, 14.5625, 8.7663, 5.15475, 15.8, 9.2663, 8.59225, 12.51, 7.5163, 7.07824, 16, 9.2663, -5.40775, 24.5, 9.2663, -8.90775, 15.8, 9.2663, -8.90775, 14.5625, 8.7663, -5.47025, 15.75, 9.2663, -4.40775, 14, 10.2663, -4.40775, 14, 10.2663, 3.84225, 15.75, 9.2663, 3.84225, -15, 4.7663, -8.65775, -15, 4.7663, -5.90775, -11.5, 4.7663, -5.90775, -11.5, 4.7663, -8.65775, 11.75, 4.7663, -8.65775, 11.75, 4.7663, -5.90775, 15.25, 4.7663, -5.90775, 15.25, 4.7663, -8.65775, -10.75, 4.7663, 0.842254, -14.75, 4.7663, 4.34225, -10.75, 4.7663, -0.657746, -14.75, 4.7663, -4.65775, 10.5, 4.7663, 1.09225, 12.25, 4.7663, 0.842254, 15, 4.7663, 4.34225, 12.25, 4.7663, -0.657746, 15, 4.7663, -4.65775, -9.36842, 13.0163, 3.84225, -7.90789, 13.5163, 3.84225, 8.1579, 13.5163, 3.84225, 9.61842, 13.0163, 3.84225, 9.61842, 13.0163, -4.40775, 8.1579, 13.5163, -4.40775, -7.90789, 13.5163, -4.40775, -9.36842, 13.0163, -4.40775, -6.98914, 13.5163, 2.59734, -8.52416, 13.5163, 2.58635, -15, 4.7663, 5.59225, -15, 4.7663, 8.34225, -11.5, 4.7663, 8.34225, -11.5, 4.7663, 5.59225, 11.75, 4.7663, 5.59225, 11.75, 4.7663, 8.34225, 15.25, 4.7663, 8.34225, 15.25, 4.7663, 5.59225)
+polygons = [PackedInt32Array(1, 0, 5), PackedInt32Array(5, 0, 2), PackedInt32Array(2, 0, 4), PackedInt32Array(2, 4, 3), PackedInt32Array(8, 7, 10), PackedInt32Array(10, 7, 6), PackedInt32Array(10, 6, 9), PackedInt32Array(14, 13, 11), PackedInt32Array(11, 13, 12), PackedInt32Array(14, 11, 6), PackedInt32Array(6, 11, 2), PackedInt32Array(6, 2, 3), PackedInt32Array(6, 3, 9), PackedInt32Array(17, 16, 15), PackedInt32Array(0, 1, 18), PackedInt32Array(21, 20, 19), PackedInt32Array(24, 23, 22), PackedInt32Array(25, 7, 8), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 26), PackedInt32Array(15, 30, 17), PackedInt32Array(17, 30, 31), PackedInt32Array(24, 22, 32), PackedInt32Array(32, 22, 33), PackedInt32Array(33, 22, 34), PackedInt32Array(34, 22, 25), PackedInt32Array(34, 25, 8), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(40, 39, 31), PackedInt32Array(22, 38, 25), PackedInt32Array(25, 38, 26), PackedInt32Array(30, 29, 26), PackedInt32Array(40, 31, 35), PackedInt32Array(35, 31, 38), PackedInt32Array(38, 31, 30), PackedInt32Array(38, 30, 26), PackedInt32Array(31, 21, 17), PackedInt32Array(17, 21, 18), PackedInt32Array(19, 42, 21), PackedInt32Array(21, 42, 41), PackedInt32Array(21, 41, 18), PackedInt32Array(18, 41, 0), PackedInt32Array(46, 43, 44), PackedInt32Array(43, 46, 45), PackedInt32Array(45, 47, 20), PackedInt32Array(20, 47, 19), PackedInt32Array(19, 47, 46), PackedInt32Array(46, 47, 45), PackedInt32Array(23, 24, 51), PackedInt32Array(51, 24, 48), PackedInt32Array(48, 24, 50), PackedInt32Array(48, 50, 49), PackedInt32Array(55, 54, 52), PackedInt32Array(52, 54, 53), PackedInt32Array(52, 48, 55), PackedInt32Array(55, 48, 43), PackedInt32Array(43, 48, 49), PackedInt32Array(43, 49, 44), PackedInt32Array(59, 58, 56), PackedInt32Array(56, 58, 57), PackedInt32Array(63, 62, 60), PackedInt32Array(60, 62, 61), PackedInt32Array(15, 16, 64), PackedInt32Array(64, 16, 65), PackedInt32Array(28, 66, 27), PackedInt32Array(27, 66, 67), PackedInt32Array(64, 65, 66), PackedInt32Array(66, 65, 67), PackedInt32Array(39, 40, 68), PackedInt32Array(68, 69, 39), PackedInt32Array(39, 69, 70), PackedInt32Array(36, 37, 71), PackedInt32Array(71, 37, 72), PackedInt32Array(69, 71, 70), PackedInt32Array(70, 71, 72), PackedInt32Array(80, 82, 13), PackedInt32Array(13, 82, 12), PackedInt32Array(12, 82, 73), PackedInt32Array(73, 82, 74), PackedInt32Array(74, 81, 75), PackedInt32Array(75, 78, 76), PackedInt32Array(76, 77, 54), PackedInt32Array(54, 77, 53), PackedInt32Array(77, 76, 78), PackedInt32Array(78, 81, 79), PackedInt32Array(79, 82, 80), PackedInt32Array(82, 81, 74), PackedInt32Array(81, 78, 75), PackedInt32Array(81, 82, 79), PackedInt32Array(86, 85, 83), PackedInt32Array(83, 85, 84), PackedInt32Array(90, 89, 87), PackedInt32Array(87, 89, 88)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cegeg"]
 albedo_color = Color(2.33133e-08, 0.0585453, 0.0352578, 1)
@@ -30,20 +30,22 @@ albedo_color = Color(2.33133e-08, 0.0585453, 0.0352578, 1)
 [sub_resource type="PrismMesh" id="PrismMesh_anfge"]
 size = Vector3(10, 5, 51)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_22gl0"]
+albedo_color = Color(0.851402, 0.371021, 0.356502, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57l7q"]
 albedo_color = Color(0.160784, 0.192157, 0.188235, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_iun6g"]
-size = Vector3(19, 5, 5)
+[sub_resource type="PrismMesh" id="PrismMesh_t1lhw"]
+left_to_right = 1.0
+size = Vector3(4.3, 7, 4)
 
-[sub_resource type="BoxMesh" id="BoxMesh_kks7q"]
-size = Vector3(19, 7, 5)
+[sub_resource type="PrismMesh" id="PrismMesh_uqtl8"]
+left_to_right = 1.0
+size = Vector3(4.3, 7, 9)
 
-[sub_resource type="BoxMesh" id="BoxMesh_bx253"]
-size = Vector3(5, 7, 5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m0qni"]
-albedo_color = Color(0.0392157, 0.0705882, 0.266667, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_38eyr"]
+albedo_color = Color(0.141176, 0.176471, 0.168627, 1)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bbn47"]
 data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
@@ -98,66 +100,88 @@ script = ExtResource("1_tbuv5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.324921, 0)
 use_collision = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
+[node name="Boat" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94138, 0)
 size = Vector3(50, 6, 20)
 material = SubResource("StandardMaterial3D_cegeg")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/CSGBox3D"]
+[node name="CSGMesh3D" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Boat"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.63003, -10.033)
 operation = 2
 mesh = SubResource("PrismMesh_anfge")
 material = SubResource("StandardMaterial3D_cegeg")
 
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/CSGBox3D"]
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Boat"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.63003, 9.74582)
 operation = 2
 mesh = SubResource("PrismMesh_anfge")
 material = SubResource("StandardMaterial3D_cegeg")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CSGBox3D"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Boat"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17387, 0)
 operation = 2
 size = Vector3(50.5, 2, 20.441)
 material = SubResource("StandardMaterial3D_cegeg")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1861, 9.14511, 0)
-height = 10.2824
+[node name="Poles" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1861, 6.91523, 0)
+height = 5.6579
+material = SubResource("StandardMaterial3D_22gl0")
+
+[node name="Poles2" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Poles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8752, 0, 0)
+height = 5.6579
+material = SubResource("StandardMaterial3D_22gl0")
+
+[node name="Ramp1" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.232, 6.21396, -0.261001)
+size = Vector3(9.33154, 4.49756, 18.2149)
 material = SubResource("StandardMaterial3D_57l7q")
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/CSGCylinder3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1391, 0, 0)
-height = 10.2824
+[node name="CSGBox3D6" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Ramp1"]
+transform = Transform3D(4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -8.16131, 0.0984149, -6.99065)
+mesh = SubResource("PrismMesh_t1lhw")
 material = SubResource("StandardMaterial3D_57l7q")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.232, 6.15274, -0.113495)
-size = Vector3(9.33154, 4.14258, 18.2149)
+[node name="CSGBox3D7" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Ramp1"]
+transform = Transform3D(4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -8.14867, 0.0984149, 7.30601)
+mesh = SubResource("PrismMesh_t1lhw")
 material = SubResource("StandardMaterial3D_57l7q")
 
-[node name="CSGBox3D4" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/CSGBox3D3"]
-transform = Transform3D(-2.68603e-08, 0.788923, 0.614492, 3.44849e-08, 0.614492, -0.788923, -1, 0, -4.37114e-08, -4.27308, 1.50209, -0.0185976)
-operation = 2
-mesh = SubResource("BoxMesh_iun6g")
+[node name="CSGBox3D8" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Ramp1"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -8.15451, 4.41983, -0.00897682)
+mesh = SubResource("PrismMesh_uqtl8")
 material = SubResource("StandardMaterial3D_57l7q")
 
-[node name="CSGBox3D5" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/CSGBox3D3"]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 1.61638, 3.53384, -0.0185976)
-operation = 2
-mesh = SubResource("BoxMesh_kks7q")
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Ramp1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.1433, 5.55846, 0.0271397)
+size = Vector3(9, 2, 9)
+material = SubResource("StandardMaterial3D_38eyr")
+
+[node name="Ramp2" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -19.9974, 6.21396, -0.10174)
+size = Vector3(9.33154, 4.49756, 18.2149)
 material = SubResource("StandardMaterial3D_57l7q")
 
-[node name="CSGBox3D6" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/CSGBox3D3"]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, -1.16881, 0.464427, -0.0185976)
-operation = 2
-mesh = SubResource("BoxMesh_bx253")
+[node name="CSGBox3D6" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Ramp2"]
+transform = Transform3D(4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -8.16131, 0.0984149, -6.99065)
+mesh = SubResource("PrismMesh_t1lhw")
 material = SubResource("StandardMaterial3D_57l7q")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.44612, 6.56402, 3.90103)
-size = Vector3(1, 5, 10)
-material = SubResource("StandardMaterial3D_m0qni")
+[node name="CSGBox3D7" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Ramp2"]
+transform = Transform3D(4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -8.14867, 0.0984149, 7.30601)
+mesh = SubResource("PrismMesh_t1lhw")
+material = SubResource("StandardMaterial3D_57l7q")
+
+[node name="CSGBox3D8" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Ramp2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -8.15451, 4.41983, 0.247995)
+mesh = SubResource("PrismMesh_uqtl8")
+material = SubResource("StandardMaterial3D_57l7q")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Ramp2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.1433, 5.55846, 0.160609)
+size = Vector3(9, 2, 9)
+material = SubResource("StandardMaterial3D_38eyr")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

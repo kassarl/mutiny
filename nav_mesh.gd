@@ -4,7 +4,7 @@ class_name CustomNavigationRegion
 ## Configuration Constants
 const DEFAULT_MIN_DISTANCE: float = 2.0
 const MAX_GENERATION_ATTEMPTS: int = 100
-const NAVIGATION_HEIGHT: float = 6.664  # Fixed height for navigation points
+#const NAVIGATION_HEIGHT: float = 6.664  # Fixed height for navigation points
 
 ## Debug Options
 @export_group("Debug Settings")
@@ -92,7 +92,7 @@ func _generate_points(num_points: int, min_distance: float, bounds: Dictionary) 
 func _generate_random_point(bounds: Dictionary) -> Vector3:
 	return Vector3(
 		randf_range(bounds.min.x, bounds.max.x),
-		NAVIGATION_HEIGHT,
+		randf_range(bounds.min.y, bounds.max.y),
 		randf_range(bounds.min.z, bounds.max.z)
 	)
 
