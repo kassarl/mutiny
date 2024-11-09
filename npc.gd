@@ -16,10 +16,15 @@ class_name NPC
 ## Navigation Variables
 var available_points: Array[Vector3] = []
 
+# Interact Variables
+var prompt = null
+
 #region Lifecycle Methods
 func _ready() -> void:
 	_initialize_timer()
 	_initialize_navigation()
+	
+	prompt = "Press E to talk to %s" % name
 
 func _physics_process(_delta: float) -> void:
 	_handle_movement()
@@ -69,5 +74,13 @@ func pick_new_destination() -> void:
 	nav_agent.set_target_position(target_position)
 	
 	timer.wait_time = randf_range(1.0, 4.0)
-	print(timer.wait_time)
+	#print(timer.wait_time)
+#endregion
+
+#region Interaction
+func get_prompt():
+	return prompt
+
+func interact():
+	print("Interacted with %s" % name)
 #endregion
