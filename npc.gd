@@ -83,4 +83,6 @@ func get_prompt():
 
 func interact():
 	print("Interacted with %s" % name)
+	print("Position: ")
+	print(position)
 #endregion
