@@ -2,10 +2,10 @@ extends Node
 class_name GameWorld
 
 ## Network and Scene Constants
-const PORT: int = 9998
+const PORT: int = 9990
 const PLAYER_SCENE: PackedScene = preload("res://player.tscn")
 const NPC_SCENE: PackedScene = preload("res://npc.tscn")
-const NPC_COUNT: int = 3
+const NPC_COUNT: int = 5
 
 ## UI References
 @onready var main_menu: Control = $CanvasLayer/MainMenu
@@ -110,10 +110,14 @@ func upnp_setup() -> void:
 ## Spawns multiple NPCs in the game world
 ## [param npc_count] The number of NPCs to spawn
 func spawn_npcs(npc_count: int) -> void:
+	print("Spawning in %d NPC's" % npc_count)
 	if !multiplayer.is_server():
 		return
 		
 	var spawn_points = nav_mesh.generate_random_points(npc_count)
+	
+	for i in range(len(spawn_points)):
+		spawn_points[i][1] += .2
 	
 	for i in range(npc_count):
 		spawn_npc.rpc(i, spawn_points[i])
@@ -126,6 +130,8 @@ func spawn_npc(npc_id: int, spawn_position: Vector3) -> void:
 	var npc_instance := NPC_SCENE.instantiate()
 	npc_instance.name = str("NPC_", npc_id)
 	npc_instance.position = spawn_position
+	#print("adding npc at position")
+	#print(spawn_position)
 	add_child(npc_instance, true)
 #endregion
 
