@@ -11,8 +11,9 @@ const NPC_COUNT: int = 1
 @onready var main_menu: Control = $CanvasLayer/MainMenu
 @onready var address_entry: LineEdit = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
 @onready var nav_mesh: NavigationRegion3D = $Ship/NavigationRegion3D
-@onready var timer_label: Label = $CanvasLayer/HUD/Label
+@onready var timer_label: Label = $CanvasLayer/HUD/TimerLabel
 @onready var timer: Timer = $CanvasLayer/HUD/Timer
+@onready var mutiny_label: Label = $CanvasLayer/HUD/MutinyLabel
 
 # LLM References
 @export var chat_controller: OpenAIClient
@@ -20,15 +21,21 @@ const NPC_COUNT: int = 1
 ## Networking
 var enet_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 
+## Game State
+var in_game = false
+var mutiny_index = 0
+
 func _ready() -> void:
-	initialize_timer()
+	initialize_GUI()
 	
 #region UI management
-func initialize_timer():
+func initialize_GUI():
 	timer.one_shot = true
 	timer.wait_time = 180
 	timer_label.text = ""
 	timer.timeout.connect(on_timer_timeout)  # Connect timeout signal
+	mutiny_label.text = ""
+	
 
 func on_timer_timeout():
 	print("DONE")
@@ -157,12 +164,14 @@ func spawn_npc(npc_id: int, spawn_position: Vector3) -> void:
 
 #region process and main
 func _process(delta: float) -> void:
-	if !timer.is_stopped():
+	if in_game:
 		timer_label.text = "%d:%02d" % [int(timer.time_left) / 60, int(timer.time_left) % 60]
+		mutiny_label.text = "Mutiny Index: %d/100" % mutiny_index
 
 ## Initializes the game world
 func main() -> void:
 	spawn_npcs(NPC_COUNT)
+	in_game = true
 	timer.start()
 
 #endregion
