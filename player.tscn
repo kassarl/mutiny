@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dniq2da7asr4y"]
+[gd_scene load_steps=10 format=3 uid="uid://dniq2da7asr4y"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_r1j6f"]
 [ext_resource type="Script" path="res://interact_ray.gd" id="2_t4fpb"]
+[ext_resource type="Script" path="res://imposter_chatview.gd" id="3_app11"]
+[ext_resource type="Script" path="res://chat_line_edit.gd" id="4_ofn6i"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5dnon"]
 properties/0/path = NodePath(".:position")
@@ -86,3 +88,47 @@ text = "."
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="ImposterChatView" type="Node2D" parent="."]
+script = ExtResource("3_app11")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="ImposterChatView"]
+
+[node name="Control" type="Control" parent="ImposterChatView/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="ImposterChatView/CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 318.0
+offset_bottom = 235.0
+
+[node name="Chat" type="RichTextLabel" parent="ImposterChatView/CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="QuestionEntry" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="QuestionEntry"]
+layout_mode = 0
+offset_left = 231.0
+offset_top = 528.0
+offset_right = 913.0
+offset_bottom = 577.0
+
+[node name="LineEdit" type="LineEdit" parent="QuestionEntry"]
+layout_mode = 0
+offset_left = 252.0
+offset_top = 539.0
+offset_right = 836.0
+offset_bottom = 570.0
+script = ExtResource("4_ofn6i")
+
+[connection signal="text_submitted" from="QuestionEntry/LineEdit" to="QuestionEntry/LineEdit" method="_on_text_submitted"]

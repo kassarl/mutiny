@@ -17,6 +17,7 @@ const MIN_LOOK_ANGLE: float = deg_to_rad(-85)
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var head: Node3D = $Head
 @onready var raycast: RayCast3D = $Head/RayCast3D
+@onready var imposter_chat_view: Node2D = $ImposterChatView
 
 ## Movement Variables
 var current_speed: float = BASE_SPEED
@@ -148,4 +149,8 @@ func get_prompt():
 func interact():
 	print("Interacted with player")
 #endregion
+
+#region HUD
+func on_message_updated(messages: Array):
+	imposter_chat_view.bbcode_text("Hi there this is laial")
 	

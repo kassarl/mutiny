@@ -12,9 +12,7 @@ class_name NPC
 @onready var nav_map: NavigationRegion3D = $"../Ship/NavigationRegion3D"
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var timer: Timer = $Timer
-
-## LLM Client
-@export var openai_client: Node
+@onready var chat_ui: LineEdit = $"../CanvasLayer/QuestionEntry/LineEdit"
 
 ## Navigation Variables
 var available_points: Array[Vector3] = []
@@ -115,10 +113,20 @@ func interact():
 	if not paused:
 		pause_movement()
 		prompt = "Press E to leave this conversation"
-		openai_client.send_message("Hi are you an npc?")
+		begin_chat_interaction()
 	else:
 		resume_timer.wait_time = randf_range(0.0, 2)
 		resume_timer.timeout.connect(resume_movement)
 		resume_timer.start()
 		prompt = "Press E to start conversation"
+
+func begin_chat_interaction():
+	#open textbox
+	chat_ui.show_input_box()
+
+func close_chat_interaction():
+	#close textbox
+	#signal what the messages were
+	chat_ui.hide_input_box()
+	
 #endregion

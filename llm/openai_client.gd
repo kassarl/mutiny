@@ -7,6 +7,7 @@ var game_token: String = ""
 
 signal response_received(text: String)
 signal error_occurred(error: String)
+
 func _init():
 	http_request = HTTPRequest.new()
 	add_child(http_request)
@@ -75,6 +76,10 @@ func send_message(message: String) -> void:
 
 func _on_response_completed(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	print("RESPONSE RECEIVED")
+	##TEMP FOR DEBUGGING
+	emit_signal("response_received", "hi im laila")
+	return
+
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	
 	if response_code != 200:
