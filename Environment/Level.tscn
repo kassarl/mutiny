@@ -125,6 +125,7 @@ vertical_alignment = 1
 [node name="Timer" type="Timer" parent="CanvasLayer/HUD"]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player/player.tscn", "res://NPC/npc.tscn")
 spawn_path = NodePath("..")
 
 [node name="ChatController" type="Node" parent="."]
