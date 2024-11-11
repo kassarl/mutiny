@@ -138,7 +138,6 @@ transform = Transform3D(0.000890076, 0, -1, 0, 1, 0, 1, 0, 0.000890076, 24.9306,
 shape = SubResource("ConcavePolygonShape3D_8wvif")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Walls/CollisionShape3D8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_2n73c")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_o2sje")
@@ -148,7 +147,6 @@ transform = Transform3D(0.000890076, 0, -1, 0, 1, 0, 1, 0, 0.000890076, -24.778,
 shape = SubResource("ConcavePolygonShape3D_1rx37")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Walls/CollisionShape3D7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_2n73c")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_o2sje")
