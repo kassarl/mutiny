@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtgkeb6x35w17"]
+[gd_scene load_steps=7 format=3 uid="uid://dtgkeb6x35w17"]
+
+[ext_resource type="Script" path="res://Interactables/button.gd" id="1_ckc2u"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0tkao"]
 size = Vector3(0.3, 1.25, 0.3)
@@ -18,6 +20,7 @@ albedo_color = Color(0.804936, 0.0259103, 0, 1)
 size = Vector3(0.411926, 0.224365, 0.383591)
 
 [node name="Button" type="StaticBody3D"]
+script = ExtResource("1_ckc2u")
 
 [node name="MeshBase" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.668164, 0)
