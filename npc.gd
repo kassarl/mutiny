@@ -27,7 +27,7 @@ func _ready() -> void:
 	_initialize_timer()
 	_initialize_navigation()
 	
-	prompt = "Press E to talk to %s" % name
+	prompt = "Press E to start conversation"
 
 func _physics_process(_delta: float) -> void:
 	if not paused:
@@ -116,5 +116,5 @@ func interact():
 		resume_timer.wait_time = randf_range(0.0, 2)
 		resume_timer.timeout.connect(resume_movement)
 		resume_timer.start()
-		prompt = "Press E to start a conversation"
+		prompt = "Press E to start conversation"
 #endregion
