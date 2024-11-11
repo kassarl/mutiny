@@ -15,6 +15,7 @@ class_name NPC
 
 ## Navigation Variables
 var available_points: Array[Vector3] = []
+var next_location = null
 
 # Interact Variables
 var prompt = null
@@ -52,6 +53,7 @@ func _initialize_timer() -> void:
 func _initialize_navigation() -> void:
 	# Generate random navigation points
 	available_points = nav_map.generate_random_points(num_navigation_points)
+	#next_location =  nav_map.generate_random_points(1)
 	
 	# Set initial destination
 	pick_new_destination()
@@ -78,6 +80,8 @@ func pick_new_destination() -> void:
 	var random_index := randi() % available_points.size()
 	var target_position := available_points[random_index]
 	
+	#var next_location = nav_map.gen_rand_pt_dist_away(next_location, 10)
+	
 	nav_agent.set_target_position(target_position)
 	
 	#timer.wait_time = randf_range(.5, 3.0)
@@ -93,11 +97,6 @@ func pause_movement():
 func resume_movement():
 	print("Resuming NPC")
 	paused = false
-	
-	# 50% chance to pick a new location after being stopped
-	if randi_range(0,1) == 0:
-		timer.wait_time = randf_range(.5, 3.0)
-		#pick_new_destination()
 
 	nav_agent.get_next_path_position()
 #endregion
@@ -108,6 +107,7 @@ func get_prompt():
 
 func interact():
 	print("Interacted with %s" % name)
+	print(available_points)
 	
 	if not paused:
 		pause_movement()
