@@ -1,28 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtgkeb6x35w17"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_m0236"]
-points = PackedVector3Array(-0.0089396, 0.025, 0.0477152, -0.0091987, -0.0249194, -0.0490982, -0.0153255, -0.0248942, -0.0475129, 0.0091987, -0.0249194, 0.0490982, 0.0462206, 0.025, -0.0149087, -0.0477152, 0.025, -0.0089396, -0.0458421, -0.0248203, 0.0198668, 0.0490982, -0.0249194, -0.0091987, 0.0089396, 0.025, -0.0477152, 0.0387663, 0.025, 0.0298174, 0.0304699, -0.0247448, -0.0396147, -0.0458421, -0.0248203, -0.0198668, -0.0298174, 0.025, -0.0387663, 0.0458421, -0.0248203, 0.0198668, -0.038757, 0.025, 0.0298174, -0.0229615, -0.0248648, 0.044398, 0.0253429, 0.025, 0.0417462, 0.0477152, 0.025, 0.0089396, 0.0387663, 0.025, -0.0298174, 0.0304699, -0.0247448, 0.0396147, -0.0089396, 0.025, -0.0477152, -0.0304699, -0.0247448, -0.0396147, 0.0091987, -0.0249194, -0.0490982, -0.0490982, -0.0249194, 0.0091987, -0.0477152, 0.025, 0.0089396, 0.0427131, -0.0247762, -0.0259299, -0.038757, 0.025, -0.0298174, 0.0253429, 0.025, -0.0417462, -0.0253429, 0.025, 0.0417462, -0.0382861, -0.0248759, 0.0321641, 0.0089396, 0.025, 0.0477152, -0.0091987, -0.0249194, 0.0490982)
+[gd_scene load_steps=6 format=3 uid="uid://dtgkeb6x35w17"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0tkao"]
-size = Vector3(0.15, 0.6, 0.15)
+size = Vector3(0.3, 1.25, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ka4dp"]
+albedo_color = Color(0.239216, 0.203922, 0.152941, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_cuw56"]
-top_radius = 0.05
-bottom_radius = 0.05
+top_radius = 0.1
+bottom_radius = 0.1
 height = 0.05
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s34n4"]
+albedo_color = Color(0.804936, 0.0259103, 0, 1)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.620225, 0)
-shape = SubResource("ConvexPolygonShape3D_m0236")
+[sub_resource type="BoxShape3D" id="BoxShape3D_lkc41"]
+size = Vector3(0.411926, 0.224365, 0.383591)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.313701, 0)
+[node name="Button" type="StaticBody3D"]
+
+[node name="MeshBase" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.668164, 0)
 mesh = SubResource("BoxMesh_0tkao")
-skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ka4dp")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D2/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.313701, 0)
+[node name="MeshButton" type="MeshInstance3D" parent="MeshBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.644249, 0)
 mesh = SubResource("CylinderMesh_cuw56")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_s34n4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00485229, 1.36285, -0.00481415)
+shape = SubResource("BoxShape3D_lkc41")

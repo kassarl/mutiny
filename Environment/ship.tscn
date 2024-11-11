@@ -1,5 +1,6 @@
-[gd_scene load_steps=30 format=3 uid="uid://bkeuj6cedjycd"]
+[gd_scene load_steps=31 format=3 uid="uid://bkeuj6cedjycd"]
 
+[ext_resource type="PackedScene" uid="uid://dtgkeb6x35w17" path="res://Interactables/Button.tscn" id="1_t2v0w"]
 [ext_resource type="Script" path="res://Environment/nav_mesh.gd" id="1_tbuv5"]
 
 [sub_resource type="TextMesh" id="TextMesh_vauni"]
@@ -95,6 +96,15 @@ size = Vector2(1000, 1000)
 albedo_color = Color(0.0545718, 0.12675, 0.433013, 1)
 
 [node name="Ship" type="Node3D"]
+
+[node name="Button" parent="." instance=ExtResource("1_t2v0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.43451, -8.67238)
+
+[node name="Button2" parent="." instance=ExtResource("1_t2v0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2865, 4.43451, -0.00566864)
+
+[node name="Button3" parent="." instance=ExtResource("1_t2v0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 13.1303, -4.52305)
 
 [node name="Direction Indicator" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85372, 9.21477, -16.6605)
