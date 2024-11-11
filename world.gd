@@ -2,7 +2,7 @@ extends Node
 class_name GameWorld
 
 ## Network and Scene Constants
-const PORT: int = 9990
+const PORT: int = 9999
 const PLAYER_SCENE: PackedScene = preload("res://player.tscn")
 const NPC_SCENE: PackedScene = preload("res://npc.tscn")
 const NPC_COUNT: int = 5
@@ -11,6 +11,9 @@ const NPC_COUNT: int = 5
 @onready var main_menu: Control = $CanvasLayer/MainMenu
 @onready var address_entry: LineEdit = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
 @onready var nav_mesh: NavigationRegion3D = $Ship/NavigationRegion3D
+
+# LLM References
+@export var chat_controller: OpenAIClient
 
 ## Networking
 var enet_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
@@ -130,10 +133,12 @@ func spawn_npc(npc_id: int, spawn_position: Vector3) -> void:
 	var npc_instance := NPC_SCENE.instantiate()
 	npc_instance.name = str("NPC_", npc_id)
 	npc_instance.position = spawn_position
+	npc_instance.openai_client = chat_controller
 	#print("adding npc at position")
 	#print(spawn_position)
 	add_child(npc_instance, true)
 #endregion
+
 
 ## Initializes the game world
 func main() -> void:
