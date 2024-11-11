@@ -5,13 +5,11 @@ class_name NPC
 @export_group("Movement Settings")
 @export var movement_speed: float = 5.0
 @export var movement_target_threshold: float = 0.1
-@export var point_change_interval: float = 1.3
-@export var num_navigation_points: int = 5
 
 ## Node References
 @onready var nav_map: NavigationRegion3D = $"../Ship/NavigationRegion3D"
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var timer: Timer = $Timer
+@onready var timer
 
 ## LLM Client
 @export var openai_client: Node
@@ -29,7 +27,6 @@ var resume_timer = null
 func _ready() -> void:
 	_initialize_timer()
 	_initialize_navigation()
-	
 	prompt = "Press E to start conversation"
 
 func _physics_process(_delta: float) -> void:
@@ -40,13 +37,10 @@ func _physics_process(_delta: float) -> void:
 #region Initialization
 ## Sets up the timer for destination changes
 func _initialize_timer() -> void:
-	if !timer:
-		timer = Timer.new()
-		add_child(timer)
-	
-	timer.wait_time = point_change_interval
-	timer.timeout.connect(pick_new_destination)
-	timer.start()
+	timer = Timer.new()
+	timer.one_shot = true
+	add_child(timer)
+	timer.timeout.connect(on_wait_timer_timeout)  # Connect timeout signal
 	
 	resume_timer = Timer.new()
 	resume_timer.one_shot = true
@@ -54,53 +48,47 @@ func _initialize_timer() -> void:
 
 ## Initializes navigation points and starting position
 func _initialize_navigation() -> void:
-	# Generate random navigation points
-	available_points = nav_map.generate_random_points(num_navigation_points)
-	#next_location =  nav_map.generate_random_points(1)
-	
-	# Set initial destination
-	pick_new_destination()
+	next_location =  nav_map.generate_random_points(1)[0]
+	nav_agent.set_target_position(next_location)
+	print("initial target is: ", next_location)
 #endregion
 
 #region Movement
 ## Handles NPC movement using NavigationAgent
 func _handle_movement() -> void:
 	if nav_agent.is_navigation_finished():
-		timer.wait_time = randf_range(.5, 3.0)
+		if timer.is_stopped():  # Only start timer if it's not already running
+			timer.wait_time = randf_range(0.5, 3.0)
+			timer.start()
+			print("Starting Timer for %f" % timer.wait_time)
 		return
 	
 	var next_position := nav_agent.get_next_path_position()
 	var direction := (next_position - global_position).normalized()
 	
 	velocity = direction * movement_speed
+	velocity = velocity.move_toward(velocity, 25)
+	
 	move_and_slide()
 
-## Selects and sets a new destination from available points
-func pick_new_destination() -> void:
-	if available_points.is_empty():
-		return
-	
-	var random_index := randi() % available_points.size()
-	var target_position := available_points[random_index]
-	
-	#var next_location = nav_map.gen_rand_pt_dist_away(next_location, 10)
-	
-	nav_agent.set_target_position(target_position)
-	
-	#timer.wait_time = randf_range(.5, 3.0)
-	#print(timer.wait_time)
+## Timer timeout handler - sets new destination
+func on_wait_timer_timeout() -> void:
+	next_location = nav_map.gen_rand_pt_dist_away(position, randi_range(5, 20))
+	nav_agent.set_target_position(next_location)
+	print("Next location is")
+	print(next_location)
 
 ## Pause movement
 func pause_movement():
 	print("Pausing NPC")
 	paused = true
 	velocity = Vector3.ZERO
-	
+	timer.paused = true  # Pause the wait timer when NPC is paused	
+
 ## Resume movement
 func resume_movement():
 	print("Resuming NPC")
 	paused = false
-
 	nav_agent.get_next_path_position()
 #endregion
 
@@ -110,12 +98,12 @@ func get_prompt():
 
 func interact():
 	print("Interacted with %s" % name)
-	print(available_points)
 	
 	if not paused:
 		pause_movement()
 		prompt = "Press E to leave this conversation"
-		openai_client.send_message("Hi are you an npc?")
+		print("Talked to NPC")
+		#openai_client.send_message("Hi are you an npc?")
 	else:
 		resume_timer.wait_time = randf_range(0.0, 2)
 		resume_timer.timeout.connect(resume_movement)

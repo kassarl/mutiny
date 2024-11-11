@@ -5,7 +5,7 @@ class_name GameWorld
 const PORT: int = 9990
 const PLAYER_SCENE: PackedScene = preload("res://player.tscn")
 const NPC_SCENE: PackedScene = preload("res://npc.tscn")
-const NPC_COUNT: int = 5
+const NPC_COUNT: int = 1
 
 ## UI References
 @onready var main_menu: Control = $CanvasLayer/MainMenu

@@ -50,6 +50,7 @@ func _save_token(token: String) -> void:
 func send_message(message: String) -> void:
 	print("getting game token...")
 	if game_token.is_empty():
+		print("Token is empty")
 		emit_signal("error_occurred", "No auth token available")
 		return
 		
@@ -78,6 +79,8 @@ func _on_response_completed(_result: int, response_code: int, _headers: PackedSt
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	
 	if response_code != 200:
+		print("response code was not 200")
+		print(json)
 		emit_signal("error_occurred", json.get("error", "Unknown error occurred"))
 		return
 		
@@ -92,3 +95,5 @@ func _on_response_completed(_result: int, response_code: int, _headers: PackedSt
 		print("response:")
 		print(json["response"])
 		print("Requests remaining: ", json["requests_remaining"])
+	else:
+		print(json)
