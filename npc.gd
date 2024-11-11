@@ -13,6 +13,9 @@ class_name NPC
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var timer: Timer = $Timer
 
+## LLM Client
+@export var openai_client: Node
+
 ## Navigation Variables
 var available_points: Array[Vector3] = []
 var next_location = null
@@ -112,6 +115,7 @@ func interact():
 	if not paused:
 		pause_movement()
 		prompt = "Press E to leave this conversation"
+		openai_client.send_message("Hi are you an npc?")
 	else:
 		resume_timer.wait_time = randf_range(0.0, 2)
 		resume_timer.timeout.connect(resume_movement)
