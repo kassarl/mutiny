@@ -23,12 +23,17 @@ var current_speed: float = BASE_SPEED
 var movement_direction: Vector3 = Vector3.ZERO
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+# Interact variables
+var prompt = null
+
 #region Lifecycle Methods
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready() -> void:
 	_initialize_player()
+	
+	prompt = "Press E to start conversation"
 
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -137,6 +142,9 @@ func sync_position(new_position: Vector3, new_rotation: Vector3) -> void:
 #endregion
 
 #region Interaction
+func get_prompt():
+	return prompt
+
 func interact():
 	print("Interacted with player")
 #endregion
