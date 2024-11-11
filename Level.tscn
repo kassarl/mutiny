@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpbq8p50huvyy"]
+[gd_scene load_steps=7 format=3 uid="uid://cpbq8p50huvyy"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_7w3bs"]
 [ext_resource type="PackedScene" uid="uid://bkeuj6cedjycd" path="res://ship.tscn" id="2_74r5g"]
+[ext_resource type="Script" path="res://llm/openai_client.gd" id="3_oy1xf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2cm0m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,8 +17,9 @@ sky = SubResource("Sky_cn1f8")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Root" type="Node"]
+[node name="Root" type="Node" node_paths=PackedStringArray("chat_controller")]
 script = ExtResource("1_7w3bs")
+chat_controller = NodePath("ChatController")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_heyug")
@@ -75,6 +77,9 @@ alignment = 1
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://player.tscn", "res://npc.tscn")
 spawn_path = NodePath("..")
+
+[node name="ChatController" type="Node" parent="."]
+script = ExtResource("3_oy1xf")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
