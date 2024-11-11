@@ -4,7 +4,7 @@ class_name CustomNavigationRegion
 ## Configuration Constants
 const DEFAULT_MIN_DISTANCE: float = 2.0
 const MAX_GENERATION_ATTEMPTS: int = 100
-#const NAVIGATION_HEIGHT: float = 6.664  # Fixed height for navigation points
+const NAVIGATION_HEIGHT: float = 6.664  # Fixed height for navigation points
 
 ## Debug Options
 @export_group("Debug Settings")
@@ -20,110 +20,15 @@ const MAX_GENERATION_ATTEMPTS: int = 100
 ## Returns: Array of valid Vector3 positions on the navigation mesh
 func generate_random_points(num_points: int, min_distance: float = DEFAULT_MIN_DISTANCE) -> Array[Vector3]:
 	var points: Array[Vector3] = []
-	var vertices = navigation_mesh.get_vertices()
+	var bounds := _calculate_navigation_bounds()
 	
-	if vertices.is_empty():
-		push_warning("Navigation mesh has no vertices!")
+	if !_is_navigation_valid(bounds):
+		push_warning("Navigation mesh appears invalid or empty")
 		return points
-		
-	# Calculate bounds from vertices
-	var min_bounds = Vector3(1000,1000,1000)
-	var max_bounds = Vector3(-1000,-1000,-1000)
 	
-	# Get the actual bounds of the mesh
-	for vertex in vertices:
-		min_bounds.x = min(min_bounds.x, vertex.x)
-		min_bounds.z = min(min_bounds.z, vertex.z)
-		max_bounds.x = max(max_bounds.x, vertex.x)
-		max_bounds.z = max(max_bounds.z, vertex.z)
-	
-	var nav_map = get_world_3d().get_navigation_map()
-	var attempts = 0
-	
-	while points.size() < num_points and attempts < MAX_GENERATION_ATTEMPTS:
-		# Generate random X and Z coordinates within bounds
-		var random_point = Vector3(
-			randf_range(min_bounds.x, max_bounds.x),
-			randf_range(min_bounds.y, max_bounds.y),
-			randf_range(min_bounds.z, max_bounds.z)
-		)
-		
-		# Get the closest point on the navigation mesh
-		var nav_point = NavigationServer3D.map_get_closest_point(nav_map, random_point)
-		
-		# Check if point is far enough from other points
-		var valid_point = true
-		for existing_point in points:
-			if nav_point.distance_to(existing_point) < min_distance:
-				valid_point = false
-				break
-		
-		if valid_point:
-			points.append(nav_point)
-		
-		attempts += 1
-	
-	if attempts >= MAX_GENERATION_ATTEMPTS:
-		push_warning("Hit maximum attempts while generating navigation points")
+	points = _generate_points(num_points, min_distance, bounds)
 	
 	return points
-func gen_rand_pt_dist_away(
-	start_point: Vector3,
-	min_path_distance: float
-) -> Vector3:
-	var vertices = navigation_mesh.get_vertices()
-	
-	if vertices.is_empty():
-		push_warning("Navigation mesh has no vertices!")
-		return start_point
-		
-	# Calculate bounds from vertices
-	var min_bounds = Vector3(1000,1000,1000)
-	var max_bounds = Vector3(-1000,-1000,-1000)
-	
-	# Get the actual bounds of the mesh
-	for vertex in vertices:
-		min_bounds.x = min(min_bounds.x, vertex.x)
-		min_bounds.z = min(min_bounds.z, vertex.z)
-		max_bounds.x = max(max_bounds.x, vertex.x)
-		max_bounds.z = max(max_bounds.z, vertex.z)
-	
-	var nav_map = get_world_3d().get_navigation_map()
-	var attempts = 0
-	
-	while attempts < MAX_GENERATION_ATTEMPTS:
-		# Generate random point within bounds
-		var random_point = Vector3(
-			randf_range(min_bounds.x, max_bounds.x),
-			randf_range(min_bounds.y, max_bounds.y),
-			randf_range(min_bounds.z, max_bounds.z)
-		)
-		
-		# Get the closest point on the navigation mesh
-		var nav_point = NavigationServer3D.map_get_closest_point(nav_map, random_point)
-		
-		# Get the actual path distance
-		var path = NavigationServer3D.map_get_path(
-			nav_map,
-			start_point,
-			nav_point,
-			true  # optimize path
-		)
-		
-		# Calculate total path length
-		var path_length = 0.0
-		if path.size() > 1:
-			for i in range(path.size() - 1):
-				path_length += path[i].distance_to(path[i + 1])
-				
-			# If path is long enough, this is a valid point
-			if path_length >= min_path_distance:
-				return nav_point
-		
-		attempts += 1
-	
-	push_warning("Hit maximum attempts while generating navigation point")
-	return start_point  # Return starting point if no valid point found
 #endregion
 
 #region Helper Functions
@@ -187,7 +92,7 @@ func _generate_points(num_points: int, min_distance: float, bounds: Dictionary) 
 func _generate_random_point(bounds: Dictionary) -> Vector3:
 	return Vector3(
 		randf_range(bounds.min.x, bounds.max.x),
-		randf_range(bounds.min.y, bounds.max.y),
+		NAVIGATION_HEIGHT,
 		randf_range(bounds.min.z, bounds.max.z)
 	)
 

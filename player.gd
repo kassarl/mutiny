@@ -16,15 +16,11 @@ const MIN_LOOK_ANGLE: float = deg_to_rad(-85)
 ## Node References
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var head: Node3D = $Head
-@onready var raycast: RayCast3D = $Head/RayCast3D
 
 ## Movement Variables
 var current_speed: float = BASE_SPEED
 var movement_direction: Vector3 = Vector3.ZERO
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-
-# Interact variables
-var prompt = null
 
 #region Lifecycle Methods
 func _enter_tree() -> void:
@@ -32,15 +28,10 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_initialize_player()
-	
-	prompt = "Press E to start conversation"
 
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
-	
-	if Input.is_action_just_pressed("interact"):
-		raycast.call_interact()
 	
 	_handle_camera_input(event)
 
@@ -140,12 +131,3 @@ func sync_position(new_position: Vector3, new_rotation: Vector3) -> void:
 	position = new_position
 	rotation = new_rotation
 #endregion
-
-#region Interaction
-func get_prompt():
-	return prompt
-
-func interact():
-	print("Interacted with player")
-#endregion
-	
