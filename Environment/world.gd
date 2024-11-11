@@ -1,6 +1,9 @@
 extends Node
 class_name GameWorld
 
+## Game Manager Reference
+@onready var game_manager: Node = $GameManager
+
 ## Network and Scene Constants
 const PORT: int = 9990
 const PLAYER_SCENE: PackedScene = preload("res://Player/player.tscn")
@@ -21,9 +24,6 @@ const NPC_COUNT: int = 5
 ## Networking
 var enet_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 
-## Game State
-var in_game = false
-var mutiny_index = 0
 
 func _ready() -> void:
 	initialize_GUI()
@@ -164,14 +164,14 @@ func spawn_npc(npc_id: int, spawn_position: Vector3) -> void:
 
 #region process and main
 func _process(delta: float) -> void:
-	if in_game:
+	if game_manager.in_game:
 		timer_label.text = "%d:%02d" % [int(timer.time_left) / 60, int(timer.time_left) % 60]
-		mutiny_label.text = "Mutiny Index: %d/100" % mutiny_index
+		mutiny_label.text = "Mutiny Index: %d/100" % game_manager.mutiny_index
 
 ## Initializes the game world
 func main() -> void:
 	spawn_npcs(NPC_COUNT)
-	in_game = true
+	game_manager.in_game = true
 	timer.start()
 
 #endregion

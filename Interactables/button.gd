@@ -1,14 +1,13 @@
-# apple.gd
-class_name Apple
+# button.gd
+class_name button
 extends Interactable
 
-@onready var game_manager = $"../../"
-
+@onready var game_manager = $"../../GameManager"
 
 func _ready():
 	mutiny_value = 10
 	prompt = "Press E to press button " + "(+" + str(mutiny_value) + " mutiny)"
-	
+
 
 func interact() -> void:
 	print("PRESSED BUTTON AND GAINED " + str(mutiny_value) + " MUTINY")

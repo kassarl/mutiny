@@ -76,18 +76,18 @@ func handle_movement() -> void:
 func on_wait_timer_timeout() -> void:
 	next_location = nav_map.gen_rand_pt_dist_away(position, randi_range(5, 20))
 	nav_agent.set_target_position(next_location)
-	print("Next location is: ", next_location)
+	#print("Next location is: ", next_location)
 
 ## Pause movement
 func pause_movement():
-	print("Pausing NPC")
+	#print("Pausing NPC")
 	paused = true
 	velocity = Vector3.ZERO
 	timer.paused = true  # Pause the wait timer when NPC is paused
 	
 ## Resume movement
 func resume_movement():
-	print("Resuming NPC")
+	#print("Resuming NPC")
 	paused = false
 	timer.paused = false  # Unpause the timer
 	
@@ -128,6 +128,6 @@ func interact():
 		resume_timer.wait_time = randf_range(0.0, 2)
 		resume_timer.timeout.connect(resume_movement)
 		resume_timer.start()
-		print("Time to resume movement: ", resume_timer.wait_time)
+		#print("Time to resume movement: ", resume_timer.wait_time)
 		prompt = "Press E to start conversation"
 #endregion
