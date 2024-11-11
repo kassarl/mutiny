@@ -18,8 +18,9 @@ sky = SubResource("Sky_cn1f8")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Root" type="Node"]
+[node name="Root" type="Node" node_paths=PackedStringArray("chat_controller")]
 script = ExtResource("1_cctnv")
+chat_controller = NodePath("ChatController")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_heyug")

@@ -107,7 +107,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2865, 4.43451, -0.00566864
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 13.1303, -4.52305)
 
 [node name="Direction Indicator" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85372, 9.21477, -16.6605)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.221333, 9.21477, -16.6605)
 mesh = SubResource("TextMesh_vauni")
 surface_material_override/0 = SubResource("StandardMaterial3D_fc8cj")
 

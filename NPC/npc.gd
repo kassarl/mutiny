@@ -50,7 +50,7 @@ func initialize_timer() -> void:
 func initialize_navigation() -> void:
 	next_location = nav_map.generate_random_points(1)[0]
 	nav_agent.set_target_position(next_location)
-	print("initial target is: ", next_location)
+	#print("initial target is: ", next_location)
 #endregion
 
 #region Movement
@@ -61,7 +61,7 @@ func handle_movement() -> void:
 		if timer.is_stopped():  # Only start timer if it's not already running
 			timer.wait_time = randf_range(0.5, 3.0)
 			timer.start()
-			print("Starting Timer for %f" % timer.wait_time)
+			#print("Starting Timer for %f" % timer.wait_time)
 		return
 	
 	var next_position := nav_agent.get_next_path_position()
@@ -120,6 +120,7 @@ func interact():
 		pause_movement()
 		prompt = "Press E to leave this conversation"
 		print("Talked to NPC")
+		openai_client.send_message("Hi are you an npc?")
 	else:
 		# Disconnect any existing connections first
 		if resume_timer.timeout.is_connected(resume_movement):
