@@ -3,8 +3,8 @@ class_name GameWorld
 
 ## Network and Scene Constants
 const PORT: int = 9990
-const PLAYER_SCENE: PackedScene = preload("res://player.tscn")
-const NPC_SCENE: PackedScene = preload("res://npc.tscn")
+const PLAYER_SCENE: PackedScene = preload("res://Player/player.tscn")
+const NPC_SCENE: PackedScene = preload("res://NPC/npc.tscn")
 const NPC_COUNT: int = 1
 
 ## UI References

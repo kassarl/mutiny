@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cpbq8p50huvyy"]
 
-[ext_resource type="Script" path="res://world.gd" id="1_7w3bs"]
-[ext_resource type="PackedScene" uid="uid://bkeuj6cedjycd" path="res://ship.tscn" id="2_74r5g"]
-[ext_resource type="Script" path="res://llm/openai_client.gd" id="3_oy1xf"]
+[ext_resource type="Script" path="res://Environment/world.gd" id="1_cctnv"]
+[ext_resource type="PackedScene" uid="uid://bkeuj6cedjycd" path="res://Environment/ship.tscn" id="2_pgmn4"]
+[ext_resource type="Script" path="res://llm/openai_client.gd" id="3_cc5ll"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2cm0m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,7 +18,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="Root" type="Node" node_paths=PackedStringArray("chat_controller")]
-script = ExtResource("1_7w3bs")
+script = ExtResource("1_cctnv")
 chat_controller = NodePath("ChatController")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -28,7 +28,7 @@ environment = SubResource("Environment_heyug")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 62.5005, -56.029)
 shadow_enabled = true
 
-[node name="Ship" parent="." instance=ExtResource("2_74r5g")]
+[node name="Ship" parent="." instance=ExtResource("2_pgmn4")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -125,11 +125,10 @@ vertical_alignment = 1
 [node name="Timer" type="Timer" parent="CanvasLayer/HUD"]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player.tscn", "res://npc.tscn")
 spawn_path = NodePath("..")
 
 [node name="ChatController" type="Node" parent="."]
-script = ExtResource("3_oy1xf")
+script = ExtResource("3_cc5ll")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

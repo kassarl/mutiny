@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dniq2da7asr4y"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_r1j6f"]
-[ext_resource type="Script" path="res://interact_ray.gd" id="2_t4fpb"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_e78o1"]
+[ext_resource type="Script" path="res://Player/interact_ray.gd" id="2_pn5ej"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5dnon"]
 properties/0/path = NodePath(".:position")
@@ -27,7 +27,7 @@ billboard_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-script = ExtResource("1_r1j6f")
+script = ExtResource("1_e78o1")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5dnon")
@@ -53,7 +53,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.63194, 0)
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 target_position = Vector3(0, 0, -1.7)
 collision_mask = 3
-script = ExtResource("2_t4fpb")
+script = ExtResource("2_pn5ej")
 
 [node name="Prompt" type="Label" parent="Head/RayCast3D"]
 anchors_preset = 8
