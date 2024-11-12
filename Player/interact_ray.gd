@@ -1,7 +1,7 @@
 extends RayCast3D
 
 @onready var prompt = $Prompt
-@onready var player: CharacterBody3D = %"../../../../.."
+@onready var player = $"../../../../.."
 @onready var camera: Camera3D = %"Camera3D"
 
 var interactable
