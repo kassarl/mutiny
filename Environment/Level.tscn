@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Environment/world.gd" id="1_cctnv"]
 [ext_resource type="PackedScene" uid="uid://bkeuj6cedjycd" path="res://Environment/ship.tscn" id="2_pgmn4"]
 [ext_resource type="Script" path="res://llm/openai_client.gd" id="3_cc5ll"]
-[ext_resource type="Script" path="res://ManagerFiles/game_manager.gd" id="4_dqh3c"]
-[ext_resource type="Script" path="res://ManagerFiles/audio_manager.gd" id="5_jpge1"]
+[ext_resource type="Script" path="res://ManagerFiles/audio_manager.gd" id="4_6h47g"]
+[ext_resource type="Script" path="res://ManagerFiles/game_manager.gd" id="4_wveah"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2cm0m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -134,13 +134,13 @@ spawn_path = NodePath("..")
 script = ExtResource("3_cc5ll")
 
 [node name="GameManager" type="Node" parent="."]
-script = ExtResource("4_dqh3c")
+script = ExtResource("4_wveah")
 
 [node name="AudioManager" type="Node" parent="."]
-script = ExtResource("5_jpge1")
+script = ExtResource("4_6h47g")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
-volume_db = -10.0
+volume_db = -15.0
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
