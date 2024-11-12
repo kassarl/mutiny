@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtgkeb6x35w17"]
+
+[ext_resource type="Script" path="res://Interactables/button.gd" id="1_ckc2u"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0tkao"]
+size = Vector3(0.3, 1.25, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ka4dp"]
+albedo_color = Color(0.239216, 0.203922, 0.152941, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cuw56"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s34n4"]
+albedo_color = Color(0.804936, 0.0259103, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lkc41"]
+size = Vector3(0.411926, 0.224365, 0.383591)
+
+[node name="Button" type="StaticBody3D"]
+script = ExtResource("1_ckc2u")
+
+[node name="MeshBase" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.668164, 0)
+mesh = SubResource("BoxMesh_0tkao")
+surface_material_override/0 = SubResource("StandardMaterial3D_ka4dp")
+
+[node name="MeshButton" type="MeshInstance3D" parent="MeshBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.644249, 0)
+mesh = SubResource("CylinderMesh_cuw56")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_s34n4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00485229, 1.36285, -0.00481415)
+shape = SubResource("BoxShape3D_lkc41")
