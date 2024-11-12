@@ -19,9 +19,9 @@ const NPC_COUNT: int = 1
 var enet_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 
 #region Input Handling
-func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
+#func _unhandled_input(event: InputEvent) -> void:
+	#if Input.is_action_just_pressed("quit"):
+		#get_tree().quit()
 #endregion
 
 #region Network Management
