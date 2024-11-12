@@ -112,7 +112,6 @@ func _physics_process(delta: float) -> void:
 ## Sets up initial player state
 func _initialize_player() -> void:
 	position = INITIAL_SPAWN_POSITION
-	print("initalize")
 	
 	if not is_multiplayer_authority():
 		return
