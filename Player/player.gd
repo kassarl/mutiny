@@ -65,9 +65,6 @@ func _ready() -> void:
 	else:
 		# Otherwise, show the model to this player
 		set_model_visible(true)
-		
-	# Sync model visibility with other players
-	rpc("set_model_visible", !is_my_cam)
 	
 	_initialize_player()
 	
