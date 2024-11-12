@@ -18,6 +18,10 @@ const NPC_COUNT: int = 5
 @onready var timer: Timer = $CanvasLayer/HUD/Timer
 @onready var mutiny_label: Label = $CanvasLayer/HUD/MutinyLabel
 
+## Audio References
+@onready var audio_manager: Node = $AudioManager
+
+
 # LLM References
 @export var chat_controller: OpenAIClient
 
@@ -50,6 +54,7 @@ func on_timer_timeout():
 #region Network Management
 ## Handles server creation and initialization
 func _on_host_button_pressed() -> void:
+	audio_manager.stop_stream()
 	main_menu.hide()
 	
 	# Setup server
@@ -72,6 +77,7 @@ func _on_host_button_pressed() -> void:
 
 ## Handles client connection to server
 func _on_join_button_pressed() -> void:
+	audio_manager.stop_stream()
 	main_menu.hide()
 	
 	# Create client and connect to server
@@ -173,5 +179,6 @@ func main() -> void:
 	spawn_npcs(NPC_COUNT)
 	game_manager.in_game = true
 	timer.start()
+	audio_manager.start_ocean_sounds()
 
 #endregion
