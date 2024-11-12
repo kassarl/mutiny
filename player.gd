@@ -33,7 +33,7 @@ var _last_frame_was_on_floor = -INF
 
 const INITIAL_SPAWN_POSITION := Vector3(0, 5.5, 0)
 
-@onready var raycast: RayCast3D = $Head/RayCast3D
+@onready var raycast: RayCast3D = $HeadOG/Head/CameraSmooth/Camera3D/RayCast3D
 
 # Interact variables
 var prompt = null
@@ -67,7 +67,7 @@ func _ready() -> void:
 		set_model_visible(true)
 		
 	# Sync model visibility with other players
-	rpc("sync_model_visibility", !is_my_cam)
+	rpc("sync_model_visible", !is_my_cam)
 	
 	_initialize_player()
 	

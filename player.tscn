@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://hm7a6jrvlo57"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_r1j6f"]
-[ext_resource type="PackedScene" uid="uid://imuub20t2pys" path="res://models/disguise-glasses.glb" id="2_pn270"]
+[ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="2_pn270"]
 [ext_resource type="Script" path="res://interact_ray.gd" id="2_t4fpb"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5dnon"]
