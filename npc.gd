@@ -4,7 +4,7 @@ class_name NPC
 ## Movement Configuration
 @export_group("Movement Settings")
 @export var movement_speed: float = 5.0
-@export var rotation_speed: float = 50.0
+@export var rotation_speed: float = 5.0
 @export var movement_target_threshold: float = 0.1
 
 ## Node References
