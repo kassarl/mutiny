@@ -1,6 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://bkeuj6cedjycd"]
+[gd_scene load_steps=31 format=3 uid="uid://bkeuj6cedjycd"]
 
-[ext_resource type="Script" path="res://nav_mesh.gd" id="1_tbuv5"]
+[ext_resource type="PackedScene" uid="uid://dtgkeb6x35w17" path="res://Interactables/Button.tscn" id="1_t2v0w"]
+[ext_resource type="Script" path="res://Environment/nav_mesh.gd" id="1_tbuv5"]
 
 [sub_resource type="TextMesh" id="TextMesh_vauni"]
 text = "MUTINY GAME"
@@ -76,14 +77,14 @@ left_to_right = 1.0
 size = Vector3(5, 9, 9)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_38eyr"]
-albedo_color = Color(0.141176, 0.176471, 0.168627, 1)
+albedo_color = Color(0.215686, 0.25098, 0.258824, 1)
 
 [sub_resource type="PrismMesh" id="PrismMesh_18y4j"]
 left_to_right = 1.0
 size = Vector3(5, 8, 9)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yd7s"]
-albedo_color = Color(0.0392157, 0.0705882, 0.266667, 1)
+albedo_color = Color(0.215686, 0.25098, 0.258824, 1)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bbn47"]
 data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
@@ -96,8 +97,17 @@ albedo_color = Color(0.0545718, 0.12675, 0.433013, 1)
 
 [node name="Ship" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85372, 9.21477, -16.6605)
+[node name="Button" parent="." instance=ExtResource("1_t2v0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.43451, -8.67238)
+
+[node name="Button2" parent="." instance=ExtResource("1_t2v0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2865, 4.43451, -0.00566864)
+
+[node name="Button3" parent="." instance=ExtResource("1_t2v0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 13.1303, -4.52305)
+
+[node name="Direction Indicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.221333, 9.21477, -16.6605)
 mesh = SubResource("TextMesh_vauni")
 surface_material_override/0 = SubResource("StandardMaterial3D_fc8cj")
 
@@ -328,12 +338,12 @@ operation = 2
 size = Vector3(17.275, 0.648895, 9.61243)
 material = SubResource("StandardMaterial3D_3yd7s")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="Sea" type="StaticBody3D" parent="."]
 
-[node name="SeaCollider" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="SeaCollider" type="CollisionShape3D" parent="Sea"]
 shape = SubResource("ConcavePolygonShape3D_bbn47")
 
-[node name="Sea" type="MeshInstance3D" parent="StaticBody3D/SeaCollider"]
+[node name="Sea" type="MeshInstance3D" parent="Sea/SeaCollider"]
 mesh = SubResource("PlaneMesh_ruy44")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_daltt")

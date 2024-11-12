@@ -1,22 +1,45 @@
 extends Node
 class_name GameWorld
 
+## Game Manager Reference
+@onready var game_manager: Node = $GameManager
+
 ## Network and Scene Constants
 const PORT: int = 9990
-const PLAYER_SCENE: PackedScene = preload("res://player.tscn")
-const NPC_SCENE: PackedScene = preload("res://npc.tscn")
-const NPC_COUNT: int = 1
+const PLAYER_SCENE: PackedScene = preload("res://Player/player.tscn")
+const NPC_SCENE: PackedScene = preload("res://NPC/npc.tscn")
+const NPC_COUNT: int = 5
 
 ## UI References
 @onready var main_menu: Control = $CanvasLayer/MainMenu
 @onready var address_entry: LineEdit = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
 @onready var nav_mesh: NavigationRegion3D = $Ship/NavigationRegion3D
+@onready var timer_label: Label = $CanvasLayer/HUD/TimerLabel
+@onready var timer: Timer = $CanvasLayer/HUD/Timer
+@onready var mutiny_label: Label = $CanvasLayer/HUD/MutinyLabel
 
 # LLM References
 @export var chat_controller: OpenAIClient
 
 ## Networking
 var enet_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+
+
+func _ready() -> void:
+	initialize_GUI()
+	
+#region UI management
+func initialize_GUI():
+	timer.one_shot = true
+	timer.wait_time = 180
+	timer_label.text = ""
+	timer.timeout.connect(on_timer_timeout)  # Connect timeout signal
+	mutiny_label.text = ""
+	
+
+func on_timer_timeout():
+	print("DONE")
+#endregion
 
 #region Input Handling
 #func _unhandled_input(event: InputEvent) -> void:
@@ -76,6 +99,7 @@ func add_player(peer_id: int) -> void:
 	var player_instance := PLAYER_SCENE.instantiate()
 	player_instance.name = str(peer_id)
 	add_child(player_instance)
+	print("end of add_player")
 
 ## Removes a player from the game world
 ## [param peer_id] The network ID of the player to remove
@@ -139,7 +163,16 @@ func spawn_npc(npc_id: int, spawn_position: Vector3) -> void:
 	add_child(npc_instance, true)
 #endregion
 
+#region process and main
+func _process(delta: float) -> void:
+	if game_manager.in_game:
+		timer_label.text = "%d:%02d" % [int(timer.time_left) / 60, int(timer.time_left) % 60]
+		mutiny_label.text = "Mutiny Index: %d/100" % game_manager.mutiny_index
 
 ## Initializes the game world
 func main() -> void:
 	spawn_npcs(NPC_COUNT)
+	game_manager.in_game = true
+	timer.start()
+
+#endregion

@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://hm7a6jrvlo57"]
+[gd_scene load_steps=9 format=3 uid="uid://dniq2da7asr4y"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_r1j6f"]
-[ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="2_pn270"]
-[ext_resource type="Script" path="res://interact_ray.gd" id="2_t4fpb"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_e78o1"]
+[ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="1_rouv8"]
+[ext_resource type="Script" path="res://Player/interact_ray.gd" id="2_pn5ej"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5dnon"]
 properties/0/path = NodePath(".:position")
@@ -28,7 +28,7 @@ billboard_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-script = ExtResource("1_r1j6f")
+script = ExtResource("1_e78o1")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5dnon")
@@ -52,7 +52,7 @@ mesh = SubResource("TextMesh_2dy5j")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_r3bcl")
 
-[node name="disguise-glasses" parent="CollisionShape3D/WorldModel" instance=ExtResource("2_pn270")]
+[node name="disguise-glasses" parent="CollisionShape3D/WorldModel" instance=ExtResource("1_rouv8")]
 transform = Transform3D(-1.5, 0, 1.31134e-07, 0, 1.5, 0, -1.31134e-07, 0, -1.5, 0.00624865, 1.2541, -0.21075)
 
 [node name="HeadOG" type="Node3D" parent="."]
@@ -68,10 +68,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="RayCast3D" type="RayCast3D" parent="HeadOG/Head/CameraSmooth/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16806, 0)
 target_position = Vector3(0, 0, -1.7)
 collision_mask = 3
-script = ExtResource("2_t4fpb")
+script = ExtResource("2_pn5ej")
 
 [node name="Prompt" type="Label" parent="HeadOG/Head/CameraSmooth/Camera3D/RayCast3D"]
 anchors_preset = 8

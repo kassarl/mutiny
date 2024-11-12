@@ -1,18 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://okmtopghfxhi"]
 
-[ext_resource type="Script" path="res://npc.gd" id="1_rhwjn"]
-[ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="2_8reao"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d4r0x"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wdbrc"]
-
-[sub_resource type="TextMesh" id="TextMesh_iqmj0"]
-text = "SAILOR NPC"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gydt"]
-albedo_color = Color(0.0627451, 1, 0.356863, 1)
-billboard_mode = 1
+[ext_resource type="Script" path="res://NPC/npc.gd" id="1_rhwjn"]
+[ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="2_a2uek"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v7xnu"]
 properties/0/path = NodePath(".:position")
@@ -25,9 +14,23 @@ properties/2/path = NodePath("npcCollider:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d4r0x"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wdbrc"]
+
+[sub_resource type="TextMesh" id="TextMesh_iqmj0"]
+text = "SAILOR NPC"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gydt"]
+albedo_color = Color(0.0627451, 1, 0.356863, 1)
+billboard_mode = 1
+
 [node name="NPC" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_rhwjn")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_v7xnu")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_height_offset = 1.0
@@ -37,17 +40,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00227, 0)
 shape = SubResource("CapsuleShape3D_d4r0x")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="npcCollider"]
-unique_name_in_owner = true
 mesh = SubResource("CapsuleMesh_wdbrc")
 skeleton = NodePath("../..")
 
-[node name="disguise-glasses" parent="npcCollider/BodyMesh" instance=ExtResource("2_8reao")]
-transform = Transform3D(-1.5, 0, 2.26494e-07, 0, 1.5, 0, -2.26494e-07, 0, -1.5, 0.006, 0.254, -0.211)
+[node name="disguise-glasses" parent="npcCollider/BodyMesh" instance=ExtResource("2_a2uek")]
+transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 0, 0.254, -0.211)
 
 [node name="TextMesh" type="MeshInstance3D" parent="npcCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16597, 0)
 mesh = SubResource("TextMesh_iqmj0")
 surface_material_override/0 = SubResource("StandardMaterial3D_6gydt")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_v7xnu")

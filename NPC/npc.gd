@@ -10,7 +10,7 @@ class_name NPC
 ## Node References
 @onready var nav_map: NavigationRegion3D = $"../Ship/NavigationRegion3D"
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var timer
+@onready var timer: Timer
 
 ## LLM Client
 @export var openai_client: Node
@@ -26,8 +26,8 @@ var resume_timer = null
 
 #region Lifecycle Methods
 func _ready() -> void:
-	_initialize_timer()
-	_initialize_navigation()
+	initialize_timer()
+	initialize_navigation()
 	prompt = "Press E to start conversation"
 
 func _physics_process(_delta: float) -> void:
@@ -37,32 +37,33 @@ func _physics_process(_delta: float) -> void:
 
 #region Initialization
 ## Sets up the timer for destination changes
-func _initialize_timer() -> void:
+func initialize_timer() -> void:
 	timer = Timer.new()
 	timer.one_shot = true
 	add_child(timer)
-	timer.timeout.connect(on_wait_timer_timeout)  # Connect timeout signal
+	timer.timeout.connect(on_wait_timer_timeout)
 	
 	resume_timer = Timer.new()
 	resume_timer.one_shot = true
 	add_child(resume_timer)
 
 ## Initializes navigation points and starting position
-func _initialize_navigation() -> void:
-	next_location =  nav_map.generate_random_points(1)[0]
+func initialize_navigation() -> void:
+	next_location = nav_map.generate_random_points(1)[0]
 	nav_agent.set_target_position(next_location)
-	print("initial target is: ", next_location)
+	#print("initial target is: ", next_location)
 #endregion
-@onready var mesh = %BodyMesh
+
 var target_rotation := 0.0
 #region Movement
 ## Handles NPC movement using NavigationAgent
 func _handle_movement(delta) -> void:
 	if nav_agent.is_navigation_finished():
+		#print("WAITING")
 		if timer.is_stopped():  # Only start timer if it's not already running
 			timer.wait_time = randf_range(0.5, 3.0)
 			timer.start()
-			print("Starting Timer for %f" % timer.wait_time)
+			#print("Starting Timer for %f" % timer.wait_time)
 		return
 	
 	var next_position := nav_agent.get_next_path_position()
@@ -92,21 +93,37 @@ func _handle_movement(delta) -> void:
 func on_wait_timer_timeout() -> void:
 	next_location = nav_map.gen_rand_pt_dist_away(position, randi_range(5, 20))
 	nav_agent.set_target_position(next_location)
-	print("Next location is")
-	print(next_location)
+	#print("Next location is: ", next_location)
 
 ## Pause movement
 func pause_movement():
-	print("Pausing NPC")
+	#print("Pausing NPC")
 	paused = true
 	velocity = Vector3.ZERO
-	timer.paused = true  # Pause the wait timer when NPC is paused	
-
+	timer.paused = true  # Pause the wait timer when NPC is paused
+	
 ## Resume movement
 func resume_movement():
-	print("Resuming NPC")
+	#print("Resuming NPC")
 	paused = false
-	nav_agent.get_next_path_position()
+	timer.paused = false  # Unpause the timer
+	
+	# Disconnect the signal to prevent multiple connections
+	if resume_timer.timeout.is_connected(resume_movement):
+		resume_timer.timeout.disconnect(resume_movement)
+	
+	# 50% chance to generate new destination
+	if randf() > 0.5:
+		next_location = nav_map.gen_rand_pt_dist_away(position, randi_range(5, 20))
+		nav_agent.set_target_position(next_location)
+		print("Generated new destination")
+	else:
+		print("Keeping original destination")
+	
+	# Reset timer state
+	if timer.is_stopped():
+		timer.wait_time = randf_range(0.5, 3.0)
+		timer.start()
 #endregion
 
 #region Interaction
@@ -120,10 +137,15 @@ func interact():
 		pause_movement()
 		prompt = "Press E to leave this conversation"
 		print("Talked to NPC")
-		#openai_client.send_message("Hi are you an npc?")
+		openai_client.send_message("Hi are you an npc?")
 	else:
+		# Disconnect any existing connections first
+		if resume_timer.timeout.is_connected(resume_movement):
+			resume_timer.timeout.disconnect(resume_movement)
+			
 		resume_timer.wait_time = randf_range(0.0, 2)
 		resume_timer.timeout.connect(resume_movement)
 		resume_timer.start()
+		#print("Time to resume movement: ", resume_timer.wait_time)
 		prompt = "Press E to start conversation"
 #endregion
