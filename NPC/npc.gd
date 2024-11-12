@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not paused:
-		_handle_movement(_delta)
+		handle_movement(_delta)
 #endregion
 
 #region Initialization
@@ -57,7 +57,7 @@ func initialize_navigation() -> void:
 var target_rotation := 0.0
 #region Movement
 ## Handles NPC movement using NavigationAgent
-func _handle_movement(delta) -> void:
+func handle_movement(delta) -> void:
 	if nav_agent.is_navigation_finished():
 		#print("WAITING")
 		if timer.is_stopped():  # Only start timer if it's not already running

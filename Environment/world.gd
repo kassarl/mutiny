@@ -99,7 +99,6 @@ func add_player(peer_id: int) -> void:
 	var player_instance := PLAYER_SCENE.instantiate()
 	player_instance.name = str(peer_id)
 	add_child(player_instance)
-	print("end of add_player")
 
 ## Removes a player from the game world
 ## [param peer_id] The network ID of the player to remove
