@@ -42,9 +42,9 @@ func on_timer_timeout():
 #endregion
 
 #region Input Handling
-func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
+#func _unhandled_input(event: InputEvent) -> void:
+	#if Input.is_action_just_pressed("quit"):
+		#get_tree().quit()
 #endregion
 
 #region Network Management

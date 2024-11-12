@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dniq2da7asr4y"]
+[gd_scene load_steps=9 format=3 uid="uid://dniq2da7asr4y"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_e78o1"]
+[ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="1_rouv8"]
 [ext_resource type="Script" path="res://Player/interact_ray.gd" id="2_pn5ej"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5dnon"]
@@ -10,11 +11,13 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("Collider:position")
+properties/2/path = NodePath("CollisionShape3D:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wdbrc"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ijt06"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_m3f44"]
 
 [sub_resource type="TextMesh" id="TextMesh_2dy5j"]
 text = "SAILOR NPC"
@@ -23,8 +26,6 @@ text = "SAILOR NPC"
 albedo_color = Color(0.0627451, 1, 0.356863, 1)
 billboard_mode = 1
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d4r0x"]
-
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_e78o1")
@@ -32,30 +33,46 @@ script = ExtResource("1_e78o1")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5dnon")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00227, 0)
-mesh = SubResource("CapsuleMesh_wdbrc")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ijt06")
 
-[node name="TextMesh" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16597, 0)
+[node name="WorldModel" type="Node3D" parent="CollisionShape3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/WorldModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_m3f44")
+
+[node name="TextMesh" type="MeshInstance3D" parent="CollisionShape3D/WorldModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.16824, 0)
 mesh = SubResource("TextMesh_2dy5j")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_r3bcl")
 
-[node name="Collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00227, 0)
-shape = SubResource("CapsuleShape3D_d4r0x")
+[node name="disguise-glasses" parent="CollisionShape3D/WorldModel" instance=ExtResource("1_rouv8")]
+transform = Transform3D(-1.5, 0, 1.31134e-07, 0, 1.5, 0, -1.31134e-07, 0, -1.5, 0.00624865, 1.2541, -0.21075)
 
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.63194, 0)
+[node name="HeadOG" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Head" type="Node3D" parent="HeadOG"]
+unique_name_in_owner = true
 
-[node name="RayCast3D" type="RayCast3D" parent="Head"]
+[node name="CameraSmooth" type="Node3D" parent="HeadOG/Head"]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="HeadOG/Head/CameraSmooth"]
+unique_name_in_owner = true
+
+[node name="RayCast3D" type="RayCast3D" parent="HeadOG/Head/CameraSmooth/Camera3D"]
 target_position = Vector3(0, 0, -1.7)
 collision_mask = 3
 script = ExtResource("2_pn5ej")
 
-[node name="Prompt" type="Label" parent="Head/RayCast3D"]
+[node name="Prompt" type="Label" parent="HeadOG/Head/CameraSmooth/Camera3D/RayCast3D"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -69,7 +86,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="Head/RayCast3D"]
+[node name="Label" type="Label" parent="HeadOG/Head/CameraSmooth/Camera3D/RayCast3D"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -86,3 +103,12 @@ text = "."
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="StairsAhead" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.495951, -0.65602)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelow" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+target_position = Vector3(0, -0.75, 0)
