@@ -4,6 +4,7 @@ class_name NPC
 ## Movement Configuration
 @export_group("Movement Settings")
 @export var movement_speed: float = 5.0
+@export var rotation_speed: float = 50.0
 @export var movement_target_threshold: float = 0.1
 
 ## Node References
@@ -31,7 +32,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not paused:
-		_handle_movement()
+		_handle_movement(_delta)
 #endregion
 
 #region Initialization
@@ -52,10 +53,11 @@ func _initialize_navigation() -> void:
 	nav_agent.set_target_position(next_location)
 	print("initial target is: ", next_location)
 #endregion
-
+@onready var mesh = %BodyMesh
+var target_rotation := 0.0
 #region Movement
 ## Handles NPC movement using NavigationAgent
-func _handle_movement() -> void:
+func _handle_movement(delta) -> void:
 	if nav_agent.is_navigation_finished():
 		if timer.is_stopped():  # Only start timer if it's not already running
 			timer.wait_time = randf_range(0.5, 3.0)
@@ -66,10 +68,25 @@ func _handle_movement() -> void:
 	var next_position := nav_agent.get_next_path_position()
 	var direction := (next_position - global_position).normalized()
 	
+	direction.y = 0
+
 	velocity = direction * movement_speed
-	velocity = velocity.move_toward(velocity, 25)
-	
-	move_and_slide()
+
+	if direction.length() > 0.1:# Get the target rotation in radians
+		var new_target_rotation = direction.angle_to(Vector3.FORWARD)
+
+		# Use lerp_angle to smoothly rotate from the current rotation to the target rotation
+		var target_rotation = lerp_angle(target_rotation, new_target_rotation, rotation_speed * delta)
+
+		var target_position = global_position + direction
+		look_at(target_position, Vector3.UP)
+	# Ensure the NPC stays grounded (testing with a small downward force)
+	if is_on_floor():
+		move_and_slide()
+	else:
+		# Apply a small downward velocity if not on the floor, to keep the NPC grounded
+		velocity.y = -1  # Force a small downward velocity to avoid floating
+		move_and_slide()
 
 ## Timer timeout handler - sets new destination
 func on_wait_timer_timeout() -> void:
