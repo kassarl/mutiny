@@ -133,6 +133,9 @@ func get_prompt():
 func interact():
 	print("Interacted with %s" % name)
 	
+	if !multiplayer.is_server():
+		return
+		
 	if not paused:
 		pause_movement()
 		prompt = "Press E to leave this conversation"

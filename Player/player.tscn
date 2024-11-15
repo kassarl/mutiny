@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dniq2da7asr4y"]
+[gd_scene load_steps=8 format=3 uid="uid://dniq2da7asr4y"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_e78o1"]
 [ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="1_rouv8"]
@@ -11,49 +11,56 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("CollisionShape3D:position")
+properties/2/path = NodePath(".:is_captain")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("Collider:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ijt06"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_m3f44"]
 
-[sub_resource type="TextMesh" id="TextMesh_2dy5j"]
-text = "SAILOR NPC"
+[sub_resource type="CylinderMesh" id="CylinderMesh_cdiyi"]
+top_radius = 0.2
+bottom_radius = 0.6
+height = 0.2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3bcl"]
-albedo_color = Color(0.0627451, 1, 0.356863, 1)
-billboard_mode = 1
-
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["interactable"]]
 collision_layer = 2
 script = ExtResource("1_e78o1")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5dnon")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Collider" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ijt06")
 
-[node name="WorldModel" type="Node3D" parent="CollisionShape3D"]
+[node name="WorldModel" type="Node3D" parent="Collider"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/WorldModel"]
+[node name="Mesh" type="MeshInstance3D" parent="Collider/WorldModel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_m3f44")
 
-[node name="TextMesh" type="MeshInstance3D" parent="CollisionShape3D/WorldModel"]
+[node name="TextMesh" type="Label3D" parent="Collider/WorldModel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.16824, 0)
-mesh = SubResource("TextMesh_2dy5j")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_r3bcl")
+billboard = 1
+modulate = Color(0.223262, 0.79121, 0.250485, 1)
+text = "NPC SAILOR"
+font_size = 44
 
-[node name="disguise-glasses" parent="CollisionShape3D/WorldModel" instance=ExtResource("1_rouv8")]
+[node name="disguise-glasses" parent="Collider/WorldModel" instance=ExtResource("1_rouv8")]
 transform = Transform3D(-1.5, 0, 1.31134e-07, 0, 1.5, 0, -1.31134e-07, 0, -1.5, 0.00624865, 1.2541, -0.21075)
+
+[node name="CaptainHat" type="MeshInstance3D" parent="Collider/WorldModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82903, -0.146186)
+mesh = SubResource("CylinderMesh_cdiyi")
+skeleton = NodePath("../../..")
 
 [node name="HeadOG" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
@@ -67,7 +74,7 @@ unique_name_in_owner = true
 [node name="Camera3D" type="Camera3D" parent="HeadOG/Head/CameraSmooth"]
 unique_name_in_owner = true
 
-[node name="RayCast3D" type="RayCast3D" parent="HeadOG/Head/CameraSmooth/Camera3D"]
+[node name="RayCast3D" type="RayCast3D" parent="HeadOG/Head/CameraSmooth/Camera3D" groups=["interactable"]]
 target_position = Vector3(0, 0, -1.7)
 collision_mask = 3
 script = ExtResource("2_pn5ej")
