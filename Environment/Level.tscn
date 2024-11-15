@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpbq8p50huvyy"]
+[gd_scene load_steps=10 format=3 uid="uid://cpbq8p50huvyy"]
 
 [ext_resource type="Script" path="res://Environment/world.gd" id="1_cctnv"]
 [ext_resource type="PackedScene" uid="uid://bkeuj6cedjycd" path="res://Environment/ship.tscn" id="2_pgmn4"]
 [ext_resource type="Script" path="res://llm/openai_client.gd" id="3_cc5ll"]
 [ext_resource type="Script" path="res://ManagerFiles/audio_manager.gd" id="4_6h47g"]
 [ext_resource type="Script" path="res://ManagerFiles/game_manager.gd" id="4_wveah"]
+[ext_resource type="Script" path="res://ManagerFiles/ui_manager.gd" id="6_ltgcg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2cm0m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -96,10 +97,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -44.0
-offset_right = 20.0
-offset_bottom = 44.0
+offset_left = -95.5
+offset_top = -10.0
+offset_right = 95.5
+offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 64
@@ -140,7 +141,10 @@ script = ExtResource("4_wveah")
 script = ExtResource("4_6h47g")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
-volume_db = -15.0
+volume_db = -80.0
+
+[node name="UIManager" type="Node" parent="."]
+script = ExtResource("6_ltgcg")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

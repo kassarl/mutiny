@@ -1,124 +1,130 @@
 extends CharacterBody3D
 class_name Player
 
+#region Configuration Variables
+# Camera Settings
 @export var look_sensitivity : float = 0.002
+
+# Movement Settings
 @export var jump_velocity := 6.5
 @export var auto_bhop := true
 
-const HEADBOB_MOVE_AMOUNT = 0.06
-const HEADBOB_FREQUENCY = 2.4
-var headbob_time := 0.0
-
-#Ground Move Setting
+# Ground Movement
 @export var walk_speed := 5.5
 @export var sprint_speed := 7.0
 @export var ground_accel := 14.0
 @export var ground_decel := 10.0
 @export var ground_friction := 6.0
 
-#Air Move Setting
+# Air Movement
 @export var air_cap := 0.85
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
+#endregion
 
-var wish_dir := Vector3.ZERO
-
+#region Constants
+const INITIAL_SPAWN_POSITION := Vector3(0, 5.5, 0)
 const CROUCH_TRANSLATE = 0.75
 const CROUCH_JUMP_ADD = CROUCH_TRANSLATE * 0.9
-var is_crouched := false
-
 const MAX_STEP_HEIGHT = 0.5
+const HEADBOB_MOVE_AMOUNT = 0.06
+const HEADBOB_FREQUENCY = 2.4
+#endregion
+
+#region State Variables
+# Movement State
+var wish_dir := Vector3.ZERO
+var is_crouched := false
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor = -INF
+var _saved_camera_global_pos = null
+var headbob_time := 0.0
 
-const INITIAL_SPAWN_POSITION := Vector3(0, 5.5, 0)
+# Multiplayer State
+var is_my_cam := false
+@export var is_captain = false
+var is_initialized = false
 
+# Interaction State
+var prompt = ""
+#endregion
+
+#region Node References
 @onready var raycast: RayCast3D = $HeadOG/Head/CameraSmooth/Camera3D/RayCast3D
+@onready var model = %WorldModel
+@onready var game_manager = $"../GameManager"
+@onready var _original_capsule_height = $Collider.shape.height
+@onready var captain_hat: MeshInstance3D = $Collider/WorldModel/CaptainHat
+@onready var text_mesh: Label3D = $Collider/WorldModel/TextMesh
 
-# Interact variables
-var prompt = null
-
-func get_move_speed() -> float:
-	if is_crouched:
-		return walk_speed * 0.8
-	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
+#endregion
 
 #region Lifecycle Methods
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 
-var is_my_cam := false
-@onready var model = %WorldModel
-
-# RPC method to update the model's visibility
-@rpc
-func set_model_visible(is_visible: bool):
-	model.visible = is_visible
-
 func _ready() -> void:
-	# Check if this player has authority over the model
 	is_my_cam = is_multiplayer_authority()
 	
-	# If this player has authority, hide their own model
+	captain_hat.visible = false
+	
 	if is_my_cam:
 		set_model_visible(false)
 	else:
-		# Otherwise, show the model to this player
 		set_model_visible(true)
 	
 	_initialize_player()
-	
-	prompt = "Press E to start conversation"
 
+func _initialize_player() -> void:
+	position = INITIAL_SPAWN_POSITION
+	
+	print("ARE WE SERVER")
+	print(multiplayer.is_server())
+	print("ARE WE CAPTAIN?")
+	print(is_captain)
+	
+	if multiplayer.is_server() and !game_manager.captain_set:
+		print("WE ARE SERVER AND NOT CAPTAIN YET")
+		is_captain = true
+		game_manager.captain_set = true
+		add_to_group("captain")
+		captain_hat.visible = true
+		text_mesh.text = "CAPTAIN"
+	else:
+		print("WE ARE NOT SERVER OR THE CAPTAIN HAS ALREADY BEEN DEFINED")
+		if is_captain:
+			print("WE ARE CAPTAIN THOUGH REMOTELY")
+			add_to_group("captain")
+			captain_hat.visible = true
+			text_mesh.text = "CAPTAIN"
+			text_mesh.modulate = Color.RED  # Changes the main text color
+			
+			
+		else:
+			print("WE ARE NOT CAPTAIN THOUGH")
+			is_captain = false
+			add_to_group("interactable")
+			add_to_group("npc")
+			prompt = "Press E to start conversation"
+	
+	print("IS CAPTAIN?")
+	print(is_captain)
+	
+	if not is_multiplayer_authority():
+		return
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	%Camera3D.current = true
+#endregion
+
+#region Input Handling
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
 	
 	if Input.is_action_just_pressed("interact"):
 		raycast.call_interact()
-	
 
-func _physics_process(delta: float) -> void:
-	if not is_multiplayer_authority():
-		return
-	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
-	
-	var input_dir = Input.get_vector("left","right","forward","back").normalized()
-	
-	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
-	
-	_handle_crouch(delta)
-	
-	if is_on_floor() or _snapped_to_stairs_last_frame:
-		if Input.is_action_just_pressed("jump") or (auto_bhop and Input.is_action_just_pressed("jump")):
-			self.velocity.y = jump_velocity
-		_handle_ground_physics(delta)
-		
-	else:
-		_handle_air_physics(delta)
-		
-	if not _snap_up_stairs_check(delta):
-		
-		move_and_slide()
-		_snap_down_to_stairs_check() 
-	_slide_camera_smooth_back_to_origin(delta)
-	_handle_network_sync()
-#endregion
-
-#region Initialization
-## Sets up initial player state
-func _initialize_player() -> void:
-	position = INITIAL_SPAWN_POSITION
-	
-	if not is_multiplayer_authority():
-		return
-		
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	%Camera3D.current = true
-#endregion
-
-#region Input Handling
-## Handles camera movement from mouse input
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -130,8 +136,92 @@ func _unhandled_input(event):
 			rotate_y(-event.relative.x * look_sensitivity)
 			%Camera3D.rotate_x(-event.relative.y * look_sensitivity)
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-			
-			
+#endregion
+
+#region Physics Processing
+func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+	if is_on_floor(): 
+		_last_frame_was_on_floor = Engine.get_physics_frames()
+	
+	var input_dir = Input.get_vector("left","right","forward","back").normalized()
+	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
+	
+	_handle_crouch(delta)
+	
+	if is_on_floor() or _snapped_to_stairs_last_frame:
+		if Input.is_action_just_pressed("jump") or (auto_bhop and Input.is_action_just_pressed("jump")):
+			self.velocity.y = jump_velocity
+		_handle_ground_physics(delta)
+	else:
+		_handle_air_physics(delta)
+		
+	if not _snap_up_stairs_check(delta):
+		move_and_slide()
+		_snap_down_to_stairs_check() 
+	
+	_slide_camera_smooth_back_to_origin(delta)
+	_handle_network_sync()
+#endregion
+
+#region Movement Methods
+func get_move_speed() -> float:
+	if is_crouched:
+		return walk_speed * 0.8
+	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
+
+func _handle_ground_physics(delta) -> void:
+	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
+	var add_speed_till_cap = get_move_speed() - cur_speed_in_wish_dir
+	if add_speed_till_cap > 0:
+		var accel_speed = ground_accel * delta * get_move_speed()
+		accel_speed = min(accel_speed, add_speed_till_cap)
+		self.velocity += accel_speed * wish_dir
+		
+	var control = max(self.velocity.length(), ground_decel)
+	var drop = control * ground_friction * delta
+	var new_speed = max(self.velocity.length() - drop, 0.0)
+	if self.velocity.length() > 0:
+		new_speed /= self.velocity.length()
+	self.velocity *= new_speed
+	
+	_headbob_effect(delta)
+
+func _handle_air_physics(delta) -> void:
+	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
+	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
+	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
+	var add_speed_till_cap = capped_speed - cur_speed_in_wish_dir
+	if add_speed_till_cap > 0:
+		var accel_speed = air_accel * air_move_speed * delta
+		accel_speed = min(accel_speed, add_speed_till_cap)
+		self.velocity += accel_speed * wish_dir
+
+func _handle_crouch(delta) -> void:
+	var was_crouched_last_frame = is_crouched
+	if Input.is_action_pressed("crouch"):
+		is_crouched = true
+	elif is_crouched and not self.test_move(self.global_transform, Vector3(0, CROUCH_TRANSLATE, 0)):
+		is_crouched = false
+	
+	var translate_y_if_possible := 0.0
+	if was_crouched_last_frame != is_crouched and not is_on_floor() and not _snapped_to_stairs_last_frame:
+		translate_y_if_possible = CROUCH_JUMP_ADD if is_crouched else -CROUCH_JUMP_ADD
+	
+	if translate_y_if_possible != 0.0:
+		var result = KinematicCollision3D.new()
+		self.test_move(self.global_transform, Vector3(0, translate_y_if_possible, 0), result)
+		self.position.y += result.get_travel().y
+		%Head.position.y -= result.get_travel().y
+		%Head.position.y = clamp(%Head.position.y, -CROUCH_TRANSLATE, 0)
+	
+	%Head.position.y = move_toward(%Head.position.y, -CROUCH_TRANSLATE if is_crouched else 0, 7.0 * delta)
+	%Collider.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
+	%Collider.position.y = $Collider.shape.height / 2
+#endregion
+
+#region Camera Effects
 func _headbob_effect(delta):
 	headbob_time += delta * self.velocity.length() 
 	%Camera3D.transform.origin = Vector3(
@@ -139,12 +229,10 @@ func _headbob_effect(delta):
 		sin(headbob_time * HEADBOB_FREQUENCY) * HEADBOB_MOVE_AMOUNT,
 		0
 	)
-	
-var _saved_camera_global_pos = null
+
 func _save_camera_pos_for_smoothing():
 	if _saved_camera_global_pos == null:
 		_saved_camera_global_pos = %CameraSmooth.global_position
-		
 
 func _slide_camera_smooth_back_to_origin(delta):
 	if _saved_camera_global_pos == null: return
@@ -157,9 +245,7 @@ func _slide_camera_smooth_back_to_origin(delta):
 		_saved_camera_global_pos = null
 #endregion
 
-#region Movement
-## Handles all movement-related updates
-
+#region Stair Movement
 func _snap_down_to_stairs_check() -> void:
 	var did_snap = false
 	var floor_below : bool = %StairsBelow.is_colliding() and not is_surface_too_steep(%StairsBelow.get_collision_normal())
@@ -173,7 +259,6 @@ func _snap_down_to_stairs_check() -> void:
 			apply_floor_snap()
 			did_snap = true
 	_snapped_to_stairs_last_frame = did_snap
-
 
 func _snap_up_stairs_check(delta) -> bool:
 	if not is_on_floor() and not _snapped_to_stairs_last_frame: return false
@@ -194,36 +279,8 @@ func _snap_up_stairs_check(delta) -> bool:
 			return true
 	return false
 
-@onready var _original_capsule_height = $CollisionShape3D.shape.height
-
-func _handle_crouch(delta) -> void:
-	var was_crouched_last_frame = is_crouched
-	if Input.is_action_pressed("crouch"):
-		is_crouched = true
-	elif is_crouched and not self.test_move(self.global_transform, Vector3(0, CROUCH_TRANSLATE, 0)):
-		is_crouched = false
-	
-	# Allow for crouch to heighten/extend jump
-	var translate_y_if_possible := 0.0
-	if was_crouched_last_frame != is_crouched and not is_on_floor() and not _snapped_to_stairs_last_frame:
-		translate_y_if_possible = CROUCH_JUMP_ADD if is_crouched else -CROUCH_JUMP_ADD
-	# Make sure playerr not get stuck in floor/cieling during crouch jumps
-	if translate_y_if_possible != 0.0:
-		var result = KinematicCollision3D.new()
-		self.test_move(self.global_transform, Vector3(0, translate_y_if_possible, 0), result)
-		self.position.y += result.get_travel().y
-		%Head.position.y -= result.get_travel().y
-		%Head.position.y = clamp(%Head.position.y, -CROUCH_TRANSLATE, 0)
-		
-	
-	%Head.position.y = move_toward(%Head.position.y, -CROUCH_TRANSLATE if is_crouched else 0, 7.0 * delta)
-	%CollisionShape3D.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
-	%CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
-
-		
 func is_surface_too_steep(normal : Vector3) -> bool:
 	return normal.angle_to(Vector3.UP) > self.floor_max_angle
-
 
 func _run_body_test_motion(from : Transform3D, motion : Vector3, result = null) -> bool:
 	if not result: result = PhysicsTestMotionParameters3D.new()
@@ -231,46 +288,16 @@ func _run_body_test_motion(from : Transform3D, motion : Vector3, result = null) 
 	params.from = from
 	params.motion = motion
 	return PhysicsServer3D.body_test_motion(self.get_rid(), params, result)
-
-
-func _handle_air_physics(delta) -> void:
-	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
-	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
-	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
-	var add_speed_till_cap = capped_speed - cur_speed_in_wish_dir
-	if add_speed_till_cap > 0:
-		var accel_speed = air_accel * air_move_speed * delta
-		accel_speed = min(accel_speed, add_speed_till_cap)
-		self.velocity += accel_speed * wish_dir
-	
-	
-func _handle_ground_physics(delta) -> void:
-	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
-	var add_speed_till_cap = get_move_speed() - cur_speed_in_wish_dir
-	if add_speed_till_cap > 0:
-		var accel_speed = ground_accel * delta * get_move_speed()
-		accel_speed = min(accel_speed, add_speed_till_cap)
-		self.velocity += accel_speed * wish_dir
-		
-	#apply friction
-	var control = max(self.velocity.length(), ground_decel)
-	var drop = control * ground_friction * delta
-	var new_speed = max(self.velocity.length() - drop, 0.0)
-	if self.velocity.length() > 0:
-		new_speed /= self.velocity.length()
-	self.velocity *= new_speed
-	
-	_headbob_effect(delta)
 #endregion
 
 #region Networking
-## Syncs player position and rotation across the network
+@rpc
+func set_model_visible(is_visible: bool):
+	model.visible = is_visible
+
 func _handle_network_sync() -> void:
 	rpc("sync_position", position, rotation)
 
-## Updates position and rotation on all clients
-## [param new_position] The position to sync to
-## [param new_rotation] The rotation to sync to
 @rpc("any_peer", "unreliable")
 func sync_position(new_position: Vector3, new_rotation: Vector3) -> void:
 	position = new_position
@@ -284,4 +311,3 @@ func get_prompt():
 func interact():
 	print("Interacted with player")
 #endregion
-	
