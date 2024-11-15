@@ -11,4 +11,6 @@ func _ready():
 
 func interact() -> void:
 	print("PRESSED BUTTON AND GAINED " + str(mutiny_value) + " MUTINY")
-	game_manager.mutiny_index += mutiny_value
+	if !multiplayer.is_server():
+		# Request to increase mutiny by 5
+		game_manager.request_mutiny_update.rpc(mutiny_value)

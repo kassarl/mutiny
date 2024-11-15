@@ -19,7 +19,7 @@ albedo_color = Color(0.804936, 0.0259103, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_lkc41"]
 size = Vector3(0.411926, 0.224365, 0.383591)
 
-[node name="Button" type="StaticBody3D"]
+[node name="Button" type="StaticBody3D" groups=["interactable"]]
 script = ExtResource("1_ckc2u")
 
 [node name="MeshBase" type="MeshInstance3D" parent="."]

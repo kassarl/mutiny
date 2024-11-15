@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://okmtopghfxhi"]
+[gd_scene load_steps=6 format=3 uid="uid://okmtopghfxhi"]
 
 [ext_resource type="Script" path="res://NPC/npc.gd" id="1_rhwjn"]
 [ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="2_a2uek"]
@@ -18,14 +18,7 @@ properties/2/replication_mode = 1
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wdbrc"]
 
-[sub_resource type="TextMesh" id="TextMesh_iqmj0"]
-text = "SAILOR NPC"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gydt"]
-albedo_color = Color(0.0627451, 1, 0.356863, 1)
-billboard_mode = 1
-
-[node name="NPC" type="CharacterBody3D"]
+[node name="NPC" type="CharacterBody3D" groups=["interactable", "npc"]]
 collision_layer = 2
 script = ExtResource("1_rhwjn")
 
@@ -46,7 +39,9 @@ skeleton = NodePath("../..")
 [node name="disguise-glasses" parent="npcCollider/BodyMesh" instance=ExtResource("2_a2uek")]
 transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 0, 0.254, -0.211)
 
-[node name="TextMesh" type="MeshInstance3D" parent="npcCollider"]
+[node name="TextMesh" type="Label3D" parent="npcCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16597, 0)
-mesh = SubResource("TextMesh_iqmj0")
-surface_material_override/0 = SubResource("StandardMaterial3D_6gydt")
+billboard = 1
+modulate = Color(0.223262, 0.79121, 0.250485, 1)
+text = "NPC SAILOR"
+font_size = 44

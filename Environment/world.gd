@@ -1,61 +1,30 @@
 extends Node
 class_name GameWorld
 
-## Game Manager Reference
+# Manager Nodes
 @onready var game_manager: Node = $GameManager
+@onready var ui_manager: Node = $UIManager
+@onready var audio_manager: Node = $AudioManager
+@onready var nav_mesh: NavigationRegion3D = $Ship/NavigationRegion3D
 
-## Network and Scene Constants
-const PORT: int = 9990
+## Game Configs
 const PLAYER_SCENE: PackedScene = preload("res://Player/player.tscn")
 const NPC_SCENE: PackedScene = preload("res://NPC/npc.tscn")
 const NPC_COUNT: int = 5
 
-## UI References
-@onready var main_menu: Control = $CanvasLayer/MainMenu
-@onready var address_entry: LineEdit = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
-@onready var nav_mesh: NavigationRegion3D = $Ship/NavigationRegion3D
-@onready var timer_label: Label = $CanvasLayer/HUD/TimerLabel
-@onready var timer: Timer = $CanvasLayer/HUD/Timer
-@onready var mutiny_label: Label = $CanvasLayer/HUD/MutinyLabel
-
-## Audio References
-@onready var audio_manager: Node = $AudioManager
-
-
-# LLM References
+## LLM
 @export var chat_controller: OpenAIClient
 
 ## Networking
+const PORT: int = 9990
 var enet_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-
-
-func _ready() -> void:
-	initialize_GUI()
-	
-#region UI management
-func initialize_GUI():
-	timer.one_shot = true
-	timer.wait_time = 180
-	timer_label.text = ""
-	timer.timeout.connect(on_timer_timeout)  # Connect timeout signal
-	mutiny_label.text = ""
-	
-
-func on_timer_timeout():
-	print("DONE")
-#endregion
-
-#region Input Handling
-#func _unhandled_input(event: InputEvent) -> void:
-	#if Input.is_action_just_pressed("quit"):
-		#get_tree().quit()
-#endregion
 
 #region Network Management
 ## Handles server creation and initialization
 func _on_host_button_pressed() -> void:
+	# Handle UI and Audio for hosting game
 	audio_manager.stop_stream()
-	main_menu.hide()
+	ui_manager.hide_main_menu()
 	
 	# Setup server
 	var error := enet_peer.create_server(PORT)
@@ -77,17 +46,20 @@ func _on_host_button_pressed() -> void:
 
 ## Handles client connection to server
 func _on_join_button_pressed() -> void:
+	# Handle UI and Audio for hosting game
 	audio_manager.stop_stream()
-	main_menu.hide()
+	ui_manager.hide_main_menu()
 	
 	# Create client and connect to server
-	var error := enet_peer.create_client(address_entry.text, PORT)
+	var error := enet_peer.create_client(ui_manager.get_address_entry(), PORT)
 	if error != OK:
 		print("Failed to create client: ", error)
 		return
 		
 	multiplayer.multiplayer_peer = enet_peer
-	print("Connecting to: ", address_entry.text)
+	print("Connecting to: ", ui_manager.get_address_entry())
+	
+	main()
 
 ## Sets up network connection signals
 func _setup_network_connections() -> void:
@@ -97,17 +69,21 @@ func _setup_network_connections() -> void:
 #endregion
 
 #region Player Management
-## Adds a player to the game world
-## [param peer_id] The network ID of the player to add
 func add_player(peer_id: int) -> void:
 	print("Adding player: %d" % peer_id)
 	
 	var player_instance := PLAYER_SCENE.instantiate()
 	player_instance.name = str(peer_id)
+	
 	add_child(player_instance)
+	
+	# Only sync if we're the server and it's not us
+	if multiplayer.is_server() and peer_id != multiplayer.get_unique_id():
+		game_manager.sync_game_state.rpc(
+			game_manager.mutiny_index,
+			ui_manager.timer.time_left
+		)
 
-## Removes a player from the game world
-## [param peer_id] The network ID of the player to remove
 func remove_player(peer_id: int) -> void:
 	print("Removing player: %d" % peer_id)
 	
@@ -117,20 +93,16 @@ func remove_player(peer_id: int) -> void:
 #endregion
 
 #region UPNP Setup
-## Sets up UPNP for internet connectivity
 func upnp_setup() -> void:
 	var upnp := UPNP.new()
 	
-	# Try to discover UPNP gateway
 	var discover_result := upnp.discover()
 	assert(discover_result == UPNP.UPNP_RESULT_SUCCESS, 
 		"UPNP Discover Failed! Error %s" % discover_result)
 	
-	# Verify gateway validity
 	assert(upnp.get_gateway() and upnp.get_gateway().is_valid_gateway(), 
 		"UPNP Invalid Gateway!")
 	
-	# Setup port forwarding
 	var map_result := upnp.add_port_mapping(PORT)
 	assert(map_result == UPNP.UPNP_RESULT_SUCCESS, 
 		"UPNP Port Mapping Failed! Error %s" % map_result)
@@ -139,8 +111,6 @@ func upnp_setup() -> void:
 #endregion
 
 #region NPC Management
-## Spawns multiple NPCs in the game world
-## [param npc_count] The number of NPCs to spawn
 func spawn_npcs(npc_count: int) -> void:
 	print("Spawning in %d NPC's" % npc_count)
 	if !multiplayer.is_server():
@@ -154,31 +124,22 @@ func spawn_npcs(npc_count: int) -> void:
 	for i in range(npc_count):
 		spawn_npc.rpc(i, spawn_points[i])
 
-## RPC to spawn a single NPC across all clients
-## [param npc_id] Unique identifier for the NPC
-## [param spawn_position] World position to spawn the NPC
 @rpc("authority", "call_local", "reliable")
 func spawn_npc(npc_id: int, spawn_position: Vector3) -> void:
 	var npc_instance := NPC_SCENE.instantiate()
 	npc_instance.name = str("NPC_", npc_id)
 	npc_instance.position = spawn_position
 	npc_instance.openai_client = chat_controller
-	#print("adding npc at position")
-	#print(spawn_position)
 	add_child(npc_instance, true)
 #endregion
 
-#region process and main
-func _process(delta: float) -> void:
-	if game_manager.in_game:
-		timer_label.text = "%d:%02d" % [int(timer.time_left) / 60, int(timer.time_left) % 60]
-		mutiny_label.text = "Mutiny Index: %d/100" % game_manager.mutiny_index
-
-## Initializes the game world
+#region Game Loop
 func main() -> void:
 	spawn_npcs(NPC_COUNT)
 	game_manager.in_game = true
-	timer.start()
+	
+	if multiplayer.is_server():
+		ui_manager.start_game_ui()
+	
 	audio_manager.start_ocean_sounds()
-
 #endregion
