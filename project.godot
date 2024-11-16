@@ -14,6 +14,10 @@ config/name="mutiny"
 run/main_scene="res://Environment/Level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 
+[global_group]
+
+interactable=""
+
 [input]
 
 up={
