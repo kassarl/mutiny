@@ -141,7 +141,7 @@ script = ExtResource("4_wveah")
 script = ExtResource("4_6h47g")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
-volume_db = -80.0
+volume_db = -10.0
 
 [node name="UIManager" type="Node" parent="."]
 script = ExtResource("6_ltgcg")
