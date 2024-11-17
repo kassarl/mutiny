@@ -128,7 +128,7 @@ vertical_alignment = 1
 [node name="Timer" type="Timer" parent="CanvasLayer/HUD"]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Player/player.tscn", "res://NPC/npc.tscn")
+_spawnable_scenes = PackedStringArray("res://Player/player.tscn", "res://NPC/npc.tscn", "res://jail.tscn")
 spawn_path = NodePath("..")
 
 [node name="ChatController" type="Node" parent="."]
@@ -141,7 +141,7 @@ script = ExtResource("4_wveah")
 script = ExtResource("4_6h47g")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
-volume_db = -10.0
+volume_db = -60.595
 
 [node name="UIManager" type="Node" parent="."]
 script = ExtResource("6_ltgcg")

@@ -31,6 +31,7 @@ func handle_interaction() -> void:
 		return
 	
 	var collider = get_collider()
+	#print(collider)
 	
 	# Debug prints to verify roles
 	#print("Collider groups: ", collider.get_groups())
