@@ -1,0 +1,186 @@
+[gd_scene load_steps=14 format=3 uid="uid://bnucnynmdxk5d"]
+
+[ext_resource type="Script" path="res://jail_button.gd" id="1_6krg7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ljue5"]
+albedo_color = Color(0.351563, 0.351563, 0.351563, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_iu14d"]
+left_to_right = -0.4
+size = Vector3(1, 1, 8)
+
+[sub_resource type="TextMesh" id="TextMesh_gcce5"]
+text = "JAIL"
+font_size = 64
+
+[sub_resource type="Animation" id="Animation_07sts"]
+resource_name = "moveDoor"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("JailDoor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-4.81507, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e0xdv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("JailDoor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-4.81507, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hqua3"]
+_data = {
+"RESET": SubResource("Animation_e0xdv"),
+"moveDoor": SubResource("Animation_07sts")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2blo8"]
+size = Vector3(4.55896, 3.26001, 0.118713)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o6k0d"]
+size = Vector3(0.1, 3.2, 0.1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_00e87"]
+points = PackedVector3Array(0, -0.1, -0.5, -0.0490407, -0.1, -0.497651, 0, 0.1, -0.5, 0.0489429, -0.1, -0.497651, -0.0490407, 0.1, -0.497651, -0.097592, -0.1, -0.490407, 0.0489429, 0.1, -0.497651, 0.0974941, -0.1, -0.490407, -0.097592, 0.1, -0.490407, -0.145164, -0.1, -0.478563, 0.0974941, 0.1, -0.490407, 0.145067, -0.1, -0.478563, -0.145164, 0.1, -0.478563, -0.191366, -0.1, -0.46202, 0.145067, 0.1, -0.478563, 0.191269, -0.1, -0.46202, -0.191366, 0.1, -0.46202, -0.235709, -0.1, -0.440975, 0.191269, 0.1, -0.46202, 0.235611, -0.1, -0.440975, -0.235709, 0.1, -0.440975, -0.2778, -0.1, -0.415818, 0.235611, 0.1, -0.440975, 0.277702, -0.1, -0.415818, -0.2778, 0.1, -0.415818, -0.317247, -0.1, -0.386551, 0.277702, 0.1, -0.415818, 0.31715, -0.1, -0.386551, -0.317247, 0.1, -0.386551, -0.353563, -0.1, -0.353563, 0.31715, 0.1, -0.386551, 0.353465, -0.1, -0.353563, -0.353563, 0.1, -0.353563, -0.386551, -0.1, -0.317247, 0.353465, 0.1, -0.353563, 0.386453, -0.1, -0.317247, -0.386551, 0.1, -0.317247, -0.415818, -0.1, -0.2778, 0.386453, 0.1, -0.317247, 0.41572, -0.1, -0.2778, -0.415818, 0.1, -0.2778, -0.440975, -0.1, -0.235709, 0.41572, 0.1, -0.2778, 0.440877, -0.1, -0.235709, -0.440975, 0.1, -0.235709, -0.46202, -0.1, -0.191366, 0.440877, 0.1, -0.235709, 0.461922, -0.1, -0.191366, -0.46202, 0.1, -0.191366, -0.478563, -0.1, -0.145164, 0.461922, 0.1, -0.191366, 0.478465, -0.1, -0.145164, -0.478563, 0.1, -0.145164, -0.490407, -0.1, -0.097592, 0.478465, 0.1, -0.145164, 0.490309, -0.1, -0.097592, -0.490407, 0.1, -0.097592, -0.497651, -0.1, -0.0490407, 0.490309, 0.1, -0.097592, 0.497553, -0.1, -0.0490407, -0.497651, 0.1, -0.0490407, -0.5, -0.1, 0, 0.497553, 0.1, -0.0490407, 0.5, -0.1, 0, -0.5, 0.1, 0, -0.497651, -0.1, 0.0489429, 0.5, 0.1, 0, 0.497553, -0.1, 0.0489429, -0.497651, 0.1, 0.0489429, -0.490407, -0.1, 0.0974941, 0.497553, 0.1, 0.0489429, 0.490309, -0.1, 0.0974941, -0.490407, 0.1, 0.0974941, -0.478563, -0.1, 0.145067, 0.490309, 0.1, 0.0974941, 0.478465, -0.1, 0.145067, -0.478563, 0.1, 0.145067, -0.46202, -0.1, 0.191269, 0.478465, 0.1, 0.145067, 0.461922, -0.1, 0.191269, -0.46202, 0.1, 0.191269, -0.440975, -0.1, 0.235611, 0.461922, 0.1, 0.191269, 0.440877, -0.1, 0.235611, -0.440975, 0.1, 0.235611, -0.415818, -0.1, 0.277702, 0.440877, 0.1, 0.235611, 0.41572, -0.1, 0.277702, -0.415818, 0.1, 0.277702, -0.386551, -0.1, 0.31715, 0.41572, 0.1, 0.277702, 0.386453, -0.1, 0.31715, -0.386551, 0.1, 0.31715, -0.353563, -0.1, 0.353465, 0.386453, 0.1, 0.31715, 0.353465, -0.1, 0.353465, -0.353563, 0.1, 0.353465, -0.317247, -0.1, 0.386453, 0.353465, 0.1, 0.353465, 0.31715, -0.1, 0.386453, -0.317247, 0.1, 0.386453, -0.2778, -0.1, 0.41572, 0.31715, 0.1, 0.386453, 0.277702, -0.1, 0.41572, -0.2778, 0.1, 0.41572, -0.235709, -0.1, 0.440877, 0.277702, 0.1, 0.41572, 0.235611, -0.1, 0.440877, -0.235709, 0.1, 0.440877, -0.191366, -0.1, 0.461922, 0.235611, 0.1, 0.440877, 0.191269, -0.1, 0.461922, -0.191366, 0.1, 0.461922, -0.145164, -0.1, 0.478465, 0.191269, 0.1, 0.461922, 0.145067, -0.1, 0.478465, -0.145164, 0.1, 0.478465, -0.097592, -0.1, 0.490309, 0.145067, 0.1, 0.478465, 0.0974941, -0.1, 0.490309, -0.097592, 0.1, 0.490309, -0.0490407, -0.1, 0.497553, 0.0974941, 0.1, 0.490309, 0.0489429, -0.1, 0.497553, -0.0490407, 0.1, 0.497553, 0, -0.1, 0.5, 0.0489429, 0.1, 0.497553, 0, 0.1, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_o028t"]
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7vdvn"]
+albedo_color = Color(1, 0.0470588, 0, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2k8ey"]
+properties/0/path = NodePath("JailDoor:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("JailButton:doorOpen")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Jail" type="Node3D"]
+
+[node name="Jail" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, -3.66266, 0.453817)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Jail"]
+transform = Transform3D(0.000192046, 0, -1, 0, 1, 0, 1, 0, 0.000192046, -0.00251675, 6.32931, 4.85748)
+size = Vector3(7.28918, 4.96863, 19.6729)
+material = SubResource("StandardMaterial3D_ljue5")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Jail"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.191931, 6.659, 4.8412)
+operation = 2
+size = Vector3(18.2059, 3.72095, 6.77924)
+material = SubResource("StandardMaterial3D_ljue5")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Jail"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -0.00435806, 7.12303, 8.07319)
+operation = 2
+size = Vector3(16.0472, 1.64825, 1.7818)
+material = SubResource("StandardMaterial3D_ljue5")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Jail"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.130592, 6.36318, 1.14458)
+operation = 2
+size = Vector3(4.89591, 3.16795, 1.7818)
+material = SubResource("StandardMaterial3D_ljue5")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Jail"]
+transform = Transform3D(0.00121791, 8.858e-05, -0.999999, 0.935884, 0.352306, 0.00117106, 0.352306, -0.935884, 0.000346202, 0.166103, 4.4372, 0.525086)
+mesh = SubResource("PrismMesh_iu14d")
+
+[node name="TextMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.999992, 0, 0.00397924, 0, 1, 0, -0.00397924, 0, -0.999992, 0.0954292, 4.82426, 1.63239)
+mesh = SubResource("TextMesh_gcce5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hqua3")
+}
+
+[node name="JailDoor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.81507, 0, 0)
+
+[node name="JailDoorCollider" type="CollisionShape3D" parent="JailDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.94198, 2.73333, 1.5678)
+shape = SubResource("BoxShape3D_2blo8")
+
+[node name="Bar Meshes" type="MeshInstance3D" parent="JailDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.69208, 2.73296, 1.57283)
+mesh = SubResource("BoxMesh_o6k0d")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485217, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.520776, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.94944, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.368, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.90378, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94323, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45801, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.464, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="JailDoor/Bar Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.993788, 0, 0)
+mesh = SubResource("BoxMesh_o6k0d")
+skeleton = NodePath("../..")
+
+[node name="JailButton" type="StaticBody3D" parent="." groups=["interactable"]]
+script = ExtResource("1_6krg7")
+
+[node name="ButtonCollider" type="CollisionShape3D" parent="JailButton"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.72923, 2.52396, 1.55157)
+shape = SubResource("ConvexPolygonShape3D_00e87")
+
+[node name="ButtonMesh" type="MeshInstance3D" parent="JailButton/ButtonCollider"]
+mesh = SubResource("CylinderMesh_o028t")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7vdvn")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_2k8ey")
