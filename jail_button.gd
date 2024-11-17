@@ -32,7 +32,6 @@ func sync_door_state(newState: bool):
 	else:
 		anim_player.play_backwards('moveDoor')
 	
-	
 	doorOpen = newState  # Set the state after playing animation
 
 func get_prompt():
