@@ -56,7 +56,8 @@ var prompt = ""
 @onready var _original_capsule_height = $Collider.shape.height
 @onready var captain_hat: MeshInstance3D = $Collider/WorldModel/CaptainHat
 @onready var text_mesh: Label3D = $Collider/WorldModel/TextMesh
-
+# Preload the Pause Menu scene
+var pause_menu_instance: CanvasLayer
 #endregion
 
 #region Lifecycle Methods
@@ -64,6 +65,13 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready() -> void:
+	
+	var pause_menu_scene: PackedScene = preload("res://Environment/PauseMenu.tscn")
+	pause_menu_instance  = pause_menu_scene.instantiate()
+	add_child(pause_menu_instance)
+	pause_menu_instance.visible = false
+	pause_menu_instance.get_node("PausePanel").visible = true
+	
 	is_my_cam = is_multiplayer_authority()
 	
 	captain_hat.visible = false
@@ -126,16 +134,12 @@ func _input(event: InputEvent) -> void:
 		raycast.call_interact()
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	elif event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotate_y(-event.relative.x * look_sensitivity)
 			%Camera3D.rotate_x(-event.relative.y * look_sensitivity)
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+			
 #endregion
 
 #region Physics Processing
