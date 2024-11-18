@@ -56,6 +56,8 @@ var prompt = ""
 @onready var _original_capsule_height = $Collider.shape.height
 @onready var captain_hat: MeshInstance3D = $Collider/WorldModel/CaptainHat
 @onready var text_mesh: Label3D = $Collider/WorldModel/TextMesh
+@onready var jail_area: Area3D = $"../Ship/Jail/Area3D"
+
 # Preload the Pause Menu scene
 var pause_menu_instance: CanvasLayer
 #endregion
@@ -113,7 +115,7 @@ func _initialize_player() -> void:
 			is_captain = false
 			add_to_group("interactable")
 			add_to_group("npc")
-			prompt = "Press E to start conversation"
+			prompt = "Press E to start conversation\nPress R to jail this NPC"
 	
 	print("IS CAPTAIN?")
 	print(is_captain)
@@ -132,6 +134,9 @@ func _input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("interact"):
 		raycast.call_interact()
+	
+	if Input.is_action_just_pressed("jail"):
+		raycast.call_jail()
 
 func _unhandled_input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -312,6 +317,31 @@ func sync_position(new_position: Vector3, new_rotation: Vector3) -> void:
 func get_prompt():
 	return prompt
 
+
+# Syncs host and clients
+@rpc("any_peer")
+func jail_npc(NPCpath):
+	position = get_random_pt_in_jail(jail_area)
+
 func interact():
 	print("Interacted with player")
+#endregion
+
+#region Helper Function
+func get_random_pt_in_jail(area: Area3D) -> Vector3:
+	var collision_shape = area.get_node("CollisionShape3D")  # Adjust path if needed
+	var shape = collision_shape.shape as BoxShape3D
+	
+	# Get the box extents (half-size)
+	var extents = shape.size / 2
+	
+	# Generate random point within the box
+	var random_point = Vector3(
+		randf_range(-extents.x, extents.x),
+		randf_range(-extents.y, extents.y),
+		randf_range(-extents.z, extents.z)
+	)
+	
+	# Add the area's global position to get the final world position
+	return random_point + collision_shape.global_position
 #endregion

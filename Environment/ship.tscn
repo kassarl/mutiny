@@ -1,6 +1,6 @@
 [gd_scene load_steps=38 format=3 uid="uid://bkeuj6cedjycd"]
 
-[ext_resource type="PackedScene" uid="uid://bnucnynmdxk5d" path="res://jail.tscn" id="1_nh5gh"]
+[ext_resource type="PackedScene" uid="uid://bnucnynmdxk5d" path="res://Interactables/jail.tscn" id="1_nh5gh"]
 [ext_resource type="PackedScene" uid="uid://dtgkeb6x35w17" path="res://Interactables/Button.tscn" id="1_t2v0w"]
 [ext_resource type="Script" path="res://Environment/nav_mesh.gd" id="1_tbuv5"]
 
@@ -231,6 +231,9 @@ shader_parameter/texture_refraction = SubResource("NoiseTexture2D_36d6l")
 shader_parameter/texture_normal = SubResource("NoiseTexture2D_uikwn")
 
 [node name="Ship" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.20372, 6.86478, 11.4411)
 
 [node name="Jail" parent="." instance=ExtResource("1_nh5gh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98821, 4.4452, 5.98507)

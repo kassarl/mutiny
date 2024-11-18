@@ -16,7 +16,7 @@ const NPC_COUNT: int = 5
 @export var chat_controller: OpenAIClient
 
 ## Networking
-const PORT: int = 9990
+const PORT: int = 9999
 var enet_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 
 #region Network Management
