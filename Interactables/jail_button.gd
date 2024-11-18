@@ -26,7 +26,6 @@ func request_door_state_change() -> void:
 # Syncs host and clients
 @rpc("authority", "call_local")
 func sync_door_state(newState: bool):
-	
 	if doorOpen:
 		anim_player.play('moveDoor')
 	else:

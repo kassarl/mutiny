@@ -16,6 +16,7 @@ class_name NPC
 @export var openai_client: Node
 
 ## Navigation Variables
+@onready var jail_area: Area3D = $"../Ship/Jail/Area3D"
 var available_points: Array[Vector3] = []
 var next_location = null
 
@@ -28,7 +29,7 @@ var resume_timer = null
 func _ready() -> void:
 	initialize_timer()
 	initialize_navigation()
-	prompt = "Press E to start conversation"
+	prompt = "Press E to start conversation\nPress R to jail this NPC"
 
 func _physics_process(_delta: float) -> void:
 	if not paused:
@@ -130,6 +131,24 @@ func resume_movement():
 func get_prompt():
 	return prompt
 
+# Syncs host and clients
+@rpc("authority", "call_local")
+func jail_npc(NPCpath):
+	print("In NPC JAIL")
+	position = get_random_pt_in_jail(jail_area)
+	print("Position is")
+	print(position)
+	velocity = Vector3.ZERO
+	
+	# Make the agent stay still by setting its target to its new position
+	nav_agent.target_position = position
+	
+	# Optional: disable navigation temporarily
+	nav_agent.set_velocity(Vector3.ZERO)
+	
+	timer.paused = true
+	paused = true
+
 func interact():
 	print("Interacted with %s" % name)
 	
@@ -150,5 +169,24 @@ func interact():
 		resume_timer.timeout.connect(resume_movement)
 		resume_timer.start()
 		#print("Time to resume movement: ", resume_timer.wait_time)
-		prompt = "Press E to start conversation"
+		prompt = "Press E to start conversation\nPress R to jail this NPC"
+#endregion
+
+#region Helper Function
+func get_random_pt_in_jail(area: Area3D) -> Vector3:
+	var collision_shape = area.get_node("CollisionShape3D")  # Adjust path if needed
+	var shape = collision_shape.shape as BoxShape3D
+	
+	# Get the box extents (half-size)
+	var extents = shape.size / 2
+	
+	# Generate random point within the box
+	var random_point = Vector3(
+		randf_range(-extents.x, extents.x),
+		randf_range(-extents.y, extents.y),
+		randf_range(-extents.z, extents.z)
+	)
+	
+	# Add the area's global position to get the final world position
+	return random_point + collision_shape.global_position
 #endregion

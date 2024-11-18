@@ -91,4 +91,17 @@ func can_interact() -> bool:
 	
 	# Both roles can interact with general interactables
 	return true
+	
+func call_jail() -> void:
+	# Only process jail for the player we control
+	if not player.is_multiplayer_authority():
+		return
+	
+	if not can_interact() or not interactable.is_in_group("npc"):
+		return
+	
+	print(interactable)
+	# You'll need to implement this method in your NPC script
+	interactable.jail_npc.rpc(interactable.get_path())
+
 #endregion

@@ -1,6 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bnucnynmdxk5d"]
+[gd_scene load_steps=15 format=3 uid="uid://bnucnynmdxk5d"]
 
-[ext_resource type="Script" path="res://jail_button.gd" id="1_6krg7"]
+[ext_resource type="Script" path="res://Interactables/jail_button.gd" id="1_6krg7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qegjd"]
+size = Vector3(17.3157, 0.119629, 5.90405)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ljue5"]
 albedo_color = Color(0.351563, 0.351563, 0.351563, 1)
@@ -12,21 +15,6 @@ size = Vector3(1, 1, 8)
 [sub_resource type="TextMesh" id="TextMesh_gcce5"]
 text = "JAIL"
 font_size = 64
-
-[sub_resource type="Animation" id="Animation_07sts"]
-resource_name = "moveDoor"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("JailDoor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-4.81507, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_e0xdv"]
 length = 0.001
@@ -41,6 +29,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(-4.81507, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_07sts"]
+resource_name = "moveDoor"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("JailDoor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-4.81507, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hqua3"]
@@ -73,6 +76,12 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [node name="Jail" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0606689, 1.2145, 5.24612)
+shape = SubResource("BoxShape3D_qegjd")
 
 [node name="Jail" type="CSGCombiner3D" parent="."]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, -3.66266, 0.453817)
