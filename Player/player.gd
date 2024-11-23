@@ -70,7 +70,6 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready() -> void:
-	
 	var pause_menu_scene: PackedScene = preload("res://Environment/PauseMenu.tscn")
 	pause_menu_instance  = pause_menu_scene.instantiate()
 	add_child(pause_menu_instance)
@@ -87,6 +86,7 @@ func _ready() -> void:
 		set_model_visible(true)
 	
 	_initialize_player()
+	print("FINISHED READYING PLAYER")
 
 func _initialize_player() -> void:
 	position = INITIAL_SPAWN_POSITION
@@ -110,6 +110,7 @@ func _initialize_player() -> void:
 			add_to_group("captain")
 			is_chat_turn = true
 			captain_hat.visible = true
+			chat_hud.set_id(true)
 			text_mesh.text = "CAPTAIN"
 			text_mesh.modulate = Color.RED  # Changes the main text color
 			
@@ -118,6 +119,7 @@ func _initialize_player() -> void:
 			#print("WE ARE NOT CAPTAIN THOUGH")
 			is_captain = false
 			is_chat_turn = false
+			chat_hud.set_id(false)
 			add_to_group("interactable")
 			add_to_group("npc")
 			add_to_group("imposter")
@@ -157,6 +159,7 @@ func _unhandled_input(event):
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority() or chat_hud.in_chat:
 		return
+	
 	if is_on_floor(): 
 		_last_frame_was_on_floor = Engine.get_physics_frames()
 	

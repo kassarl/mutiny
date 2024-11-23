@@ -58,16 +58,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_pprk4")
 
-[node name="HistoryRows" type="VBoxContainer" parent="Background/MarginContainer/Rows/GameInfo"]
+[node name="ChatLogRows" type="VBoxContainer" parent="Background/MarginContainer/Rows/GameInfo"]
 layout_mode = 2
-
-[node name="InputResponse" type="VBoxContainer" parent="Background/MarginContainer/Rows/GameInfo/HistoryRows"]
-layout_mode = 2
-
-[node name="Input" type="Label" parent="Background/MarginContainer/Rows/GameInfo/HistoryRows/InputResponse"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = " > Dummy Conversation Data"
 
 [node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/Rows"]
 z_index = 1

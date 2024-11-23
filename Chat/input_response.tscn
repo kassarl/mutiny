@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpv8e6tti1vvi"]
+
+[ext_resource type="Script" path="res://Chat/input_response.gd" id="1_i6rpf"]
+
+[node name="InputResponse" type="VBoxContainer"]
+script = ExtResource("1_i6rpf")
+
+[node name="Input" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = " > (Captain) Dummy Conversation Data"
