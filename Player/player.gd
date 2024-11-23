@@ -51,6 +51,14 @@ var is_chat_turn
 var prompt = ""
 #endregion
 
+#region Turn Camera to Target Vars
+# Add these variables to your existing ones
+@export var turn_speed: float = 5.0  # Adjust for faster/slower turning
+var target_rotation: Vector3
+var is_turning: bool = false
+var turn_target: Node3D = null
+#endregion
+
 #region Node References
 @onready var raycast: RayCast3D = $HeadOG/Head/CameraSmooth/Camera3D/RayCast3D
 @onready var model = %WorldModel
@@ -110,7 +118,6 @@ func _initialize_player() -> void:
 			add_to_group("captain")
 			is_chat_turn = true
 			captain_hat.visible = true
-			chat_hud.set_id(true)
 			text_mesh.text = "CAPTAIN"
 			text_mesh.modulate = Color.RED  # Changes the main text color
 			
@@ -119,7 +126,6 @@ func _initialize_player() -> void:
 			#print("WE ARE NOT CAPTAIN THOUGH")
 			is_captain = false
 			is_chat_turn = false
-			chat_hud.set_id(false)
 			add_to_group("interactable")
 			add_to_group("npc")
 			add_to_group("imposter")
@@ -133,6 +139,31 @@ func _initialize_player() -> void:
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	%Camera3D.current = true
+#endregion
+
+#region Look at Target
+# New function to initiate turning
+func look_at_target(target_node: Node3D) -> void:
+	if not target_node:
+		return
+		
+	turn_target = target_node
+	is_turning = true
+	
+	# Calculate the direction to the target
+	var target_pos = turn_target.global_position
+	var direction = target_pos - global_position
+	
+	# Calculate target rotations
+	# For Y rotation (left/right)
+	var target_y = atan2(-direction.x, -direction.z)
+	
+	# For X rotation (up/down)
+	var horizontal_length = sqrt(direction.x * direction.x + direction.z * direction.z)
+	var target_x = atan2(direction.y, horizontal_length)
+	
+	# Store target rotations
+	target_rotation = Vector3(target_x, target_y, 0)
 #endregion
 
 #region Input Handling
@@ -153,11 +184,39 @@ func _unhandled_input(event):
 			%Camera3D.rotate_x(-event.relative.y * look_sensitivity)
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 			
+# New function to handle the turning
+func turn_camera_to_target(delta: float) -> void:
+	if not turn_target:
+		is_turning = false
+		return
+	
+	var current_rot_y = rotation.y
+	var current_rot_x = %Camera3D.rotation.x
+	
+	# Interpolate Y rotation (left/right)
+	var new_rot_y = lerp_angle(current_rot_y, target_rotation.y, turn_speed * delta)
+	rotate_y(new_rot_y - current_rot_y)
+	
+	# Interpolate X rotation (up/down)
+	var new_rot_x = lerp_angle(current_rot_x, target_rotation.x, turn_speed * delta)
+	%Camera3D.rotation.x = clamp(new_rot_x, deg_to_rad(-90), deg_to_rad(90))
+	
+	# Check if we're close enough to target rotation
+	if abs(target_rotation.y - rotation.y) < 0.01 and abs(target_rotation.x - %Camera3D.rotation.x) < 0.01:
+		is_turning = false
+		turn_target = null
+
+# Optional: Function to stop turning
+func stop_turning() -> void:
+	is_turning = false
+	turn_target = null
 #endregion
 
 #region Physics Processing
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority() or chat_hud.in_chat:
+		if is_turning:
+			turn_camera_to_target(delta)
 		return
 	
 	if is_on_floor(): 
@@ -333,28 +392,33 @@ func jail_npc(NPCpath):
 	position = get_random_pt_in_jail(jail_area)
 
 @rpc("any_peer")
-func start_npc_chat(chat_path: NodePath):
+func start_npc_chat(npc):
 	if not chat_hud.in_chat:
 		# Prevent the 'E' key from being captured in the line_edit
 		await get_tree().process_frame
 		chat_hud.set_chat_state(true)
+	look_at_target(npc)
 
 @rpc("any_peer")
-func start_player_chat(other_player_path: NodePath):
-	print(name)
-	if is_captain:
-		print("Captain is talking to ", other_player_path)
-	else:
-		print("Imposter is talking to ", other_player_path)
-		prompt = "Press ESC to leave conversation"
-	
-	print("Toggling HUD")
-	chat_hud.toggleHUD()
-	
+func start_player_chat(other_player):
 	if not is_multiplayer_authority():
 		return
+	
+	if not chat_hud.in_chat:
+		# Prevent the 'E' key from being captured in the line_edit
+		await get_tree().process_frame
+		print("ABC")
+		chat_hud.set_chat_state(true)
 		
-	var other_player = get_node(other_player_path)
+	print(name)
+	if is_captain:
+		print("Captain is talking to ", other_player)
+	else:
+		print("Imposter is talking to ", other_player)
+		prompt = "Press ESC to leave conversation"
+	
+	look_at_target(get_node(other_player))
+
 	#print("Other"other_player)
 
 @rpc("any_peer")
@@ -366,7 +430,7 @@ func interact(path):
 	#else:
 		#print("IS CLIENT")
 	print("Interacted with player")
-	
+#endregion
 
 #region Helper Function
 func get_random_pt_in_jail(area: Area3D) -> Vector3:

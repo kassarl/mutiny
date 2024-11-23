@@ -56,10 +56,10 @@ text = "NPC SAILOR"
 font_size = 44
 
 [node name="disguise-glasses" parent="Collider/WorldModel" instance=ExtResource("1_rouv8")]
-transform = Transform3D(-1.5, 0, 1.31134e-07, 0, 1.5, 0, -1.31134e-07, 0, -1.5, 0.00624865, 1.2541, -0.21075)
+transform = Transform3D(-1.5, 0, 1.31134e-07, 0, 1.5, 0, -1.31134e-07, 0, -1.5, 0, 1.513, -0.21)
 
 [node name="CaptainHat" type="MeshInstance3D" parent="Collider/WorldModel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82903, -0.146186)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93471, -0.146186)
 mesh = SubResource("CylinderMesh_cdiyi")
 skeleton = NodePath("../../..")
 

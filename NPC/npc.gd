@@ -20,6 +20,11 @@ class_name NPC
 var available_points: Array[Vector3] = []
 var next_location = null
 
+# Face Player Variables
+@export var turn_speed: float = 5.0  # Adjust for faster/slower turning
+var target_node: Node3D = null
+var is_rotating: bool = false
+
 # Interact Variables
 var prompt = null
 var paused = false
@@ -32,6 +37,8 @@ func _ready() -> void:
 	prompt = "Press E to start conversation\nPress R to jail this NPC"
 
 func _physics_process(_delta: float) -> void:
+	if is_rotating and target_node:
+		rotate_to_face_target(_delta)
 	if not paused:
 		handle_movement(_delta)
 #endregion
@@ -149,7 +156,7 @@ func jail_npc(NPCpath):
 	timer.paused = true
 	paused = true
 
-func interact():
+func interact(player):
 	print("Interacted with %s" % name)
 	
 	if !multiplayer.is_server():
@@ -157,7 +164,8 @@ func interact():
 		
 	if not paused:
 		pause_movement()
-		prompt = "Press ESC to leave this conversation"
+		start_facing_target(player)
+		prompt = "Press ESC twice to leave this conversation"
 		print("Talked to NPC")
 		openai_client.send_message("Hi are you an npc?")
 	else:
@@ -189,4 +197,25 @@ func get_random_pt_in_jail(area: Area3D) -> Vector3:
 	
 	# Add the area's global position to get the final world position
 	return random_point + collision_shape.global_position
+#endregion
+
+#region Face Player
+func start_facing_target(new_target: Node3D) -> void:
+	target_node = new_target
+	is_rotating = true
+
+func rotate_to_face_target(delta: float) -> void:
+	# Get direction to target
+	var direction = target_node.global_position - global_position
+	
+	# Calculate target rotation
+	var target_transform = transform.looking_at(target_node.global_position, Vector3.UP)
+	var target_basis = target_transform.basis
+	
+	# Smoothly interpolate rotation
+	transform.basis = transform.basis.slerp(target_basis, turn_speed * delta)
+	
+	# Optional: Check if we're close enough to target rotation to stop
+	if transform.basis.is_equal_approx(target_basis):
+		is_rotating = false
 #endregion

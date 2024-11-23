@@ -45,6 +45,8 @@ func set_chat_state(enabled: bool) -> void:
 		line_edit.grab_focus()
 	else:
 		line_edit.release_focus()
+	print("CHAT STATE IS ")
+	print(in_chat)
 #endregion
 
 #region Networking

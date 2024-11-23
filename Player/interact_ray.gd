@@ -100,8 +100,8 @@ func chat_with_npc():
 
 	# Call the chat initialization on both players
 	#interactable.start_player_chat.rpc_id(peer_id, player.get_path())
-	interactable.interact()
-	player.start_npc_chat(interactable.get_path())
+	interactable.interact(player)
+	player.start_npc_chat(interactable)
 
 
 func can_interact() -> bool:

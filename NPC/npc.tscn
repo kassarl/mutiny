@@ -40,7 +40,7 @@ mesh = SubResource("CapsuleMesh_wdbrc")
 skeleton = NodePath("../..")
 
 [node name="disguise-glasses" parent="npcCollider/BodyMesh" instance=ExtResource("2_a2uek")]
-transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 0, 0.254, -0.211)
+transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 0, 0.509, -0.21)
 
 [node name="TextMesh" type="Label3D" parent="npcCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16597, 0)

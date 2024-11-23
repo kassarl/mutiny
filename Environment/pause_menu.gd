@@ -21,24 +21,19 @@ func _ready():
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		print("Pressed ESC")
-
-	# Check if Escape key is pressed when not in chat window
-	if Input.is_action_just_pressed("ui_cancel") and !chat_hud.in_chat:
-		print("escape clicked game state:", game_paused)
-		if game_paused:
-			unpause_game()
+		if chat_hud.in_chat:
+			print("LEAVING CHAT")
+		   # Need to call interact again on interactable
+			if interact_ray.can_interact():
+				interact_ray.interactable.interact(player)
+			chat_hud.set_chat_state(false)
+			get_viewport().set_input_as_handled()  # Prevent the ESC from being processed again
 		else:
-			pause_game()
-	
-	# Check if Escape key is pressed when not in chat window
-	if Input.is_action_just_pressed("ui_cancel") and chat_hud.in_chat:
-		print("LEAVING CHAT")
-		# Need to call interact again on interactable
-		#print(interact_ray.interactable)
-		if interact_ray.can_interact():
-			interact_ray.interactable.interact()
-		
-		chat_hud.set_chat_state(false)
+			print("escape clicked game state:", game_paused)
+			if game_paused:
+				unpause_game()
+			else:
+				pause_game()
 
 
 # Pauses the game and shows the pause menu
