@@ -31,11 +31,12 @@ func pause_game() -> void:
 func unpause_game() -> void:
 	game_paused = false
 	visible = false  # Hide the pause menu
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 # Called when the Resume button is pressed
 func _on_resume_pressed() -> void:
 	unpause_game()
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 
 # Called when the Quit button is pressed
 func _on_quit_pressed() -> void:
