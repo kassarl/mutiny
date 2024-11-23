@@ -1,6 +1,12 @@
 extends CanvasLayer
 
+
+@onready var player = $"../"
+@onready var chat_hud = player.chat_hud
+@onready var interact_ray: RayCast3D = $"../HeadOG/Head/CameraSmooth/Camera3D/RayCast3D"
+
 var game_paused: bool = false
+
 
 # Called when the node enters the scene tree for the first time
 func _ready():
@@ -13,13 +19,27 @@ func _ready():
 
 # This method is called every frame to check for input
 func _unhandled_input(event: InputEvent) -> void:
-	# Check if Escape key is pressed
 	if Input.is_action_just_pressed("ui_cancel"):
+		print("Pressed ESC")
+
+	# Check if Escape key is pressed when not in chat window
+	if Input.is_action_just_pressed("ui_cancel") and !chat_hud.in_chat:
 		print("escape clicked game state:", game_paused)
 		if game_paused:
 			unpause_game()
 		else:
 			pause_game()
+	
+	# Check if Escape key is pressed when not in chat window
+	if Input.is_action_just_pressed("ui_cancel") and chat_hud.in_chat:
+		print("LEAVING CHAT")
+		# Need to call interact again on interactable
+		#print(interact_ray.interactable)
+		if interact_ray.interactable.can_interact():
+			interact_ray.interactable.interact()
+		
+		chat_hud.set_chat_state(false)
+
 
 # Pauses the game and shows the pause menu
 func pause_game() -> void:

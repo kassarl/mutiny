@@ -44,6 +44,8 @@ var headbob_time := 0.0
 var is_my_cam := false
 @export var is_captain = false
 var is_initialized = false
+var is_chatting = false
+var is_chat_turn
 
 # Interaction State
 var prompt = ""
@@ -57,6 +59,7 @@ var prompt = ""
 @onready var captain_hat: MeshInstance3D = $Collider/WorldModel/CaptainHat
 @onready var text_mesh: Label3D = $Collider/WorldModel/TextMesh
 @onready var jail_area: Area3D = $"../Ship/Jail/Area3D"
+@onready var chat_hud: Control = $ChatHUD
 
 # Preload the Pause Menu scene
 var pause_menu_instance: CanvasLayer
@@ -88,37 +91,40 @@ func _ready() -> void:
 func _initialize_player() -> void:
 	position = INITIAL_SPAWN_POSITION
 	
-	print("ARE WE SERVER")
-	print(multiplayer.is_server())
-	print("ARE WE CAPTAIN?")
-	print(is_captain)
+	#print("ARE WE SERVER")
+	#print(multiplayer.is_server())
+	#print("ARE WE CAPTAIN?")
+	#print(is_captain)
 	
 	if multiplayer.is_server() and !game_manager.captain_set:
-		print("WE ARE SERVER AND NOT CAPTAIN YET")
+		#print("WE ARE SERVER AND NOT CAPTAIN YET")
 		is_captain = true
 		game_manager.captain_set = true
 		add_to_group("captain")
 		captain_hat.visible = true
 		text_mesh.text = "CAPTAIN"
 	else:
-		print("WE ARE NOT SERVER OR THE CAPTAIN HAS ALREADY BEEN DEFINED")
+		#print("WE ARE NOT SERVER OR THE CAPTAIN HAS ALREADY BEEN DEFINED")
 		if is_captain:
-			print("WE ARE CAPTAIN THOUGH REMOTELY")
+			#print("WE ARE CAPTAIN THOUGH REMOTELY")
 			add_to_group("captain")
+			is_chat_turn = true
 			captain_hat.visible = true
 			text_mesh.text = "CAPTAIN"
 			text_mesh.modulate = Color.RED  # Changes the main text color
 			
 			
 		else:
-			print("WE ARE NOT CAPTAIN THOUGH")
+			#print("WE ARE NOT CAPTAIN THOUGH")
 			is_captain = false
+			is_chat_turn = false
 			add_to_group("interactable")
 			add_to_group("npc")
+			add_to_group("imposter")
 			prompt = "Press E to start conversation\nPress R to jail this NPC"
 	
-	print("IS CAPTAIN?")
-	print(is_captain)
+	#print("IS CAPTAIN?")
+	#print(is_captain)
 	
 	if not is_multiplayer_authority():
 		return
@@ -149,7 +155,7 @@ func _unhandled_input(event):
 
 #region Physics Processing
 func _physics_process(delta: float) -> void:
-	if not is_multiplayer_authority():
+	if not is_multiplayer_authority() or chat_hud.in_chat:
 		return
 	if is_on_floor(): 
 		_last_frame_was_on_floor = Engine.get_physics_frames()
@@ -323,9 +329,41 @@ func get_prompt():
 func jail_npc(NPCpath):
 	position = get_random_pt_in_jail(jail_area)
 
-func interact():
+@rpc("any_peer")
+func start_npc_chat(chat_path: NodePath):
+	if not chat_hud.in_chat:
+		# Prevent the 'E' key from being captured in the line_edit
+		await get_tree().process_frame
+		chat_hud.set_chat_state(true)
+
+@rpc("any_peer")
+func start_player_chat(other_player_path: NodePath):
+	print(name)
+	if is_captain:
+		print("Captain is talking to ", other_player_path)
+	else:
+		print("Imposter is talking to ", other_player_path)
+		prompt = "Press ESC to leave conversation"
+	
+	print("Toggling HUD")
+	chat_hud.toggleHUD()
+	
+	if not is_multiplayer_authority():
+		return
+		
+	var other_player = get_node(other_player_path)
+	#print("Other"other_player)
+
+@rpc("any_peer")
+func interact(path):
+	#print("PATH")
+	#print(path)
+	#if multiplayer.is_server():
+		#print("IS SERVER")
+	#else:
+		#print("IS CLIENT")
 	print("Interacted with player")
-#endregion
+	
 
 #region Helper Function
 func get_random_pt_in_jail(area: Area3D) -> Vector3:

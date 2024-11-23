@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dniq2da7asr4y"]
+[gd_scene load_steps=9 format=3 uid="uid://dniq2da7asr4y"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_e78o1"]
 [ext_resource type="PackedScene" uid="uid://b0y0b4nn4rcqy" path="res://models/disguise-glasses.glb" id="1_rouv8"]
 [ext_resource type="Script" path="res://Player/interact_ray.gd" id="2_pn5ej"]
+[ext_resource type="PackedScene" uid="uid://bu3fhlbluudjq" path="res://Chat/chat_hud.tscn" id="4_esnux"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5dnon"]
 properties/0/path = NodePath(".:position")
@@ -61,6 +62,8 @@ transform = Transform3D(-1.5, 0, 1.31134e-07, 0, 1.5, 0, -1.31134e-07, 0, -1.5, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82903, -0.146186)
 mesh = SubResource("CylinderMesh_cdiyi")
 skeleton = NodePath("../../..")
+
+[node name="ChatHUD" parent="." instance=ExtResource("4_esnux")]
 
 [node name="HeadOG" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)

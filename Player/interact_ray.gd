@@ -4,6 +4,7 @@ extends RayCast3D
 @onready var prompt = $Prompt
 @onready var player = $"../../../../.."
 @onready var camera: Camera3D = %"Camera3D"
+@onready var chat_manager: Control = $"../../../../../ChatHUD"
 #endregion
 
 #region State Variables
@@ -76,10 +77,32 @@ func call_interact() -> void:
 	if not player.is_multiplayer_authority():
 		return
 	
-	if not can_interact():
+	# We cannot interact with item OR we are in chat
+	if not can_interact() or player.chat_hud.in_chat:
 		return
 	
+	if interactable.is_in_group("imposter"):
+		chat_with_player()
+	elif interactable.is_in_group("npc"):
+		chat_with_npc()
+	else:
+		interactable.interact()
+
+func chat_with_player():
+	var peer_id = int(str(interactable.name)) 
+	
+	# Call the chat initialization on both players
+	interactable.start_player_chat.rpc_id(peer_id, player.get_path())
+	player.start_player_chat(interactable.get_path())
+
+func chat_with_npc():
+	var npc_id = int(str(interactable.name)) 
+
+	# Call the chat initialization on both players
+	#interactable.start_player_chat.rpc_id(peer_id, player.get_path())
 	interactable.interact()
+	player.start_npc_chat(interactable.get_path())
+
 
 func can_interact() -> bool:
 	if not interactable or not interactable.has_method("interact"):
@@ -97,7 +120,7 @@ func call_jail() -> void:
 	if not player.is_multiplayer_authority():
 		return
 	
-	if not can_interact() or not interactable.is_in_group("npc"):
+	if not can_interact() or not interactable.is_in_group("npc") or player.chat_hud.in_chat:
 		return
 	
 	print(interactable)

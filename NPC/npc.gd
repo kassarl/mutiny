@@ -157,7 +157,7 @@ func interact():
 		
 	if not paused:
 		pause_movement()
-		prompt = "Press E to leave this conversation"
+		prompt = "Press ESC to leave this conversation"
 		print("Talked to NPC")
 		openai_client.send_message("Hi are you an npc?")
 	else:
