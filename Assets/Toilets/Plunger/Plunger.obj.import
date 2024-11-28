@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dv5ka6nyfg74i"
+path="res://.godot/imported/Plunger.obj-390c74f6b971536e4c6e64ef0f42f47e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Plunger.obj-390c74f6b971536e4c6e64ef0f42f47e.mesh"]
+
+source_file="res://Assets/Toilets/Plunger/Plunger.obj"
+dest_files=["res://.godot/imported/Plunger.obj-390c74f6b971536e4c6e64ef0f42f47e.mesh", "res://.godot/imported/Plunger.obj-390c74f6b971536e4c6e64ef0f42f47e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

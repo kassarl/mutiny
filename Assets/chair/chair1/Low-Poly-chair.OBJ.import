@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d0uf23eohacah"
+path="res://.godot/imported/Low-Poly-chair.OBJ-6e8176d5e59d8d44915b9643f43425d9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Low-Poly-chair.OBJ-6e8176d5e59d8d44915b9643f43425d9.mesh"]
+
+source_file="res://Assets/chair/chair1/Low-Poly-chair.OBJ"
+dest_files=["res://.godot/imported/Low-Poly-chair.OBJ-6e8176d5e59d8d44915b9643f43425d9.mesh", "res://.godot/imported/Low-Poly-chair.OBJ-6e8176d5e59d8d44915b9643f43425d9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

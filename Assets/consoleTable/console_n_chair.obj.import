@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://5iaq3qnvjrgo"
+path="res://.godot/imported/console_n_chair.obj-8adb3a8488f3fdd6a809065e1c7e5d6b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/console_n_chair.obj-8adb3a8488f3fdd6a809065e1c7e5d6b.mesh"]
+
+source_file="res://Assets/consoleTable/console_n_chair.obj"
+dest_files=["res://.godot/imported/console_n_chair.obj-8adb3a8488f3fdd6a809065e1c7e5d6b.mesh", "res://.godot/imported/console_n_chair.obj-8adb3a8488f3fdd6a809065e1c7e5d6b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

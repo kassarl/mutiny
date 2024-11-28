@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b0oi8m3ggvtx3"
+path="res://.godot/imported/Cinese Table A1.obj-ae0cc92e4646d780f2b7235029ff8435.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Cinese Table A1.obj-ae0cc92e4646d780f2b7235029ff8435.mesh"]
+
+source_file="res://Assets/tableSet/table/Cinese Table A1.obj"
+dest_files=["res://.godot/imported/Cinese Table A1.obj-ae0cc92e4646d780f2b7235029ff8435.mesh", "res://.godot/imported/Cinese Table A1.obj-ae0cc92e4646d780f2b7235029ff8435.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

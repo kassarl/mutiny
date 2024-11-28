@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://by8wq8vmou0yo"
+path="res://.godot/imported/Celestine_four_door_wardrobe.obj-8f97fbe9184fd01aa9363d8becdc95f0.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Celestine_four_door_wardrobe.obj-8f97fbe9184fd01aa9363d8becdc95f0.mesh"]
+
+source_file="res://Assets/Wardrobe/Celestine_four_door_wardrobe.obj"
+dest_files=["res://.godot/imported/Celestine_four_door_wardrobe.obj-8f97fbe9184fd01aa9363d8becdc95f0.mesh", "res://.godot/imported/Celestine_four_door_wardrobe.obj-8f97fbe9184fd01aa9363d8becdc95f0.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

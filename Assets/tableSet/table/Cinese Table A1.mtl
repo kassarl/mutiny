@@ -1,0 +1,46 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 26.10.2017 11:59:29
+
+newmtl PIatto01
+	Ns 9.999999
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588235 0.588235 0.588235
+	Kd 0.588235 0.588235 0.588235
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Mapmy\Belle\Piatto_A1.jpg
+	map_Kd D:\Mapmy\Belle\Piatto_A1.jpg
+
+newmtl TVUnik_Baked01
+	Ns 9.999999
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588235 0.588235 0.588235
+	Kd 0.588235 0.588235 0.588235
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka E:\3D Hentry\Chinese round table combination 3d model\Chinese round table combination 3d model\end1\TVUnik002DiffuseMap.jpg
+	map_Kd E:\3D Hentry\Chinese round table combination 3d model\Chinese round table combination 3d model\end1\TVUnik002DiffuseMap.jpg
+
+newmtl Material__167
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka E:\3D Hentry\Chinese round table combination 3d model\Chinese round table combination 3d model\end1\Sottopiatto-Baked01CompleteMap.jpg
+	map_Kd E:\3D Hentry\Chinese round table combination 3d model\Chinese round table combination 3d model\end1\Sottopiatto-Baked01CompleteMap.jpg
+	map_bump E:\3D Hentry\Chinese round table combination 3d model\Chinese round table combination 3d model\end1\Sottopiatto-Baked01NMap.jpg
+	bump E:\3D Hentry\Chinese round table combination 3d model\Chinese round table combination 3d model\end1\Sottopiatto-Baked01NMap.jpg

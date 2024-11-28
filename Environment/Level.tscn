@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://cpbq8p50huvyy"]
 
 [ext_resource type="Script" path="res://Environment/world.gd" id="1_cctnv"]
-[ext_resource type="PackedScene" uid="uid://bkeuj6cedjycd" path="res://Environment/ship.tscn" id="2_pgmn4"]
 [ext_resource type="Script" path="res://llm/openai_client.gd" id="3_cc5ll"]
 [ext_resource type="Script" path="res://ManagerFiles/audio_manager.gd" id="4_6h47g"]
 [ext_resource type="Script" path="res://ManagerFiles/game_manager.gd" id="4_wveah"]
 [ext_resource type="Script" path="res://ManagerFiles/ui_manager.gd" id="6_ltgcg"]
+[ext_resource type="PackedScene" uid="uid://brcad6s5p1r6x" path="res://bigShip.tscn" id="7_hs1v4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2cm0m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -31,7 +31,7 @@ environment = SubResource("Environment_heyug")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 62.5005, -56.029)
 shadow_enabled = true
 
-[node name="Ship" parent="." instance=ExtResource("2_pgmn4")]
+[node name="BigShip" parent="." instance=ExtResource("7_hs1v4")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -139,7 +139,7 @@ script = ExtResource("4_wveah")
 script = ExtResource("4_6h47g")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
-volume_db = -60.595
+volume_db = -10.0
 
 [node name="UIManager" type="Node" parent="."]
 script = ExtResource("6_ltgcg")

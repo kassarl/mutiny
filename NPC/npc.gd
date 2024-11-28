@@ -8,7 +8,7 @@ class_name NPC
 @export var movement_target_threshold: float = 0.1
 
 ## Node References
-@onready var nav_map: NavigationRegion3D = $"../Ship/NavigationRegion3D"
+@onready var nav_map: NavigationRegion3D = $"../BigShip/NavigationRegion3D"
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var timer: Timer
 

@@ -1,0 +1,157 @@
+[gd_scene load_steps=19 format=3 uid="uid://byfvus6eundff"]
+
+[ext_resource type="PackedScene" uid="uid://c0n5vvvh4bx48" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/toilet_elongated_b.tscn" id="1_ntar5"]
+[ext_resource type="PackedScene" uid="uid://ufcke1sx7h6w" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/toilet_elongated_a.tscn" id="2_0rq7a"]
+[ext_resource type="PackedScene" uid="uid://3wb3hcmd642g" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/toilet_elongated_c.tscn" id="3_7joxo"]
+[ext_resource type="PackedScene" uid="uid://kyikdxv8lh5s" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/toilet_round_a.tscn" id="4_sgiby"]
+[ext_resource type="PackedScene" uid="uid://dgtfremltselq" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/toilet_round_b.tscn" id="5_vcdnb"]
+[ext_resource type="PackedScene" uid="uid://dd1lnlq0uugp8" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/toilet_round_c.tscn" id="6_povee"]
+[ext_resource type="PackedScene" uid="uid://bfam8rwiq7snf" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/urinal_a.tscn" id="7_thyva"]
+[ext_resource type="PackedScene" uid="uid://cpu7cmgg01roe" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/urinal_b.tscn" id="8_l86qi"]
+[ext_resource type="PackedScene" uid="uid://dsp36wupbdnyi" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/sink_a.tscn" id="9_w4c3l"]
+[ext_resource type="PackedScene" uid="uid://b7lwaui0vul8y" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/sink_c.tscn" id="10_mlnbv"]
+[ext_resource type="PackedScene" uid="uid://doclulg85q3tp" path="res://Assets/LoafbrrAssets/Toilets/Scenes/Objects/sink_b.tscn" id="11_e5at7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_po1d3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_6hvg7"]
+sky_material = SubResource("ProceduralSkyMaterial_po1d3")
+
+[sub_resource type="Environment" id="Environment_irhyt"]
+background_mode = 2
+sky = SubResource("Sky_6hvg7")
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dp1vl"]
+seed = 980
+frequency = 0.1225
+fractal_lacunarity = 2.805
+fractal_gain = 2.005
+fractal_weighted_strength = 0.19
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bmk2v"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_dp1vl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hf1bt"]
+albedo_color = Color(0.886262, 0.886261, 0.886262, 1)
+roughness = 0.5
+normal_enabled = true
+normal_scale = 0.1
+normal_texture = SubResource("NoiseTexture2D_bmk2v")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lye6v"]
+size = Vector2(4, 4)
+
+[node name="Toilets" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_irhyt")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.620164, 0, 0)
+
+[node name="Toilet_Elongated_B" parent="Node3D" instance=ExtResource("1_ntar5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.260259, -5.96046e-08, -0.595258)
+
+[node name="Toilet_Elongated_A" parent="Node3D" instance=ExtResource("2_0rq7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62127, -1.19209e-07, -0.591555)
+
+[node name="Toilet_Elongated_C" parent="Node3D" instance=ExtResource("3_7joxo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.945965, 0, -0.639818)
+
+[node name="Toilet_Round_A" parent="Node3D" instance=ExtResource("4_sgiby")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.918324, 0, 0.628762)
+
+[node name="Toilet_Round_B" parent="Node3D" instance=ExtResource("5_vcdnb")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.60064, 0, 0.636656)
+
+[node name="Toilet_Round_C" parent="Node3D" instance=ExtResource("6_povee")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.145248, 0, 0.651789)
+
+[node name="Urinal_A" parent="Node3D" instance=ExtResource("7_thyva")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.198126, 0.526755, -0.922097)
+
+[node name="Urinal_B" parent="Node3D" instance=ExtResource("8_l86qi")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.29327, 0.504449, 0.898341)
+
+[node name="Sink_A" parent="Node3D" instance=ExtResource("9_w4c3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.684153, 0.720214, -1.00294)
+
+[node name="Sink_C" parent="Node3D" instance=ExtResource("10_mlnbv")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.13036, 0, 0)
+
+[node name="Sink_B" parent="Node3D" instance=ExtResource("11_e5at7")]
+transform = Transform3D(-1, 0, 3.13917e-07, 0, 1, 0, -3.13917e-07, 0, -1, 0.759791, 0.733262, 0.992004)
+
+[node name="Node3D2" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2"]
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 3, 0)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 4, 3, 0)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, -1)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 1, 1)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 1, -1)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 4, 1, 1)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -2, 1, 0)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.31134e-07, -5.73206e-15, 6, 1, 0)
+material_override = SubResource("StandardMaterial3D_hf1bt")
+mesh = SubResource("PlaneMesh_lye6v")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.84366, 0)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.84366, 0)

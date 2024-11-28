@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://h245kasawn3m"
+path="res://.godot/imported/market_refrigerator.obj-6241c56d28d8b76319c74dc1cf3aa189.mesh"
+
+[deps]
+
+files=["res://.godot/imported/market_refrigerator.obj-6241c56d28d8b76319c74dc1cf3aa189.mesh"]
+
+source_file="res://Assets/food2/market_refrigerator.obj"
+dest_files=["res://.godot/imported/market_refrigerator.obj-6241c56d28d8b76319c74dc1cf3aa189.mesh", "res://.godot/imported/market_refrigerator.obj-6241c56d28d8b76319c74dc1cf3aa189.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
