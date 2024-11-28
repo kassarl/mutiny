@@ -5,7 +5,7 @@ class_name GameWorld
 @onready var game_manager: Node = $GameManager
 @onready var ui_manager: Node = $UIManager
 @onready var audio_manager: Node = $AudioManager
-@onready var nav_mesh: NavigationRegion3D = $BigShip/NavigationRegion3D
+@onready var nav_mesh: NavigationRegion3D = $PirateShip/NavigationRegion3D
 
 ## Game Configs
 const PLAYER_SCENE: PackedScene = preload("res://Player/player.tscn")

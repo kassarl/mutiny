@@ -1,0 +1,428 @@
+[gd_scene load_steps=18 format=3 uid="uid://ctsgsrysrrg32"]
+
+[ext_resource type="Script" path="res://Environment/nav_mesh.gd" id="2_numh3"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_k1ajq"]
+vertices = PackedVector3Array(-34.1473, 10.2663, -7.03695, -34.6473, 10.2663, -7.03695, -34.6473, 10.2663, -6.78695, -32.6473, 10.2663, 7.71305, -32.6473, 10.2663, 7.96305, -32.1473, 10.2663, 7.96305, -36.8973, 10.2663, -5.28695, -37.1473, 10.2663, -5.28695, -37.1473, 10.2663, -4.53695, -37.6473, 10.2663, -3.53695, -37.8973, 10.2663, -3.53695, -37.8973, 10.2663, -2.78695, -35.8973, 10.2663, 6.46305, -35.8973, 10.2663, 6.71305, -35.1473, 10.2663, 6.71305, -38.8973, 10.2663, -0.536953, -39.1473, 10.2663, -0.536953, -39.1473, 10.2663, 0.463047, -38.8973, 10.2663, 0.463047, -13.3973, 10.2663, -1.28695, -11.8973, 10.2663, -1.28695, -12.1473, 10.2663, -8.53695, -37.6473, 10.2663, -4.03695, -38.3973, 10.2663, -1.53695, -38.8973, 10.2663, -1.03695, -38.1473, 10.2663, 2.46305, -38.1473, 10.2663, 2.96305, -37.6473, 10.2663, 3.46305, -36.8973, 10.2663, 5.96305, -36.3973, 10.2663, 6.46305, -31.6473, 10.2663, -8.03695, -32.3973, 10.2663, -8.03695, -32.8973, 10.2663, -7.53695, -33.6473, 10.2663, -7.53695, -38.3973, 10.2663, -2.28695, -37.6473, 10.2663, 4.21305, -37.1473, 10.2663, 4.71305, -34.6473, 10.2663, 7.21305, -33.8973, 10.2663, 7.21305, -33.8973, 10.2663, 7.46305, -31.6473, 10.2663, 8.46305, -30.8973, 10.2663, 8.46305, -38.3973, 10.2663, 2.46305, -36.6473, 10.2663, -6.28695, -11.3973, 10.2663, 8.71305, -11.1473, 10.2663, 1.21305, -13.3973, 10.2663, 1.21305, -14.1473, 10.2663, -0.536953, -31.1473, 10.2663, -8.53695, -14.1473, 10.2663, 0.463047, -30.8973, 10.2663, 8.71305, 6.10273, 5.8663, 8.71305, 6.10273, 5.8663, -3.78695, 4.10273, 5.8663, -3.78695, 3.35273, 5.8663, -4.53695, -30.1473, 5.8663, -8.53695, -30.1473, 5.8663, 8.71305, 3.35273, 5.8663, -8.53695, -10.3973, 10.2663, -1.28695, -10.1473, 10.2663, -1.78695, -8.64727, 10.2663, -1.78695, -8.14727, 10.2663, -1.28695, -8.14727, 10.2663, -8.53695, 3.35273, 10.2663, -5.28695, 4.35273, 10.2663, -6.03695, 4.35273, 10.2663, -8.53695, -7.39727, 10.2663, -1.28695, -6.39727, 10.2663, -0.036953, 3.35273, 10.2663, -4.03695, 4.35273, 10.2663, -3.28695, 5.35273, 9.8663, -6.03695, 11.6027, 5.8663, -5.28695, 11.6027, 5.8663, -4.78695, 15.1027, 5.8663, -4.78695, 11.1027, 6.0663, -5.78695, 15.1027, 5.8663, -8.53695, 11.0715, 6.0663, -8.53695, 5.35273, 9.8663, -5.78695, 15.6027, 14.0663, 7.46305, 15.6027, 14.0663, 7.21305, 10.8527, 11.4663, 7.21305, 10.8527, 11.4663, 8.71305, 23.3527, 14.0663, -0.536953, 23.6027, 14.0663, -8.53695, 17.1027, 14.0663, -8.53695, 17.1027, 14.0663, 6.71305, 16.3527, 14.0663, 7.46305, 23.6027, 14.0663, 8.71305, 15.1027, 14.0663, 8.71305, 23.3527, 14.0663, 0.463047, 23.6027, 14.0663, -0.536953, 23.6027, 14.0663, 0.463047, 15.6027, 10.4663, -0.536953, 15.6027, 10.4663, -0.036953, 16.3527, 10.2663, -0.036953, 16.3527, 10.2663, -0.536953, 17.1027, 10.2663, 0.713047, 17.1027, 10.2663, 7.71305, 23.6027, 10.2663, 7.71305, 17.1027, 10.2663, -1.28695, 23.6027, 10.2663, -8.03695, 17.1027, 10.2663, -8.03695, 11.6027, 5.8663, -4.28695, 11.1027, 5.8663, -3.78695, 15.1027, 5.8663, 8.71305, 15.1027, 10.2663, -0.036953, 15.1027, 10.2663, -0.536953, 14.3527, 10.2663, -3.78695, 5.60273, 10.2663, -3.78695, 5.35273, 10.2663, -3.28695, 8.85273, 10.2663, 4.21305, 14.3527, 10.2663, -1.28695, -10.1473, 10.2663, 1.71305, -10.3973, 10.2663, 1.21305, 14.3527, 10.2663, 0.713047, -7.14727, 10.2663, 1.21305, -8.39727, 10.2663, 1.21305, -8.64727, 10.2663, 1.71305, 8.85273, 10.2663, 7.21305, 8.35273, 10.2663, 6.71305, -6.39727, 10.2663, 0.463047, 14.3527, 10.2663, 4.21305, 8.35273, 10.2663, 4.71305, 7.88606, 10.2663, 8.71305, 9.36939, 10.4663, 8.71305)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(14, 13, 12), PackedInt32Array(18, 17, 15), PackedInt32Array(15, 17, 16), PackedInt32Array(21, 20, 19), PackedInt32Array(9, 22, 8), PackedInt32Array(15, 24, 23), PackedInt32Array(27, 26, 25), PackedInt32Array(12, 29, 28), PackedInt32Array(32, 31, 30), PackedInt32Array(0, 33, 32), PackedInt32Array(23, 34, 11), PackedInt32Array(36, 35, 27), PackedInt32Array(38, 37, 14), PackedInt32Array(3, 39, 38), PackedInt32Array(41, 40, 5), PackedInt32Array(2, 0, 32), PackedInt32Array(11, 9, 8), PackedInt32Array(12, 28, 14), PackedInt32Array(14, 28, 36), PackedInt32Array(3, 41, 5), PackedInt32Array(15, 23, 18), PackedInt32Array(18, 23, 25), PackedInt32Array(25, 23, 27), PackedInt32Array(25, 42, 18), PackedInt32Array(6, 43, 2), PackedInt32Array(46, 45, 44), PackedInt32Array(2, 32, 30), PackedInt32Array(11, 8, 23), PackedInt32Array(23, 8, 2), PackedInt32Array(19, 47, 21), PackedInt32Array(21, 47, 48), PackedInt32Array(8, 6, 2), PackedInt32Array(36, 27, 14), PackedInt32Array(14, 27, 38), PackedInt32Array(3, 27, 41), PackedInt32Array(41, 27, 23), PackedInt32Array(41, 23, 2), PackedInt32Array(41, 2, 30), PackedInt32Array(30, 48, 41), PackedInt32Array(41, 48, 49), PackedInt32Array(49, 48, 47), PackedInt32Array(46, 44, 49), PackedInt32Array(49, 44, 41), PackedInt32Array(41, 44, 50), PackedInt32Array(3, 38, 27), PackedInt32Array(53, 52, 51), PackedInt32Array(53, 51, 54), PackedInt32Array(54, 51, 56), PackedInt32Array(54, 56, 55), PackedInt32Array(55, 57, 54), PackedInt32Array(58, 20, 59), PackedInt32Array(59, 20, 21), PackedInt32Array(60, 62, 61), PackedInt32Array(60, 59, 62), PackedInt32Array(62, 59, 21), PackedInt32Array(64, 63, 65), PackedInt32Array(65, 63, 62), PackedInt32Array(62, 63, 66), PackedInt32Array(66, 63, 67), PackedInt32Array(66, 61, 62), PackedInt32Array(63, 68, 67), PackedInt32Array(68, 69, 67), PackedInt32Array(70, 64, 65), PackedInt32Array(73, 72, 71), PackedInt32Array(71, 74, 73), PackedInt32Array(73, 74, 75), PackedInt32Array(75, 74, 76), PackedInt32Array(76, 74, 70), PackedInt32Array(76, 70, 65), PackedInt32Array(74, 77, 70), PackedInt32Array(79, 78, 80), PackedInt32Array(80, 78, 81), PackedInt32Array(83, 82, 84), PackedInt32Array(84, 82, 85), PackedInt32Array(81, 78, 88), PackedInt32Array(88, 78, 86), PackedInt32Array(88, 86, 87), PackedInt32Array(82, 89, 85), PackedInt32Array(85, 87, 86), PackedInt32Array(83, 90, 82), PackedInt32Array(91, 87, 89), PackedInt32Array(89, 87, 85), PackedInt32Array(95, 94, 92), PackedInt32Array(92, 94, 93), PackedInt32Array(98, 97, 96), PackedInt32Array(95, 99, 94), PackedInt32Array(94, 99, 96), PackedInt32Array(99, 100, 96), PackedInt32Array(96, 100, 98), PackedInt32Array(99, 101, 100), PackedInt32Array(102, 72, 73), PackedInt32Array(102, 73, 103), PackedInt32Array(103, 73, 104), PackedInt32Array(52, 103, 51), PackedInt32Array(51, 103, 104), PackedInt32Array(106, 92, 105), PackedInt32Array(105, 92, 93), PackedInt32Array(109, 108, 110), PackedInt32Array(110, 108, 111), PackedInt32Array(111, 108, 107), PackedInt32Array(113, 112, 45), PackedInt32Array(45, 112, 44), PackedInt32Array(105, 114, 106), PackedInt32Array(106, 114, 111), PackedInt32Array(111, 114, 110), PackedInt32Array(116, 115, 117), PackedInt32Array(117, 115, 44), PackedInt32Array(120, 119, 118), PackedInt32Array(118, 80, 81), PackedInt32Array(114, 121, 110), PackedInt32Array(109, 122, 69), PackedInt32Array(69, 122, 119), PackedInt32Array(69, 119, 120), PackedInt32Array(69, 120, 67), PackedInt32Array(44, 112, 117), PackedInt32Array(81, 124, 118), PackedInt32Array(118, 124, 123), PackedInt32Array(118, 123, 120), PackedInt32Array(120, 123, 115), PackedInt32Array(115, 123, 44), PackedInt32Array(109, 110, 122)]
+cell_height = 0.2
+agent_radius = 1.0
+agent_max_climb = 0.2
+edge_max_error = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55qmp"]
+albedo_color = Color(2.33133e-08, 0.0585453, 0.0352578, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_gs2nv"]
+left_to_right = 1.0
+size = Vector3(4.6, 7, 4.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lw5ud"]
+albedo_color = Color(0.160784, 0.192157, 0.188235, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hcbgc"]
+albedo_color = Color(0.0313726, 0.0509804, 0.0588235, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gicp"]
+albedo_color = Color(0.141176, 0.176471, 0.168627, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_botm7"]
+albedo_color = Color(0.145098, 0.176471, 0.172549, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_i6wuk"]
+data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i345s"]
+size = Vector3(1000, 2, 1000)
+
+[sub_resource type="Shader" id="Shader_5i6di"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_refraction : filter_linear_mipmap, repeat_enable;
+uniform float refraction : hint_range(-1.0, 1.0, 0.001);
+uniform vec4 refraction_texture_channel;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear_mipmap;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0);
+varying vec3 uv1_triplanar_pos;
+
+uniform float uv1_blend_sharpness : hint_range(0.0, 150.0, 0.001);
+varying vec3 uv1_power_normal;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	vec3 normal = MODEL_NORMAL_MATRIX * NORMAL;
+
+	TANGENT = vec3(0.0, 0.0, -1.0) * abs(normal.x);
+	TANGENT += vec3(1.0, 0.0, 0.0) * abs(normal.y);
+	TANGENT += vec3(1.0, 0.0, 0.0) * abs(normal.z);
+	TANGENT = inverse(MODEL_NORMAL_MATRIX) * normalize(TANGENT);
+
+	BINORMAL = vec3(0.0, 1.0, 0.0) * abs(normal.x);
+	BINORMAL += vec3(0.0, 0.0, -1.0) * abs(normal.y);
+	BINORMAL += vec3(0.0, 1.0, 0.0) * abs(normal.z);
+	BINORMAL = inverse(MODEL_NORMAL_MATRIX) * normalize(BINORMAL);
+
+	// UV1 Triplanar: Enabled (with World Triplanar)
+	uv1_power_normal = pow(abs(normal), vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz * uv1_scale + uv1_offset + TIME*.025;
+	uv1_power_normal /= dot(uv1_power_normal, vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0, -1.0, 1.0);
+}
+
+vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos) {
+	vec4 samp = vec4(0.0);
+	samp += texture(p_sampler, p_triplanar_pos.xy) * p_weights.z;
+	samp += texture(p_sampler, p_triplanar_pos.xz) * p_weights.y;
+	samp += texture(p_sampler, p_triplanar_pos.zy * vec2(-1.0, 1.0)) * p_weights.x;
+	return samp;
+}
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo, uv1_power_normal, uv1_triplanar_pos);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(triplanar_texture(texture_metallic, uv1_power_normal, uv1_triplanar_pos), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness, uv1_power_normal, uv1_triplanar_pos), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+
+	// Normal Map: Enabled
+	NORMAL_MAP = triplanar_texture(texture_normal, uv1_power_normal, uv1_triplanar_pos).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+
+	// Refraction: Enabled (with normal map texture)
+	vec3 unpacked_normal = NORMAL_MAP;
+	unpacked_normal.xy = unpacked_normal.xy * 2.0 - 1.0;
+	unpacked_normal.z = sqrt(max(0.0, 1.0 - dot(unpacked_normal.xy, unpacked_normal.xy)));
+	vec3 ref_normal = normalize(mix(
+			NORMAL,
+			TANGENT * unpacked_normal.x + BINORMAL * unpacked_normal.y + NORMAL * unpacked_normal.z,
+			NORMAL_MAP_DEPTH));
+	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * dot(triplanar_texture(texture_refraction, uv1_power_normal, uv1_triplanar_pos), refraction_texture_channel) * refraction;
+
+	float ref_amount = 1.0 - albedo.a * albedo_tex.a;
+	EMISSION += textureLod(screen_texture, ref_ofs, ROUGHNESS * 8.0).rgb * ref_amount * EXPOSURE;
+	ALBEDO *= 1.0 - ref_amount;
+	// Force transparency on the material (required for refraction).
+	ALPHA = 1.0;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sqdnm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lok7q"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_sqdnm")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_46m1d"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uikwn"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_46m1d")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_36d6l"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_46m1d")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2nvlw"]
+render_priority = 0
+shader = SubResource("Shader_5i6di")
+shader_parameter/albedo = Color(0.054902, 0.12549, 0.431373, 0.396078)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/refraction = 0.05
+shader_parameter/refraction_texture_channel = null
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.01, 0.01, 0.01)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = SubResource("NoiseTexture2D_lok7q")
+shader_parameter/texture_refraction = SubResource("NoiseTexture2D_36d6l")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_uikwn")
+
+[node name="PirateShip" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_k1ajq")
+script = ExtResource("2_numh3")
+
+[node name="ShipMesh" type="CSGCombiner3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.324921, 0)
+use_collision = true
+
+[node name="Boat" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.04272, 4.79856, 0)
+size = Vector3(56.0854, 9.71436, 20)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="BasementSubtract" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4856, 2.63576, 0.035758)
+operation = 2
+size = Vector3(47.3948, 4.20369, 19.5071)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="BasementSubtract2" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3793, 4.29547, -7.23952)
+operation = 2
+size = Vector3(11.6651, 1.14664, 4.95651)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="basementStair" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 11.0284, 2.5426, -7.20807)
+mesh = SubResource("PrismMesh_gs2nv")
+material = SubResource("StandardMaterial3D_lw5ud")
+
+[node name="Window" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -23.4593, 3.08645, 10.1647)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window2" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -18.8356, 3.08645, 10.0387)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window3" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -13.1118, 3.08645, 10.2765)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window4" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -7.21288, 3.08645, 10.2765)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window5" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -1.0611, 3.08645, 10.2765)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window6" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, 5.63972, 3.08645, 10.2765)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window7" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -23.4593, 3.08645, -9.76446)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window8" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -18.8356, 3.08645, -9.8905)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window9" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -13.1118, 3.08645, -9.65268)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window10" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -7.21288, 3.08645, -9.65268)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window11" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -1.0611, 3.08645, -9.65268)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="Window12" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, 5.63972, 3.08645, -9.65268)
+operation = 2
+radius = 1.25
+height = 1.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Boat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.78985, 5.13731, -4.60421)
+size = Vector3(0.494003, 0.333496, 0.535767)
+
+[node name="CaptainDeck" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.3068, 11.8594, 0.0274416)
+size = Vector3(9.4812, 5.03101, 20.0881)
+material = SubResource("StandardMaterial3D_lw5ud")
+
+[node name="CaptainRoomDoorSubtract" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0801, -0.499539, -0.266509)
+operation = 2
+size = Vector3(2.36883, 3.19497, 2.64056)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="CaptainRoomSubtract" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0477657, -0.569937, -0.0391638)
+operation = 2
+size = Vector3(8.62044, 4.04875, 19.3694)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="CaptainRoomSideWindowSubtract" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13707, 0.961011, -0.0417635)
+operation = 2
+size = Vector3(6.68404, 0.986859, 22.2425)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="CaptainRoomMainWindowSub" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.17858, 0.703276, 0.312708)
+operation = 2
+size = Vector3(2.08898, 1.50233, 18.3173)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="StairRight" type="CSGMesh3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -8.14867, 0.0290689, 7.62541)
+mesh = SubResource("PrismMesh_gs2nv")
+material = SubResource("StandardMaterial3D_lw5ud")
+
+[node name="Pole" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.6545, 8.00685, -0.0643927)
+radius = 0.6801
+height = 20.0
+
+[node name="Sail" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck/Pole"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.6163, 0)
+size = Vector3(0.25, 25, 25)
+
+[node name="FwdSail" type="CSGPolygon3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck/Pole"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5616, 0, 0.511124)
+polygon = PackedVector2Array(-30.5963, -2.76362, -14.8407, 6.33196, 10.4649, 21.2859, 1.73893, -2.76362)
+depth = 0.1
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck/Pole/FwdSail"]
+transform = Transform3D(0.742911, 0.66939, 0, -0.66939, 0.742911, 0, 0, 0, 1, -32.0479, -4.4394, -0.469616)
+radius = 0.1
+height = 5.0
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck/Pole/FwdSail"]
+transform = Transform3D(-0.457424, 0.889249, 0, -0.889249, -0.457424, 0, 0, 0, 1, 8.07208, -5.97861, -0.469616)
+radius = 0.1
+height = 18.558
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck/Pole/FwdSail"]
+transform = Transform3D(-0.790155, -0.612907, 0, 0.612907, -0.790155, 0, 0, 0, 1, 21.3404, -4.4152, -0.469616)
+radius = 0.1
+height = 14.742
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck/Pole/FwdSail"]
+transform = Transform3D(-0.911741, 0.410767, 0, -0.410767, -0.911741, 0, 0, 0, 1, 50.0392, -3.58736, -0.469616)
+radius = 0.1
+height = 4.1253
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck/Pole/FwdSail"]
+transform = Transform3D(0.00150105, 0.999999, 0, -0.999999, 0.00150105, 0, 0, 0, 1, 15.0006, 20.8916, -0.469616)
+radius = 0.1
+height = 10.3119
+
+[node name="Backsail" type="CSGPolygon3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck/Pole"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.7197, 0, -0.349001)
+polygon = PackedVector2Array(-19.6353, -2.29766, -4.37649, 9.67897, 10.4649, 21.2859, 4.59118, 1.42133)
+depth = 0.1
+
+[node name="Pole2" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(0.207041, -0.978332, 0, 0.978332, 0.207041, 0, 0, 0, 1, -70.53, 0.0203056, -0.0643927)
+radius = 0.6801
+height = 20.0
+
+[node name="MainRim" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0232239, 2.12383, 0.0409545)
+operation = 2
+size = Vector3(8.64948, 1, 19.3505)
+material = SubResource("StandardMaterial3D_hcbgc")
+
+[node name="LedgeRim" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48822, 2.14233, 7.96256)
+operation = 2
+size = Vector3(1.00092, 1.03699, 3.50726)
+material = SubResource("StandardMaterial3D_hcbgc")
+
+[node name="RampRim" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/CaptainDeck"]
+transform = Transform3D(0.850655, -0.525724, 0, 0.525724, 0.850655, 0, 0, 0, 1, -7.93413, 0.181678, 7.88801)
+operation = 2
+size = Vector3(8.64929, 0.823235, 3.84433)
+material = SubResource("StandardMaterial3D_hcbgc")
+
+[node name="Rim" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9707, 9.94131, 0.0632286)
+size = Vector3(56.2295, 1.78655, 21.4643)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Rim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.8253, -4.35198, -0.00844479)
+radius = 10.8
+height = 10.0
+material = SubResource("StandardMaterial3D_3gicp")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="NavigationRegion3D/ShipMesh/Rim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5341, 0.252521, -0.00844479)
+operation = 2
+radius = 10.0
+height = 1.0
+material = SubResource("StandardMaterial3D_botm7")
+
+[node name="Boat3" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Rim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4856, 0, 0.035758)
+operation = 2
+size = Vector3(47.3948, 1.80334, 19.5071)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="Boat4" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Rim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.2984, -3.848, 0.035758)
+operation = 2
+size = Vector3(11.7692, 6.34384, 19.5071)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="CaptainRoomDoorSubtract2" type="CSGBox3D" parent="NavigationRegion3D/ShipMesh/Rim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3009, -0.569937, -0.208481)
+operation = 2
+size = Vector3(9.59578, 4.04875, 18.1939)
+material = SubResource("StandardMaterial3D_55qmp")
+
+[node name="Sea" type="StaticBody3D" parent="."]
+
+[node name="SeaCollider" type="CollisionShape3D" parent="Sea"]
+shape = SubResource("ConcavePolygonShape3D_i6wuk")
+
+[node name="Sea" type="MeshInstance3D" parent="Sea/SeaCollider"]
+mesh = SubResource("BoxMesh_i345s")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_2nvlw")

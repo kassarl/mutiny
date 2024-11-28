@@ -93,7 +93,7 @@ data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500,
 [sub_resource type="BoxMesh" id="BoxMesh_vlqym"]
 size = Vector3(1000, 2, 1000)
 
-[sub_resource type="Shader" id="Shader_5i6di"]
+[sub_resource type="Shader" id="Shader_u4u7u"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
 
 shader_type spatial;
@@ -192,26 +192,26 @@ void fragment() {
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yytak"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lok7q"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ebery"]
 seamless = true
 as_normal_map = true
 noise = SubResource("FastNoiseLite_yytak")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_t6v6o"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uikwn"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e46jb"]
 seamless = true
 as_normal_map = true
 noise = SubResource("FastNoiseLite_t6v6o")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_36d6l"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iyle4"]
 seamless = true
 as_normal_map = true
 noise = SubResource("FastNoiseLite_t6v6o")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7qrwj"]
 render_priority = 0
-shader = SubResource("Shader_5i6di")
+shader = SubResource("Shader_u4u7u")
 shader_parameter/albedo = Color(0.054902, 0.12549, 0.431373, 0.396078)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 0.0
@@ -226,9 +226,9 @@ shader_parameter/uv1_scale = Vector3(0.01, 0.01, 0.01)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = SubResource("NoiseTexture2D_lok7q")
-shader_parameter/texture_refraction = SubResource("NoiseTexture2D_36d6l")
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_uikwn")
+shader_parameter/texture_albedo = SubResource("NoiseTexture2D_ebery")
+shader_parameter/texture_refraction = SubResource("NoiseTexture2D_iyle4")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_e46jb")
 
 [node name="Ship" type="Node3D"]
 
